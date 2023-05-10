@@ -1,0 +1,70 @@
+{
+  "caption": "eŻak Nysa ™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!",
+  "choose_courses_date": "Wybierz datę zajęć",
+  "university_website": "Strona uczelni",
+
+  "date_selection": "Wybór daty",
+  "informations": "Informacje",
+  "theme_change": "Zmiana motywu",
+  "previous_day": "Poprzedni dzień",
+  "next_day": "Następny dzień",
+
+  "language": "Język",
+  "academic_teacher_mode": "Tryb nauczyciela",
+  "specialization": "Specjalizacja",
+
+  "error_occurred": "Wystąpił błąd:",
+  "no_group_or_specialization": "Nie ma nic do wyświetlenia. Upewnij się, że wybrałeś swoją grupę, lub specjalizację.",
+  "legend": "Legenda",
+  "group_name": "{group, select, lecture{Wykład} exercises{Ćwiczenia} laboratories{Laboratoria} project{Projekt} seminar{Seminarium} other{Inny}}",
+  "@group_name": {
+    "placeholders": {
+      "group": {}
+    }
+  },
+
+  "change_language_if_you_like": "Zmień język, jeśli chcesz",
+  "set_whether_you_are_a_teacher": "Ustaw, czy jesteś nauczycielem",
+  "choose_specialization": "Wybierz specjalizację / wykładowcę",
+  "go_to_schedule": "Przejdź do planu zajęć",
+
+  "settings": "Ustawienia",
+  "about_app": "O aplikacji",
+
+  "schedule_update_prompt": "W jaki sposób chcesz zaktualizować plan?",
+  "force_schedule_redownload": "Wymuś ponowne pobranie planu",
+  "check_for_schedule_update": "Sprawdź aktualność planu",
+
+  "online_course": "Zajęcia zdalne",
+  "building_and_room": "Budynek {building}, sala {room}",
+  "@building_and_room": {
+    "placeholders": {
+      "building": {
+        "type": "String"
+      },
+      "room": {
+        "type": "int"
+      }
+    }
+  },
+  "lecturer": "Wykładowca",
+  "group": "Grupa",
+
+  "from_hour": "Od {hour}",
+  "@from_hour": {
+    "placeholders": {
+      "hour": {
+        "type": "String"
+      }
+    }
+  },
+  "to_hour": "Do {hour}",
+  "@to_hour": {
+    "placeholders": {
+      "hour": {
+        "type": "String"
+      }
+    }
+  }
+
+}

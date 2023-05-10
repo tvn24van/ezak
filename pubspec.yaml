@@ -1,0 +1,46 @@
+name: ezak
+description: Unofficial app for viewing schedules of PANS in Nysa
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+  #cupertino_icons: ^1.0.2
+  flutter_native_splash: ^2.2.17
+  shared_preferences: ^2.0.18
+  package_info_plus: ^3.0.3
+  flutter_riverpod: ^2.2.0
+  json_annotation: ^4.8.0
+  drop_down_list: ^0.0.5
+  path_provider: ^2.0.12
+  url_launcher: ^6.1.10
+  flutter_svg: ^2.0.2
+  http: ^0.13.5
+  time: ^2.1.3
+  feature_discovery: ^0.14.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_launcher_icons: ^0.13.1
+  json_serializable: ^6.6.1
+  flutter_lints: ^2.0.1
+  build_runner: ^2.3.3
+  rename: ^2.1.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/logotypes/
