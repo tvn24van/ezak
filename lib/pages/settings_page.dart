@@ -32,20 +32,6 @@ class SettingsPage extends StatelessWidget{
                   SettingsProvider.instance.select((settings) => settings.specializationKey)
                 ) == Settings.defaultSpecializationKey;
 
-                if(firstLaunch){
-                  WidgetsBinding.instance.addPostFrameCallback((_) =>
-                    FeatureDiscovery.discoverFeatures(
-                      context,
-                      {
-                        "language",
-                        "teacher_mode",
-                        "specialization",
-                        "go_to_schedule"
-                      }
-                    )
-                  );
-                }
-
                 final iconButton = IconButton(
                   onPressed: firstLaunch? null : (){
                     if(Navigator.canPop(context)) {
@@ -64,6 +50,7 @@ class SettingsPage extends StatelessWidget{
                   featureId: "go_to_schedule",
                   title: Text(L10n.of(context).go_to_schedule),
                   backgroundColor: Colors.green,
+                  targetColor: Theme.of(context).canvasColor,
                   tapTarget: iconButton,
                   child: iconButton,
                 );

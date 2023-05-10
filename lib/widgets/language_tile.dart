@@ -44,6 +44,7 @@ class PansLanguageTile extends ConsumerWidget{
         description: Text(L10nEn().change_language_if_you_like),
         textColor: Theme.of(context).textTheme.bodyMedium!.color!,
         backgroundColor: PansAppereance.colors.red,
+        targetColor: Theme.of(context).canvasColor,
         openDuration: Duration.zero,
         tapTarget: FittedBox(
           fit: BoxFit.scaleDown,

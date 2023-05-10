@@ -29,6 +29,7 @@ class PansTeacherTile extends ConsumerWidget{
         featureId: "teacher_mode",
         title: Text(L10n.of(context).set_whether_you_are_a_teacher),
         backgroundColor: PansAppereance.colors.gray,
+        targetColor: Theme.of(context).canvasColor,
         tapTarget: AbsorbPointer(
           absorbing: true,
           child: button

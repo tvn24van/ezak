@@ -25,6 +25,20 @@ class PansSpecializationTile extends ConsumerWidget{
       L10n.of(context).lecturer:
       L10n.of(context).specialization;
 
+    if(selectedSpecialization == Settings.defaultSpecializationKey){
+      WidgetsBinding.instance.addPostFrameCallback((_) =>
+          FeatureDiscovery.discoverFeatures(
+              context,
+              {
+                "language",
+                "teacher_mode",
+                "specialization",
+                "go_to_schedule"
+              }
+          )
+      );
+    }
+
     return ListTile(
       title: Text(titleText),
       leading: const Icon(Icons.accessibility),
@@ -57,7 +71,7 @@ class PansSpecializationTile extends ConsumerWidget{
               data.entries.singleWhere((element) =>
                 element.value==selectedSpecialization
               ).key:
-              L10n.of(context).specialization
+              L10n.of(context).specialization,
             ),
           );
 
@@ -65,6 +79,9 @@ class PansSpecializationTile extends ConsumerWidget{
             featureId: "specialization",
             title: Text(L10n.of(context).choose_specialization),
             backgroundColor: PansAppereance.colors.red,
+            targetColor: Theme.of(context).canvasColor,
+            pulseDuration: Duration.zero,
+            enablePulsingAnimation: false,
             tapTarget: AbsorbPointer(
               absorbing: true,
               child: button
