@@ -27,15 +27,15 @@ class PansSpecializationTile extends ConsumerWidget{
 
     if(selectedSpecialization == Settings.defaultSpecializationKey){
       WidgetsBinding.instance.addPostFrameCallback((_) =>
-          FeatureDiscovery.discoverFeatures(
-              context,
-              {
-                "language",
-                "teacher_mode",
-                "specialization",
-                "go_to_schedule"
-              }
-          )
+        FeatureDiscovery.discoverFeatures(
+          context,
+          {
+            "language",
+            "teacher_mode",
+            "specialization",
+            "go_to_schedule"
+          }
+        )
       );
     }
 

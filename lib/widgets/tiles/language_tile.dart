@@ -22,7 +22,7 @@ class PansLanguageTile extends ConsumerWidget{
         DropdownMenuItem(
           value: locale,
           enabled: currentLocale != locale,
-          child: Text(locale.languageCode), //somehow this change isn't visible
+          child: Text(locale.languageCode),
         )
       ).toList(),
       onChanged: (locale){
@@ -30,22 +30,22 @@ class PansLanguageTile extends ConsumerWidget{
           return;
         }
         ref.read(SettingsProvider.instance.notifier)
-            .changeLocale(locale);
+          .changeLocale(locale);
       },
     );
 
     return ListTile(
       title: Text(L10n.of(context).language),
       leading: const Icon(Icons.language),
-      onTap: (){} ,
+      onTap: (){},
       trailing: DescribedFeatureOverlay(
         featureId: "language",
         title: Text(L10nPl().change_language_if_you_like),
         description: Text(L10nEn().change_language_if_you_like),
-        textColor: Theme.of(context).textTheme.bodyMedium!.color!,
         backgroundColor: PansAppereance.colors.red,
         targetColor: Theme.of(context).canvasColor,
         openDuration: Duration.zero,
+        contentLocation: ContentLocation.below,
         tapTarget: FittedBox(
           fit: BoxFit.scaleDown,
           child: AbsorbPointer(
