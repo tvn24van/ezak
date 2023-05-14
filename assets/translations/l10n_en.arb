@@ -25,6 +25,7 @@
   "set_whether_you_are_a_teacher": "Set whether you are a teacher",
   "choose_specialization": "Choose specialization / lecturer",
   "go_to_schedule": "Go to schedule",
+  "longer_break": "Longer break",
   "no_group_or_specialization": "There is nothing to show. Make sure you have selected your group, or specialization.",
   "schedule_update_prompt": "How do you want to update schedule?",
   "force_schedule_redownload": "Force schedule redownload",

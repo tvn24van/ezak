@@ -49,6 +49,7 @@
   },
   "lecturer": "Wykładowca",
   "group": "Grupa",
+  "longer_break": "Dłuższa przerwa",
 
   "from_hour": "Od {hour}",
   "@from_hour": {

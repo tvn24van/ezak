@@ -261,6 +261,12 @@ abstract class L10n {
   /// **'Grupa'**
   String get group;
 
+  /// No description provided for @longer_break.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dłuższa przerwa'**
+  String get longer_break;
+
   /// No description provided for @from_hour.
   ///
   /// In pl, this message translates to:

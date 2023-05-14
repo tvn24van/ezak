@@ -106,6 +106,9 @@ class L10nPl extends L10n {
   String get group => 'Grupa';
 
   @override
+  String get longer_break => 'Dłuższa przerwa';
+
+  @override
   String from_hour(String hour) {
     return 'Od $hour';
   }
