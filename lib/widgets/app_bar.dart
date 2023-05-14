@@ -14,7 +14,7 @@ class PansAppBar extends AppBar{
   /// Widgets which will be displayed before default ones
   final List<Widget> additionalActions;
 
-  // Items displayed in popup button
+  /// Items displayed in popup button
   final List<PopupMenuItem> popupItems;
 
   PansAppBar(this.context, {

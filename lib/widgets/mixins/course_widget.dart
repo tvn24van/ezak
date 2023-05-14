@@ -9,7 +9,7 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
   @override
   Widget toWidget(BuildContext context){
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       decoration: BoxDecoration(
         color: group.color.withOpacity(.2),
@@ -17,7 +17,7 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
       ),
       child: Row(
         children: [
-          Column(
+          Column( // hours
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,26 +25,24 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
               Text(L10n.of(context).to_hour(endHour.toPansString())),
             ],
           ),
-          // const Spacer(),
+          const SizedBox(width: 15,),
           Expanded(
             child: Wrap(
-              alignment: WrapAlignment.spaceAround,
+              alignment: WrapAlignment.spaceBetween,
+              spacing: 15,
               children: [
-                Text('$name, $lecturer'),
-                Wrap(
-                  children: isOnline()?
-                  [
-                    Text(L10n.of(context).online_course),
-                    const Icon(Icons.online_prediction),
-                  ]:
-                  [
-                    Text(L10n.of(context).building_and_room(location, roomNumber)),
-                    const Icon(Icons.home),
-                  ],
-                ),
+                Text(name),
+                Text(lecturer),
+                isOnline()?
+                  Text(L10n.of(context).online_course):
+                  Text(L10n.of(context).building_and_room(location, roomNumber)),
               ],
             ),
-          )
+          ),
+          const SizedBox(width: 15,),
+          isOnline()?
+            const Icon(Icons.online_prediction):
+            const Icon(Icons.home),
         ],
       ),
     );
