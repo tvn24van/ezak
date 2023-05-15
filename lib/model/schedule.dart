@@ -1,9 +1,6 @@
 import 'package:ezak/model/course.dart';
-import 'package:ezak/model/group.dart';
-import 'package:ezak/utils/constants.dart';
 import 'package:ezak/widgets/mixins/schedule_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:time/time.dart';
 
 /// Type in which dates and ids of courses are stored
 typedef DatesMap = Map<DateTime, List<int>>;
