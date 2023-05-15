@@ -14,7 +14,7 @@ class PansDayView extends StatelessWidget{
   // if date is equal to actual
   @override
   Widget build(BuildContext context) {
-    var lastHour = courses.first.endHour;
+    // var lastHour = courses.isEmpty? Duration.zero : courses.first.endHour;
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
         dragDevices: PointerDeviceKind.values.toSet()
@@ -23,16 +23,19 @@ class PansDayView extends StatelessWidget{
         physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         children: [
 
-          ...courses.map((e){
-            final currentBreak = e.startHour - lastHour;
-            lastHour = e.endHour;
+          ...courses.asMap().entries.expand((entry) {
+            final index = entry.key;
+            final course = entry.value;
+            final currentBreak = index > 0?
+              course.startHour - courses[index - 1].endHour:
+              HoursDecoder.breakLength;
 
             return [
               if (currentBreak > HoursDecoder.breakLength)
                 PansBreakIndicator(currentBreak),
-              e.toWidget(context),
+              course.toWidget(context),
             ];
-          }).expand((widget) => widget),
+          }),
 
           // just a little space underneath to prevent fabs from covering
           // courses (spotted on windows, may not appear elsewhere)
