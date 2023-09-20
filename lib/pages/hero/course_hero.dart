@@ -52,8 +52,8 @@ class CourseHero extends StatelessWidget{
     );
   }
 
-  static Color? lerpColorWithBackground(BuildContext context, Color color){
-    return Color.lerp(Theme.of(context).colorScheme.background, color, .2);
+  static Color? lerpColorWithBackground(BuildContext context, Color color, {double t=.2}){
+    return Color.lerp(Theme.of(context).colorScheme.background, color, t);
   }
 
 }
