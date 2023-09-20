@@ -1,4 +1,5 @@
 import 'package:ezak/model/course.dart';
+import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
 import 'package:ezak/widgets/mixins/course_widget.dart';
 import 'package:ezak/widgets/popup_items/about_popup_item.dart';
@@ -39,8 +40,12 @@ class CourseHero extends StatelessWidget{
             CourseWidget.getTranslationDescribingCourseLocation(course, context)
           ),
           IconButton(
-            onPressed: ()async=> MapsLauncher.launchQuery(course.getLocationQuery()),
-            icon: const Icon(Icons.map)
+            onPressed: (course.isOnline() || course.getLocationAddress()==null?
+              null:
+              ()async=> MapsLauncher.launchQuery(course.getLocationAddress()!)
+            ),
+            icon: const Icon(Icons.map),
+            tooltip: L10n.of(context).show_on_map,
           )
         ],
       ),

@@ -80,6 +80,9 @@ class L10nEn extends L10n {
   String get go_to_schedule => 'Go to schedule';
 
   @override
+  String get show_on_map => 'Show on map';
+
+  @override
   String get settings => 'Settings';
 
   @override

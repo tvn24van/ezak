@@ -80,6 +80,9 @@ class L10nPl extends L10n {
   String get go_to_schedule => 'Przejdź do planu zajęć';
 
   @override
+  String get show_on_map => 'Pokaż na mapie';
+
+  @override
   String get settings => 'Ustawienia';
 
   @override

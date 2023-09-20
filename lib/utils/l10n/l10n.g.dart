@@ -213,6 +213,12 @@ abstract class L10n {
   /// **'Przejdź do planu zajęć'**
   String get go_to_schedule;
 
+  /// No description provided for @show_on_map.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pokaż na mapie'**
+  String get show_on_map;
+
   /// No description provided for @settings.
   ///
   /// In pl, this message translates to:

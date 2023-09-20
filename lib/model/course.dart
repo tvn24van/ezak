@@ -120,20 +120,20 @@ class Course extends CourseModel with CourseWidget{
   }
 
   /// One of possible Course's "location"
-  static String get onlineLocation => ' Online';
+  static String onlineLocation = ' Online';
 
   static Duration _readEndTime(Map map, String key){
     return HoursDecoder.decodeEndHour(map['godzinaod'], map['czaskursu']);
   }
 
   //todo replace this with data grabbed from internet somehow
-  String getLocationQuery(){
+  String? getLocationAddress(){
     switch(location){
       case "C":
       case "G": return "Obrońców Tobruku 5, 48-300 Nysa";
       case "X": return "Otmuchowska 74, 48-300 Nysa";
     }
-    return "PANS Nysa";
+    return null;
   }
 
   @override
