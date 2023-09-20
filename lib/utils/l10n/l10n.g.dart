@@ -96,8 +96,8 @@ abstract class L10n {
   /// No description provided for @caption.
   ///
   /// In pl, this message translates to:
-  /// **'eŻak Nysa ™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!'**
-  String get caption;
+  /// **'{appName}™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!'**
+  String caption(String appName);
 
   /// No description provided for @choose_courses_date.
   ///
@@ -254,6 +254,12 @@ abstract class L10n {
   /// In pl, this message translates to:
   /// **'Zajęcia zdalne'**
   String get online_course;
+
+  /// No description provided for @full_time_course.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zajęcia stacjonarne'**
+  String get full_time_course;
 
   /// No description provided for @building_and_room.
   ///

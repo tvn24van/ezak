@@ -7,7 +7,9 @@ class L10nPl extends L10n {
   L10nPl([String locale = 'pl']) : super(locale);
 
   @override
-  String get caption => 'eŻak Nysa ™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!';
+  String caption(String appName) {
+    return '$appName™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!';
+  }
 
   @override
   String get choose_courses_date => 'Wybierz datę zajęć';
@@ -99,6 +101,9 @@ class L10nPl extends L10n {
 
   @override
   String get online_course => 'Zajęcia zdalne';
+
+  @override
+  String get full_time_course => 'Zajęcia stacjonarne';
 
   @override
   String building_and_room(String building, int room) {

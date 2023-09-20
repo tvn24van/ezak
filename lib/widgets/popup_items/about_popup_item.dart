@@ -16,7 +16,7 @@ class PansAboutAppPopupItem extends PopupMenuItem{
           context: context,
           applicationName: Constants.appName,
           applicationVersion: appInfo.version,
-          applicationLegalese: L10n.of(context).caption,
+          applicationLegalese: L10n.of(context).caption(Constants.appName),
           applicationIcon: SvgPicture.asset(
             'assets/logotypes/crest.svg',
             width: 160,

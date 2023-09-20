@@ -7,7 +7,9 @@ class L10nEn extends L10n {
   L10nEn([String locale = 'en']) : super(locale);
 
   @override
-  String get caption => 'eŻak Nysa ™️ is a clone of e-Student Nysa app, and exists to deliver our schedule even faster and more convenient!';
+  String caption(String appName) {
+    return '$appName™️ is a clone of e-Student Nysa app, and exists to deliver our schedule even faster and more convenient!';
+  }
 
   @override
   String get choose_courses_date => 'Select a class date';
@@ -99,6 +101,9 @@ class L10nEn extends L10n {
 
   @override
   String get online_course => 'Remote classes';
+
+  @override
+  String get full_time_course => 'Full-time classes';
 
   @override
   String building_and_room(String building, int room) {

@@ -1,5 +1,12 @@
 {
-  "caption": "eŻak Nysa ™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!",
+  "caption": "{appName}™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!",
+  "@caption": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "choose_courses_date": "Wybierz datę zajęć",
   "university_website": "Strona uczelni",
   "mail_us": "Napisz do nas",
@@ -39,6 +46,7 @@
   "check_for_schedule_update": "Sprawdź aktualność planu",
 
   "online_course": "Zajęcia zdalne",
+  "full_time_course": "Zajęcia stacjonarne",
   "building_and_room": "Budynek {building}, sala {room}",
   "@building_and_room": {
     "placeholders": {

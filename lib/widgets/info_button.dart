@@ -10,28 +10,76 @@ class PansInfoButton extends StatelessWidget{
     return IconButton(
       onPressed: (){
         showAdaptiveDialog(context: context, builder: (context) {
-          return AlertDialog(
+          return AlertDialog.adaptive(
             title: Text(L10n.of(context).legend),
+            // content: Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   children: [
+            //     Column(
+            //       children: Group.values.map((group) {
+            //         return Row(
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           children: [
+            //             Container(
+            //               padding: const EdgeInsets.all(10),
+            //               decoration: BoxDecoration(
+            //                 color: group.color.withOpacity(.6),
+            //                 shape: BoxShape.circle
+            //               ),
+            //             ),
+            //             const SizedBox(width: 10, height: 30,),
+            //             Text(L10n.of(context).group_name(group.name))
+            //           ],
+            //         );
+            //       }).toList(),
+            //     ),
+            //   ],
+            // ),
+
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Column(
-                  children: Group.values.map((group) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: Group.values.map((group) {
+                        return Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: group.color.withOpacity(.6),
+                                shape: BoxShape.circle
+                              ),
+                            ),
+                            const SizedBox(width: 10, height: 30,),
+                            Text(L10n.of(context).group_name(group.name))
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                    const VerticalDivider(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: group.color.withOpacity(.6),
-                            shape: BoxShape.circle
-                          ),
+                        Row(
+                          children: [
+                            const Icon(Icons.home),
+                            const SizedBox(width: 10, height: 30,),
+                            Text(L10n.of(context).full_time_course)
+                          ],
                         ),
-                        const SizedBox(width: 10, height: 30,),
-                        Text(L10n.of(context).group_name(group.name))
+                        Row(
+                          children: [
+                            const Icon(Icons.online_prediction),
+                            const SizedBox(width: 10, height: 30,),
+                            Text(L10n.of(context).online_course)
+                          ],
+                        )
                       ],
-                    );
-                  }).toList(),
+                    )
+                  ],
                 )
               ],
             ),
