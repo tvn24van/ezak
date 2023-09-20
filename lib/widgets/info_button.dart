@@ -12,30 +12,6 @@ class PansInfoButton extends StatelessWidget{
         showAdaptiveDialog(context: context, builder: (context) {
           return AlertDialog.adaptive(
             title: Text(L10n.of(context).legend),
-            // content: Column(
-            //   mainAxisSize: MainAxisSize.min,
-            //   children: [
-            //     Column(
-            //       children: Group.values.map((group) {
-            //         return Row(
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           children: [
-            //             Container(
-            //               padding: const EdgeInsets.all(10),
-            //               decoration: BoxDecoration(
-            //                 color: group.color.withOpacity(.6),
-            //                 shape: BoxShape.circle
-            //               ),
-            //             ),
-            //             const SizedBox(width: 10, height: 30,),
-            //             Text(L10n.of(context).group_name(group.name))
-            //           ],
-            //         );
-            //       }).toList(),
-            //     ),
-            //   ],
-            // ),
-
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
