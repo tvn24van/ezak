@@ -48,24 +48,24 @@ mixin ScheduleWidget on ScheduleModel implements ConsumerWidgetTransformable{
         title: Text(L10n.of(context).schedule_update_prompt),
         actions: [
           TextButton(
-              onPressed: (){
-                ref.read(ScheduleProvider.instance.notifier).redownload();
-                Navigator.of(context).pop();
-              },
-              child: Text(L10n.of(context).force_schedule_redownload)
+            onPressed: (){
+              ref.read(ScheduleProvider.instance.notifier).redownload();
+              Navigator.of(context).pop();
+            },
+            child: Text(L10n.of(context).force_schedule_redownload)
           ),
           TextButton(
-              onPressed: (){
-                ref.read(ScheduleProvider.instance.notifier).build();
-                Navigator.of(context).pop();
-              },
-              child: Text(L10n.of(context).check_for_schedule_update)
+            onPressed: (){
+              ref.read(ScheduleProvider.instance.notifier).build();
+              Navigator.of(context).pop();
+            },
+            child: Text(L10n.of(context).check_for_schedule_update)
           ),
           TextButton(
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-              child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+            child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
           ),
         ],
       ),
