@@ -43,59 +43,62 @@ class PansSpecializationTile extends ConsumerWidget{
       title: Text(titleText),
       leading: const Icon(Icons.accessibility),
       onTap: (){},
-      trailing: specializations.when(
-        data: (data){
-          final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;
-          final button = OutlinedButton(
-            onPressed: ()=>
-              DropDownState(
-                DropDown(
-                  bottomSheetTitle: Text(titleText),
-                  data: data.entries.map((entry) =>
-                    SelectedListItem(
-                      name: entry.key,
-                      value: entry.value.toString(),
-                      isSelected: entry.value==selectedSpecialization,
-                    )
-                  ).toList(),
-                  selectedItems: (List<dynamic> selectedList){
-                    ref.read(SettingsProvider.instance.notifier)
-                      .changeSpecialization(int.parse(
-                        selectedList.whereType<SelectedListItem>().single.value!
-                    ));
-                  },
-                  searchHintText: MaterialLocalizations.of(context).searchFieldLabel
-                ),
-              ).showModal(context),
-            child: Text(isSelected?
-              data.entries.singleWhere((element) =>
-                element.value==selectedSpecialization
-              ).key:
-              L10n.of(context).specialization,
-            ),
-          );
+      trailing: SizedBox(
+        width: MediaQuery.of(context).size.width*.6,
+        child: specializations.when(
+          data: (data){
+            final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;
+            final button = OutlinedButton(
+              onPressed: ()=>
+                DropDownState(
+                  DropDown(
+                    bottomSheetTitle: Text(titleText),
+                    data: data.entries.map((entry) =>
+                      SelectedListItem(
+                        name: entry.key,
+                        value: entry.value.toString(),
+                        isSelected: entry.value==selectedSpecialization,
+                      )
+                    ).toList(),
+                    selectedItems: (List<dynamic> selectedList){
+                      ref.read(SettingsProvider.instance.notifier)
+                        .changeSpecialization(int.parse(
+                          selectedList.whereType<SelectedListItem>().single.value!
+                      ));
+                    },
+                    searchHintText: MaterialLocalizations.of(context).searchFieldLabel
+                  ),
+                ).showModal(context),
+              child: Text(isSelected?
+                data.entries.singleWhere((element) =>
+                  element.value==selectedSpecialization
+                ).key:
+                L10n.of(context).specialization,
+              ),
+            );
 
-          return DescribedFeatureOverlay(
-            featureId: "specialization",
-            title: Text(L10n.of(context).choose_specialization),
-            backgroundColor: PansAppereance.colors.red,
-            targetColor: Theme.of(context).canvasColor,
-            pulseDuration: Duration.zero,
-            enablePulsingAnimation: false,
-            tapTarget: AbsorbPointer(
-              absorbing: true,
-              child: button
-            ),
-            child: button,
-          );
-        },
-        loading: ()=> const OutlinedButton(
-          onPressed: null,
-          child: CircularProgressIndicator.adaptive()
-        ),
-        error: (err, stack)=> const OutlinedButton(
-          onPressed: null,
-          child: CircularProgressIndicator.adaptive()
+            return DescribedFeatureOverlay(
+              featureId: "specialization",
+              title: Text(L10n.of(context).choose_specialization),
+              backgroundColor: PansAppereance.colors.red,
+              targetColor: Theme.of(context).canvasColor,
+              pulseDuration: Duration.zero,
+              enablePulsingAnimation: false,
+              tapTarget: AbsorbPointer(
+                absorbing: true,
+                child: button
+              ),
+              child: button,
+            );
+          },
+          loading: ()=> const OutlinedButton(
+            onPressed: null,
+            child: CircularProgressIndicator.adaptive()
+          ),
+          error: (err, stack)=> const OutlinedButton(
+            onPressed: null,
+            child: CircularProgressIndicator.adaptive()
+          ),
         ),
       ),
     );
