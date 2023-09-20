@@ -111,6 +111,12 @@ abstract class L10n {
   /// **'Strona uczelni'**
   String get university_website;
 
+  /// No description provided for @mail_us.
+  ///
+  /// In pl, this message translates to:
+  /// **'Napisz do nas'**
+  String get mail_us;
+
   /// No description provided for @date_selection.
   ///
   /// In pl, this message translates to:

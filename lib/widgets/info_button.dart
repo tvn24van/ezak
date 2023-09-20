@@ -9,7 +9,7 @@ class PansInfoButton extends StatelessWidget{
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: (){
-        showDialog(context: context, builder: (context) {
+        showAdaptiveDialog(context: context, builder: (context) {
           return AlertDialog(
             title: Text(L10n.of(context).legend),
             content: Column(

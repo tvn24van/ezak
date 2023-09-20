@@ -35,6 +35,12 @@ class PansAboutAppPopupItem extends PopupMenuItem{
                   child: const Text("Github")
                 ),
                 ElevatedButton(
+                    onPressed: () async{
+                      await launchUrl(Constants.supportMail);
+                    },
+                    child: Text(L10n.of(context).mail_us)
+                ),
+                ElevatedButton(
                   onPressed: () async{
                     await launchUrl(Constants.pansWebsite, mode: LaunchMode.externalApplication);
                   },
@@ -46,7 +52,12 @@ class PansAboutAppPopupItem extends PopupMenuItem{
         );
       }
     },
-    child: Text(L10n.of(context).about_app)
+    padding: EdgeInsets.zero,
+    child: ListTile(
+      leading: const Icon(Icons.info_outline),
+      title: Text(L10n.of(context).about_app),
+      mouseCursor: SystemMouseCursors.click,
+    )
   );
 
 }

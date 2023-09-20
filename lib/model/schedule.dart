@@ -1,4 +1,5 @@
 import 'package:ezak/model/course.dart';
+import 'package:ezak/model/settings.dart';
 import 'package:ezak/widgets/mixins/schedule_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ abstract class ScheduleModel{
   ScheduleModel(this._dates, this._courses);
 
   CoursesList getCoursesForDate(DateTime date);
+  CoursesList getCoursesForDateAndGroup(DateTime date, GroupsMap groups);
   DateTime getDateOfIndex(int index);
   int getIndexOfDate(DateTime date);
   int getDaysAmount();
@@ -30,10 +32,39 @@ abstract class ScheduleModel{
 class Schedule extends ScheduleModel with ScheduleWidget{
   Schedule(super.dates, super.courses);
 
+  final DatesMap _filteredDates = {};
+
+  void removeFilter(){
+    _filteredDates.clear();
+    _filteredDates.addAll(_dates);
+  }
+
+  void filter(GroupsMap groupsMap){
+    removeFilter();
+    if(!groupsMap.areGroupsEmpty()) {
+      _filteredDates.removeWhere((date, coursesIDs) =>
+        _courses
+          .where((course) => coursesIDs.contains(course.id))
+          .where((course) => groupsMap[course.group]!.contains(course.groupNumber))
+          .isEmpty
+      );
+    }
+  }
+
   @override
   CoursesList getCoursesForDate(DateTime date){
-    final ids = _dates.entries.firstWhere((element) => element.key == date).value;
-    return [ for(final id in ids) _courses.singleWhere((element) => element.id == id) ];
+    // final ids = _filteredDates.entries.firstWhere((element) => element.key == date).value;
+    final ids = _filteredDates.entries.where((element) => element.key == date);
+    if(ids.isEmpty) {
+      return [];
+    }
+    return [ for(final id in ids.first.value) _courses.singleWhere((element) => element.id == id) ];
+  }
+
+  @override
+  CoursesList getCoursesForDateAndGroup(DateTime date, GroupsMap groups){
+    return getCoursesForDate(date)
+      ..removeWhere((element) => !groups[element.group]!.contains(element.groupNumber));
   }
 
   @override
@@ -49,7 +80,7 @@ class Schedule extends ScheduleModel with ScheduleWidget{
     }else if(currentDate.isAfter(lastDate)) {
       return lastDate;
     }else{
-      return _dates.keys.firstWhere((element) =>
+      return _filteredDates.keys.firstWhere((element) =>
         element.isAfter(currentDate)
       );
     }
@@ -57,31 +88,31 @@ class Schedule extends ScheduleModel with ScheduleWidget{
 
   @override
   int getIndexOfDate(DateTime date){
-    return _dates.keys.toList().indexOf(date);
+    return _filteredDates.keys.toList().indexOf(date);
   }
 
   @override
   DateTime getDateOfIndex(int index){
-    return _dates.keys.elementAt(index);
+    return _filteredDates.keys.elementAt(index);
   }
 
   bool containsDate(DateTime date){
-    return _dates.containsKey(date);
+    return _filteredDates.containsKey(date);
   }
 
   @override
   DateTime getFirstDayDate(){
-    return _dates.keys.first;
+    return _filteredDates.keys.first;
   }
 
   @override
   DateTime getLastDayDate(){
-    return _dates.keys.last;
+    return _filteredDates.keys.last;
   }
 
   @override
   int getDaysAmount(){
-    return _dates.length;
+    return _filteredDates.length;
   }
 
   int getMaxGroupNumber(){

@@ -1,4 +1,5 @@
 import 'package:ezak/model/course.dart';
+import 'package:ezak/pages/hero/course_hero.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/widgets/abstract/widget_transformable.dart';
@@ -6,46 +7,71 @@ import 'package:flutter/material.dart';
 
 mixin CourseWidget on CourseModel implements WidgetTransformable{
 
+  static const BorderRadius _borderRadius = BorderRadius.all(Radius.circular(10));
+
   @override
   Widget toWidget(BuildContext context){
     return Container(
-      padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-      decoration: BoxDecoration(
-        color: group.color.withOpacity(.2),
-        borderRadius: const BorderRadius.all(Radius.circular(10))
-      ),
-      child: Row(
-        children: [
-          Column( // hours
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: InkWell(
+        borderRadius: _borderRadius,
+        onTap: ()async=>
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CourseHero(course: getCourse()))
+          ),
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: group.color.withOpacity(.2),
+            borderRadius: _borderRadius
+          ),
+          child: Row(
             children: [
-              Text(L10n.of(context).from_hour(startHour.toPansString())),
-              Text(L10n.of(context).to_hour(endHour.toPansString())),
+              Column( // hours
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(L10n.of(context).from_hour(startHour.toPansString())),
+                  Text(L10n.of(context).to_hour(endHour.toPansString())),
+                ],
+              ),
+              const SizedBox(width: 15,),
+              Expanded(
+                child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: 15,
+                  children: [
+                    Text(name),
+                    Text(lecturer),
+                    Text(
+                      getTranslationDescribingCourseLocation(getCourse(), context)
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 15,),
+              Hero(
+                tag: getCourse(),
+                child: getIconDescribingCourse(getCourse()),
+              )
             ],
           ),
-          const SizedBox(width: 15,),
-          Expanded(
-            child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              spacing: 15,
-              children: [
-                Text(name),
-                Text(lecturer),
-                isOnline()?
-                  Text(L10n.of(context).online_course):
-                  Text(L10n.of(context).building_and_room(location, roomNumber)),
-              ],
-            ),
-          ),
-          const SizedBox(width: 15,),
-          isOnline()?
-            const Icon(Icons.online_prediction):
-            const Icon(Icons.home),
-        ],
+        ),
       ),
     );
+  }
+
+  static Icon getIconDescribingCourse(CourseModel course){
+    return course.isOnline()?
+      const Icon(Icons.online_prediction):
+      const Icon(Icons.home);
+  }
+
+  static String getTranslationDescribingCourseLocation(CourseModel course, BuildContext context){
+    return course.isOnline()?
+      L10n.of(context).online_course:
+      L10n.of(context).building_and_room(course.location, course.roomNumber);
   }
 
 }

@@ -27,7 +27,6 @@ class SchedulePage extends StatelessWidget {
 
     return Scaffold(
       appBar: PansAppBar(
-        context,
         additionalActions: const [
           PansDateButton(),
           PansInfoButton(),
@@ -36,6 +35,7 @@ class SchedulePage extends StatelessWidget {
           PansSettingsPopupItem(context),
           PansAboutAppPopupItem(context)
         ],
+        context: context,
       ),
       body: Center(
         child: Consumer(

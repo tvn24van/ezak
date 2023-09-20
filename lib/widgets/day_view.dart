@@ -14,7 +14,6 @@ class PansDayView extends StatelessWidget{
   // if date is equal to actual
   @override
   Widget build(BuildContext context) {
-    // var lastHour = courses.isEmpty? Duration.zero : courses.first.endHour;
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
         dragDevices: PointerDeviceKind.values.toSet()

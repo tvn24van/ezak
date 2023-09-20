@@ -22,7 +22,6 @@ class SettingsPage extends StatelessWidget{
       recordStepsInSharedPreferences: false,
       child: Scaffold(
         appBar: PansAppBar(
-          context,
           pansLeading: Tooltip(
             message: MaterialLocalizations.of(context).backButtonTooltip,
             child: Consumer(
@@ -56,12 +55,14 @@ class SettingsPage extends StatelessWidget{
               },
             ),
           ),
+          leadingText: L10n.of(context).settings,
           popupItems: [
             PansAboutAppPopupItem(context)
           ],
+          context: context,
         ),
-        body: Column(
-          children: const [
+        body: const Column(
+          children: [
             PansLanguageTile(),
             PansTeacherTile(),
             PansSpecializationTile(),

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:ezak/model/loaders/schedule_loader.dart';
 import 'package:ezak/model/schedule.dart';
-import 'package:ezak/model/settings.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +49,8 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
 
   @override
   Future<Schedule> build() async{
-    final schedule = await load();
+    final schedule = await load()
+      ..filter(ref.read(SettingsProvider.instance).groups);
 
     final accurateDate = schedule.getAccurateDate();
 
@@ -73,7 +73,8 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
         ScheduleLoader.downloadAndSaveDates(isTeacher, key),
         ScheduleLoader.downloadAndSaveCourses(isTeacher, key)
       ]);
-      return Schedule(values.first as DatesMap, values.last as CoursesList);
+      return Schedule(values.first as DatesMap, values.last as CoursesList)
+        ..filter(ref.read(SettingsProvider.instance).groups);
     });
 
   }

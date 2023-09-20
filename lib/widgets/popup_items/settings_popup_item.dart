@@ -11,7 +11,12 @@ class PansSettingsPopupItem extends PopupMenuItem{
         MaterialPageRoute(builder: (_) => const SettingsPage()),
       ),
     ),
-    child: Text(L10n.of(context).settings),
+    padding: EdgeInsets.zero,
+    child: ListTile(
+      leading: const Icon(Icons.settings),
+      title: Text(L10n.of(context).settings),
+      mouseCursor: SystemMouseCursors.click,
+    ),
 
   );
 

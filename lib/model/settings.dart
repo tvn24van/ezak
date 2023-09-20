@@ -6,6 +6,12 @@ import 'package:flutter/foundation.dart';
 
 typedef GroupsMap = Map<Group, Set<int>>;
 
+extension GroupsMapExtension on GroupsMap{
+  bool areGroupsEmpty(){
+    return values.every((element) => element.isEmpty);
+  }
+}
+
 @immutable
 class Settings{
 

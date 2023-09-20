@@ -1,4 +1,5 @@
 import 'package:ezak/model/schedule.dart';
+import 'package:ezak/model/settings.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
@@ -26,28 +27,27 @@ mixin ScheduleWidget on ScheduleModel implements ConsumerWidgetTransformable{
         final isTeacher = ref.watch(
           SettingsProvider.instance.select((settings) => settings.isTeacher)
         );
-        final courses = isTeacher?
+        final courses = isTeacher || groups.areGroupsEmpty()?
           getCoursesForDate(getDateOfIndex(index)):
-          getCoursesForDate(getDateOfIndex(index))
-            ..removeWhere((element) => !groups[element.group]!.contains(element.groupNumber));
+          getCoursesForDateAndGroup(getDateOfIndex(index), groups);
         courses.sort((a,b)=> a.startHour.compareTo(b.startHour));
         return RefreshIndicator(
           onRefresh: () async{
-            showDialog(
+            showAdaptiveDialog(
               context: context,
-              builder: (context) => AlertDialog(
+              builder: (context) => AlertDialog.adaptive(
                 title: Text(L10n.of(context).schedule_update_prompt),
                 actions: [
                   TextButton(
                     onPressed: (){
-                      ref.watch(ScheduleProvider.instance.notifier).redownload();
+                      ref.read(ScheduleProvider.instance.notifier).redownload(); // was watch maybe by mistake
                       Navigator.of(context).pop();
                     },
                     child: Text(L10n.of(context).force_schedule_redownload)
                   ),
                   TextButton(
                     onPressed: (){
-                      ref.watch(ScheduleProvider.instance.notifier).build();
+                      ref.read(ScheduleProvider.instance.notifier).build(); // was watch maybe by mistake
                       Navigator.of(context).pop();
                     },
                     child: Text(L10n.of(context).check_for_schedule_update)

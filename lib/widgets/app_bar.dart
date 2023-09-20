@@ -6,25 +6,21 @@ import 'package:flutter/material.dart';
 
 class PansAppBar extends AppBar{
 
-  final BuildContext context;
-
-  /// Leading param which fallback to PANS logo
-  final Widget? pansLeading;
-
-  /// Widgets which will be displayed before default ones
-  final List<Widget> additionalActions;
-
-  /// Items displayed in popup button
-  final List<PopupMenuItem> popupItems;
-
-  PansAppBar(this.context, {
+  PansAppBar({
     super.key,
-    this.pansLeading,
-    this.additionalActions=const[],
-    this.popupItems=const[]
+    required BuildContext context,
+
+    /// Leading param which fallback to PANS logo
+    Widget? pansLeading,
+    /// Leading text showed right to Logo
+    String? leadingText,
+    /// Widgets which will be displayed before default ones
+    List<Widget> additionalActions=const[],
+    /// Items displayed in popup button
+    List<PopupMenuItem> popupItems=const[],
   }):super(
     leading: pansLeading ?? SvgPicture.asset('assets/logotypes/crest.svg'),
-    title: const Text(Constants.appName),
+    title: Text(leadingText ?? Constants.appName),
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     titleSpacing: 0,
     actions: additionalActions + [

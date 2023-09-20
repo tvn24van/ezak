@@ -12,7 +12,7 @@ class PansGroupsTile extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groups = ref.watch(SettingsProvider.instance.select((settings) => settings.groups));
-    final schedule = ref.watch(ScheduleProvider.instance);
+    // final schedule = ref.watch(ScheduleProvider.instance);
     final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isTeacher));
     final isSpecializationSelected = ref.watch(
       SettingsProvider.instance.select((settings) => settings.specializationKey)
@@ -22,24 +22,27 @@ class PansGroupsTile extends ConsumerWidget{
       return const SizedBox.shrink();
     }
 
-    return schedule.when(
+    return ref.watch(ScheduleProvider.instance).when(
       data:(data){
         final maxGroup = data.getMaxGroupNumber();
         return Column(
           children: Group.values.map((group) =>
             ListTile(
               title: Text("${L10n.of(context).group} ${group.symbol} (${L10n.of(context).group_name(group.name)})"),
-              trailing: ToggleButtons(
-                isSelected: List.generate(maxGroup, (index)=>
-                  groups[group]!.contains(index+1)
+              trailing: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ToggleButtons(
+                  isSelected: List.generate(maxGroup, (index)=>
+                    groups[group]!.contains(index+1)
+                  ),
+                  children: List.generate(maxGroup, (index)=> Text("${index+1}")),
+                  onPressed: (index)=>{
+                    ref.read(SettingsProvider.instance.notifier).toggleGroupNumber(
+                      group,
+                      index+1
+                    )
+                  },
                 ),
-                children: List.generate(maxGroup, (index)=> Text("${index+1}")),
-                onPressed: (index)=>{
-                  ref.read(SettingsProvider.instance.notifier).toggleGroupNumber(
-                    group,
-                    index+1
-                  )
-                },
               ),
               onTap: (){},
             )

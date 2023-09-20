@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
+import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,7 +23,7 @@ class SettingsProvider extends Notifier<Settings>{
         )
       )
     );
-    final noGroups = groups.values.every((value) => value.isEmpty);
+    final noGroups = groups.areGroupsEmpty();
 
     return Settings(
       darkTheme: sp.getBool('darkTheme'),
@@ -73,8 +74,18 @@ class SettingsProvider extends Notifier<Settings>{
     final newGroups = GroupsMap.fromEntries(state.groups.entries)
       ..update(group, (value) => groupNumbers);
 
+    ref.read(ScheduleProvider.instance).value?.filter(newGroups);
+    // ref.read(ScheduleProvider.instance).whenData((schedule) {
+    //   schedule.filter(newGroups);
+    //   state = state.copyWith(
+    //     groups: newGroups
+    //   );
+    //
+    //     _saveGroupNumbers(group);
+    // });
+
     state = state.copyWith(
-        groups: newGroups
+      groups: newGroups
     );
 
     _saveGroupNumbers(group);

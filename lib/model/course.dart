@@ -20,6 +20,7 @@ abstract class CourseModel{
   final int roomNumber;
 
   bool isOnline();
+  Course getCourse();
 
   CourseModel(
     this.id,
@@ -108,6 +109,8 @@ class Course extends CourseModel with CourseWidget{
     required roomNumber,
   }):super(id, name, lecturer, startHour, timeOfCourse, endHour, group, groupNumber, location, roomNumber);
 
+  @override
+  Course getCourse() => this;
 
   /// Returns whether this course
   /// will take place online or not
@@ -121,6 +124,16 @@ class Course extends CourseModel with CourseWidget{
 
   static Duration _readEndTime(Map map, String key){
     return HoursDecoder.decodeEndHour(map['godzinaod'], map['czaskursu']);
+  }
+
+  //todo replace this with data grabbed from internet somehow
+  String getLocationQuery(){
+    switch(location){
+      case "C":
+      case "G": return "Obrońców Tobruku 5, 48-300 Nysa";
+      case "X": return "Otmuchowska 74, 48-300 Nysa";
+    }
+    return "PANS Nysa";
   }
 
   @override
