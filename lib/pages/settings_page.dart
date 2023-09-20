@@ -3,6 +3,7 @@ import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
+import 'package:ezak/widgets/tiles/update_schedule_tile.dart';
 import 'package:ezak/widgets/tiles/groups_tile.dart';
 import 'package:ezak/widgets/popup_items/about_popup_item.dart';
 import 'package:ezak/widgets/tiles/specialization_tile.dart';
@@ -66,7 +67,8 @@ class SettingsPage extends StatelessWidget{
             PansLanguageTile(),
             PansTeacherTile(),
             PansSpecializationTile(),
-            PansGroupsTile()
+            PansGroupsTile(),
+            PansUpdateScheduleTile()
           ],
         ),
       ),

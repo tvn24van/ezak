@@ -33,38 +33,43 @@ mixin ScheduleWidget on ScheduleModel implements ConsumerWidgetTransformable{
         courses.sort((a,b)=> a.startHour.compareTo(b.startHour));
         return RefreshIndicator(
           onRefresh: () async{
-            showAdaptiveDialog(
-              context: context,
-              builder: (context) => AlertDialog.adaptive(
-                title: Text(L10n.of(context).schedule_update_prompt),
-                actions: [
-                  TextButton(
-                    onPressed: (){
-                      ref.read(ScheduleProvider.instance.notifier).redownload(); // was watch maybe by mistake
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(L10n.of(context).force_schedule_redownload)
-                  ),
-                  TextButton(
-                    onPressed: (){
-                      ref.read(ScheduleProvider.instance.notifier).build(); // was watch maybe by mistake
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(L10n.of(context).check_for_schedule_update)
-                  ),
-                  TextButton(
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
-                  ),
-                ],
-              ),
-            );
+            showUpdateDialog(context, ref);
           },
           child: PansDayView(courses)
         );
       },
     );
   }
+
+  static Future<dynamic> showUpdateDialog(BuildContext context, WidgetRef ref){
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) => AlertDialog.adaptive(
+        title: Text(L10n.of(context).schedule_update_prompt),
+        actions: [
+          TextButton(
+              onPressed: (){
+                ref.read(ScheduleProvider.instance.notifier).redownload();
+                Navigator.of(context).pop();
+              },
+              child: Text(L10n.of(context).force_schedule_redownload)
+          ),
+          TextButton(
+              onPressed: (){
+                ref.read(ScheduleProvider.instance.notifier).build();
+                Navigator.of(context).pop();
+              },
+              child: Text(L10n.of(context).check_for_schedule_update)
+          ),
+          TextButton(
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
+          ),
+        ],
+      ),
+    );
+  }
+
 }
