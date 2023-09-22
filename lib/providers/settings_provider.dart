@@ -62,6 +62,16 @@ class SettingsProvider extends Notifier<Settings>{
     );
   }
 
+  void setGroupNumbers(Group group, Set<int> numbers){
+    final newGroups = GroupsMap.from(state.groups)..update(group, (value) => numbers);
+    // final newGroups = state.groups..update(group, (value) => numbers).toSet();
+    ref.read(ScheduleProvider.instance).value?.filter(newGroups);
+    state = state.copyWith(
+      groups: newGroups
+    );
+    _saveGroupNumbers(group);
+  }
+
   void toggleGroupNumber(Group group, int number){
     final groupNumbers = state.groups[group]!.toSet(); //creating new Set
 

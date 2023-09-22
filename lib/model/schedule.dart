@@ -1,4 +1,5 @@
 import 'package:ezak/model/course.dart';
+import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
 import 'package:ezak/widgets/mixins/schedule_widget.dart';
 import 'package:flutter/material.dart';
@@ -115,8 +116,12 @@ class Schedule extends ScheduleModel with ScheduleWidget{
     return _filteredDates.length;
   }
 
-  int getMaxGroupNumber(){
-    return _courses.reduce(
+  int getMaxGroupNumber(Group group){
+    final coursesOfGroup = _courses.where((course) => course.group==group);
+    if(coursesOfGroup.isEmpty) {
+      return 0;
+    }
+    return coursesOfGroup.reduce(
       (curr, next) =>
         curr.groupNumber > next.groupNumber?
           curr:
