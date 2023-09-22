@@ -1,8 +1,15 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:ezak/model/course.dart';
 import 'package:ezak/model/schedule.dart';
 import 'package:intl/intl.dart';
+
+extension PlatformExtensions on Platform{
+  static bool isMobile(){
+    return Platform.isAndroid || Platform.isFuchsia || Platform.isIOS;
+  }
+}
 
 extension DateTimeSerializer on DateTime{
   String toLocaleString(Locale locale){

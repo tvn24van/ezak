@@ -13,9 +13,6 @@ final specializationsProvider = FutureProvider<Map<String, int>>((ref) async {
       Uri.http(Constants.restUrl, 'rest/${teacherMode?'prowadzacy':'wytrych'}')
   );
   final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
-  if(teacherMode) {
-    return { for (var i in json) i['skrot']: i['id']};
-  }else{
-    return { for (var i in json) i['pelna_nazwa']: i['id']};
-  }
+
+  return { for (var i in json) i[teacherMode? 'skrot' : 'pelna_nazwa']: i['id'] };
 });

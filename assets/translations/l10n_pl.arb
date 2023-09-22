@@ -20,6 +20,7 @@
   "language": "Język",
   "academic_teacher_mode": "Tryb nauczyciela",
   "specialization": "Specjalizacja",
+  "no_matches_found": "Nie znaleziono dopasowań",
 
   "error_occurred": "Wystąpił błąd:",
   "no_group_or_specialization": "Nie ma nic do wyświetlenia. Upewnij się, że wybrałeś swoją grupę, lub specjalizację.",

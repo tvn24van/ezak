@@ -165,6 +165,12 @@ abstract class L10n {
   /// **'Specjalizacja'**
   String get specialization;
 
+  /// No description provided for @no_matches_found.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie znaleziono dopasowań'**
+  String get no_matches_found;
+
   /// No description provided for @error_occurred.
   ///
   /// In pl, this message translates to:

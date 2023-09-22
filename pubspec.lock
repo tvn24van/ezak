@@ -193,14 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.3"
-  drop_down_list:
-    dependency: "direct main"
-    description:
-      name: drop_down_list
-      sha256: ffb54a1464d8c051f9ec7be6c5e86a4bd59297fe8a93f2942a91a96197d0abc2
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.5"
   fake_async:
     dependency: transitive
     description:

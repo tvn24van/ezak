@@ -45,6 +45,9 @@ class L10nPl extends L10n {
   String get specialization => 'Specjalizacja';
 
   @override
+  String get no_matches_found => 'Nie znaleziono dopasowań';
+
+  @override
   String get error_occurred => 'Wystąpił błąd:';
 
   @override

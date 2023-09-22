@@ -1,16 +1,19 @@
-import 'package:drop_down_list/drop_down_list.dart';
-import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:ezak/model/settings.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/providers/specializations_provider.dart';
+import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/visuals/appereance.dart';
 import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PansSpecializationTile extends ConsumerWidget{
   const PansSpecializationTile({super.key});
+
+  static final SearchController searchController = SearchController();
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,34 +50,47 @@ class PansSpecializationTile extends ConsumerWidget{
         width: MediaQuery.of(context).size.width*.6,
         child: specializations.when(
           data: (data){
+
             final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;
-            final button = OutlinedButton(
-              onPressed: ()=>
-                DropDownState(
-                  DropDown(
-                    bottomSheetTitle: Text(titleText),
-                    data: data.entries.map((entry) =>
-                      SelectedListItem(
-                        name: entry.key,
-                        value: entry.value.toString(),
-                        isSelected: entry.value==selectedSpecialization,
-                      )
-                    ).toList(),
-                    selectedItems: (List<dynamic> selectedList){
-                      ref.read(SettingsProvider.instance.notifier)
-                        .changeSpecialization(int.parse(
-                          selectedList.whereType<SelectedListItem>().single.value!
-                      ));
-                    },
-                    searchHintText: MaterialLocalizations.of(context).searchFieldLabel
+
+            final button = SearchAnchor(
+              searchController: searchController,
+              isFullScreen: PlatformExtensions.isMobile(),
+              viewHintText: titleText,
+              builder: (context, controller) =>
+                OutlinedButton(
+                  onPressed: () => searchController.openView(),
+                  child: Text(
+                    isSelected?
+                      data.entries.singleWhere((element) =>
+                        element.value==selectedSpecialization
+                      ).key:
+                      titleText,
                   ),
-                ).showModal(context),
-              child: Text(isSelected?
-                data.entries.singleWhere((element) =>
-                  element.value==selectedSpecialization
-                ).key:
-                L10n.of(context).specialization,
-              ),
+                ),
+              suggestionsBuilder: (context, controller){
+                final text = controller.text;
+                final filtered = data.entries.where((element) =>
+                    element.key.toLowerCase().contains(text.toLowerCase())
+                );
+                if(filtered.isEmpty) {
+                  return List.filled(1,
+                    Text(L10n.of(context).no_matches_found, textAlign: TextAlign.center)
+                  );
+                }
+                return (text.isNotEmpty? filtered : data.entries).map((e) =>
+                  ListTile(
+                    title: Text(e.key),
+                    onTap: (){
+                      ref.read(SettingsProvider.instance.notifier)
+                        .changeSpecialization(
+                          data.entries.firstWhere((element) => element.key==e.key).value
+                        );
+                      controller.closeView('');
+                    },
+                  )
+                );
+              },
             );
 
             return DescribedFeatureOverlay(

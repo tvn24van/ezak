@@ -45,6 +45,9 @@ class L10nEn extends L10n {
   String get specialization => 'Specialization';
 
   @override
+  String get no_matches_found => 'No matches found';
+
+  @override
   String get error_occurred => 'An error occurred:';
 
   @override
