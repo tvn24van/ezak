@@ -31,22 +31,26 @@ class PansAppereance {
   /// {@macro pans_page_controller_settings}
   static const pageControllerSettings = _PansPageControllerSettings();
 
-  static final ThemeData lightTheme = ThemeData.light().copyWith(
+  static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.light(
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.light,
+      seedColor: colors.red,
       primary: colors.red,
       secondary: colors.gray,
       onBackground: colors.gray
-    ),
+    )
   );
 
-  static final ThemeData darkTheme = ThemeData.dark().copyWith(
+  static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.dark(
+    colorScheme: ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: colors.red,
       primary: colors.red,
       secondary: colors.gray,
       onBackground: colors.gray
-    ),
+    )
   );
 
 }
