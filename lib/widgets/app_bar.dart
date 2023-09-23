@@ -1,6 +1,5 @@
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/widgets/popup_button.dart';
-import 'package:ezak/widgets/theme_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,6 @@ class PansAppBar extends AppBar{
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     titleSpacing: 0,
     actions: additionalActions + [
-      const PansThemeButton(),
       PansPopupButton(
         items: popupItems,
       ),

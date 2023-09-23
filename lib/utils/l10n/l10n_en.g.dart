@@ -30,6 +30,9 @@ class L10nEn extends L10n {
   String get theme_change => 'Theme change';
 
   @override
+  String get dark_theme => 'Dark theme';
+
+  @override
   String get previous_day => 'Previous day';
 
   @override

@@ -114,7 +114,7 @@ abstract class L10n {
   /// No description provided for @mail_us.
   ///
   /// In pl, this message translates to:
-  /// **'Napisz do nas'**
+  /// **'Wyślij maila'**
   String get mail_us;
 
   /// No description provided for @date_selection.
@@ -134,6 +134,12 @@ abstract class L10n {
   /// In pl, this message translates to:
   /// **'Zmiana motywu'**
   String get theme_change;
+
+  /// No description provided for @dark_theme.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ciemny motyw'**
+  String get dark_theme;
 
   /// No description provided for @previous_day.
   ///

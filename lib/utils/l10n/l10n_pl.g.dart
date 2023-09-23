@@ -18,7 +18,7 @@ class L10nPl extends L10n {
   String get university_website => 'Strona uczelni';
 
   @override
-  String get mail_us => 'Napisz do nas';
+  String get mail_us => 'Wyślij maila';
 
   @override
   String get date_selection => 'Wybór daty';
@@ -28,6 +28,9 @@ class L10nPl extends L10n {
 
   @override
   String get theme_change => 'Zmiana motywu';
+
+  @override
+  String get dark_theme => 'Ciemny motyw';
 
   @override
   String get previous_day => 'Poprzedni dzień';
