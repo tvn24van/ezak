@@ -11,8 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PansSpecializationTile extends ConsumerWidget{
   const PansSpecializationTile({super.key});
 
-  static final SearchController searchController = SearchController();
-
+  static final _searchController = SearchController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -52,44 +51,15 @@ class PansSpecializationTile extends ConsumerWidget{
 
             final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;
 
-            final button = SearchAnchor(
-              searchController: searchController,
-              isFullScreen: PlatformExtensions.isMobile(),
-              viewHintText: titleText,
-              builder: (context, controller) =>
-                OutlinedButton(
-                  onPressed: () => searchController.openView(),
-                  child: Text(
-                    isSelected?
-                      data.entries.singleWhere((element) =>
-                        element.value==selectedSpecialization
-                      ).key:
-                      titleText,
-                  ),
-                ),
-              suggestionsBuilder: (context, controller){
-                final text = controller.text;
-                final filtered = data.entries.where((element) =>
-                    element.key.toLowerCase().contains(text.toLowerCase())
-                );
-                if(filtered.isEmpty) {
-                  return List.filled(1,
-                    Text(L10n.of(context).no_matches_found, textAlign: TextAlign.center)
-                  );
-                }
-                return (text.isNotEmpty? filtered : data.entries).map((e) =>
-                  ListTile(
-                    title: Text(e.key),
-                    onTap: (){
-                      ref.read(SettingsProvider.instance.notifier)
-                        .changeSpecialization(
-                          data.entries.firstWhere((element) => element.key==e.key).value
-                        );
-                      controller.closeView('');
-                    },
-                  )
-                );
-              },
+            final button = OutlinedButton(
+              onPressed: () => _searchController.openView(),
+              child: Text(
+                isSelected?
+                data.entries.singleWhere((element) =>
+                element.value==selectedSpecialization
+                ).key:
+                titleText,
+              ),
             );
 
             return DescribedFeatureOverlay(
@@ -103,7 +73,35 @@ class PansSpecializationTile extends ConsumerWidget{
                 absorbing: true,
                 child: button
               ),
-              child: button,
+              child: SearchAnchor(
+                searchController: _searchController,
+                isFullScreen: PlatformExtensions.isMobile(),
+                viewHintText: titleText,
+                builder: (context, controller) =>
+                button,
+                suggestionsBuilder: (context, controller){
+                  final text = controller.text;
+                  final filtered = data.entries.where((element) =>
+                    element.key.toLowerCase().contains(text.toLowerCase())
+                  );
+                  if(filtered.isEmpty) {
+                    return List.filled(1,
+                      Text(L10n.of(context).no_matches_found, textAlign: TextAlign.center)
+                    );
+                  }
+                  return (text.isNotEmpty? filtered : data.entries).map((e) =>
+                    ListTile(
+                      title: Text(e.key),
+                      onTap: (){
+                        ref.read(SettingsProvider.instance.notifier).changeSpecialization(
+                          data.entries.firstWhere((element) => element.key==e.key).value
+                        );
+                        controller.closeView('');
+                      },
+                    )
+                  );
+                },
+              ),
             );
           },
           loading: ()=> const OutlinedButton(

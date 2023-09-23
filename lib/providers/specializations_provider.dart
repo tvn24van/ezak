@@ -14,5 +14,9 @@ final specializationsProvider = FutureProvider<Map<String, int>>((ref) async {
   );
   final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
 
-  return { for (var i in json) i[teacherMode? 'skrot' : 'pelna_nazwa']: i['id'] };
+  final Map<String, int> specializations = {
+    for (var i in json) i[teacherMode? 'skrot' : 'pelna_nazwa']: i['id']
+  };
+
+  return specializations;
 });
