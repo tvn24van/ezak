@@ -26,6 +26,8 @@
     }
   },
   "dark_theme": "Dark theme",
+  "auto_updates": "Auto updates",
+  "auto_updates_subtitle": "Auto updates works only for students due to limits enforced by REST API",
   "no_matches_found": "No matches found",
   "settings": "Settings",
   "about_app": "About app",

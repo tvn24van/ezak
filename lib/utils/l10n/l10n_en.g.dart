@@ -106,6 +106,12 @@ class L10nEn extends L10n {
   String get check_for_schedule_update => 'Check schedule for updates';
 
   @override
+  String get auto_updates => 'Auto updates';
+
+  @override
+  String get auto_updates_subtitle => 'Auto updates works only for students due to limits enforced by REST API';
+
+  @override
   String get online_course => 'Remote classes';
 
   @override

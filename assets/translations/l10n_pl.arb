@@ -47,6 +47,9 @@
   "force_schedule_redownload": "Wymuś ponowne pobranie planu",
   "check_for_schedule_update": "Sprawdź aktualność planu",
 
+  "auto_updates": "Automatyczne aktualizacje",
+  "auto_updates_subtitle": "Automatyczne aktualizacje działają tylko dla studentów z powodu limitów narzuconych przez REST API",
+
   "online_course": "Zajęcia zdalne",
   "full_time_course": "Zajęcia stacjonarne",
   "building_and_room": "Budynek {building}, sala {room}",

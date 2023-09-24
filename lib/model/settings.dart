@@ -18,6 +18,8 @@ class Settings{
   /// true if dark theme is selected
   final bool darkTheme;
 
+  final bool autoUpdates;
+
   /// locale in which app will be displayed
   final Locale locale;
 
@@ -33,6 +35,7 @@ class Settings{
 
   const Settings({
     bool? darkTheme,
+    bool? autoUpdates,
     Locale? locale,
     bool? isTeacher,
     int? specializationKey,
@@ -40,6 +43,7 @@ class Settings{
   }):
   locale = locale ?? Constants.defaultLocale,
   darkTheme = darkTheme ?? false,
+  autoUpdates = autoUpdates ?? true,
   isTeacher = isTeacher ?? false,
   specializationKey = specializationKey ?? defaultSpecializationKey, // 0 when no groups were selected
   groups = groups ?? Settings.defaultGroups;
@@ -62,12 +66,14 @@ class Settings{
 
   Settings copyWith({
     bool? darkTheme,
+    bool? autoUpdates,
     Locale? locale,
     bool? isTeacher,
     int? specializationKey,
     GroupsMap? groups,
   })=> Settings(
     darkTheme: darkTheme ?? this.darkTheme,
+    autoUpdates: autoUpdates ?? this.autoUpdates,
     locale: locale ?? this.locale,
     isTeacher: isTeacher ?? this.isTeacher,
     specializationKey: specializationKey ?? this.specializationKey,

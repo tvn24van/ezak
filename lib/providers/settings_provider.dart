@@ -27,6 +27,7 @@ class SettingsProvider extends Notifier<Settings>{
 
     return Settings(
       darkTheme: sp.getBool('darkTheme'),
+      autoUpdates: sp.getBool('autoUpdates'),
       locale: sp.getString('locale')!=null? Locale(sp.getString('locale')!) : null,
       isTeacher: sp.getBool('isTeacher'),
       specializationKey: sp.getInt('specialization'),
@@ -46,6 +47,13 @@ class SettingsProvider extends Notifier<Settings>{
       darkTheme: !state.darkTheme
     );
     ref.read(sharedPreferences).setBool('darkTheme', state.darkTheme);
+  }
+
+  void toggleAutoUpdates(){
+    state = state.copyWith(
+        autoUpdates: !state.autoUpdates
+    );
+    ref.read(sharedPreferences).setBool('autoUpdates', state.autoUpdates);
   }
 
   void toggleTeacherMode(){

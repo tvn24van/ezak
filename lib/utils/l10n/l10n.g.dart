@@ -261,6 +261,18 @@ abstract class L10n {
   /// **'Sprawdź aktualność planu'**
   String get check_for_schedule_update;
 
+  /// No description provided for @auto_updates.
+  ///
+  /// In pl, this message translates to:
+  /// **'Automatyczne aktualizacje'**
+  String get auto_updates;
+
+  /// No description provided for @auto_updates_subtitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Automatyczne aktualizacje działają tylko dla studentów z powodu limitów narzuconych przez REST API'**
+  String get auto_updates_subtitle;
+
   /// No description provided for @online_course.
   ///
   /// In pl, this message translates to:

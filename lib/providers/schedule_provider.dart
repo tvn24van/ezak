@@ -16,24 +16,32 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
   Future<Schedule> load() async{ //todo refactor
     final key = ref.watch(SettingsProvider.instance.select((settings) => settings.specializationKey));
     final isTeacher = ref.watch(SettingsProvider.instance.select((settings)=> settings.isTeacher));
+    final autoUpdate = ref.read(SettingsProvider.instance.select((settings) => settings.autoUpdates));
 
     Iterable<Future<dynamic>> futures;
 
     if(await ScheduleLoader.dataExists(isTeacher, key)){
-      final downloadDate = await ScheduleLoader.getDownloadDate(isTeacher, key);
-      final updateDate = await ScheduleLoader.getUpdateDate(isTeacher, key).catchError((e)=>
-        downloadDate.subtract(1.seconds) //hack, if no internet connection
-      );
+      if(autoUpdate){
+        final downloadDate = await ScheduleLoader.getDownloadDate(isTeacher, key);
+        final updateDate = await ScheduleLoader.getUpdateDate(isTeacher, key).catchError((e)=>
+            downloadDate.subtract(1.seconds) //hack, if no internet connection
+        );
 
-      if(updateDate.isBefore(downloadDate)) {
+        if(updateDate.isBefore(downloadDate)) {
+          futures = [ // loading
+            ScheduleLoader.loadDates(isTeacher, key),
+            ScheduleLoader.loadCourses(isTeacher, key)
+          ];
+        }else {
+          futures = [ // updating
+            ScheduleLoader.downloadAndSaveDates(isTeacher, key),
+            ScheduleLoader.downloadAndSaveCourses(isTeacher, key)
+          ];
+        }
+      }else{
         futures = [ // loading
           ScheduleLoader.loadDates(isTeacher, key),
           ScheduleLoader.loadCourses(isTeacher, key)
-        ];
-      }else {
-        futures = [ // updating
-          ScheduleLoader.downloadAndSaveDates(isTeacher, key),
-          ScheduleLoader.downloadAndSaveCourses(isTeacher, key)
         ];
       }
     }else{

@@ -106,6 +106,12 @@ class L10nPl extends L10n {
   String get check_for_schedule_update => 'Sprawdź aktualność planu';
 
   @override
+  String get auto_updates => 'Automatyczne aktualizacje';
+
+  @override
+  String get auto_updates_subtitle => 'Automatyczne aktualizacje działają tylko dla studentów z powodu limitów narzuconych przez REST API';
+
+  @override
   String get online_course => 'Zajęcia zdalne';
 
   @override
