@@ -64,16 +64,18 @@ class SettingsPage extends StatelessWidget{
           ],
           context: context,
         ),
-        body: const Column(
-          children: [
-            PansLanguageTile(),
-            PansThemeTile(),
-            PansAutoUpdateTile(),
-            PansTeacherTile(),
-            PansSpecializationTile(),
-            PansGroupsTile(),
-            PansUpdateScheduleTile()
-          ],
+        body: const SingleChildScrollView(
+          child: Column(
+            children: [
+              PansLanguageTile(),
+              PansThemeTile(),
+              PansAutoUpdateTile(),
+              PansTeacherTile(),
+              PansSpecializationTile(),
+              PansGroupsTile(),
+              PansUpdateScheduleTile()
+            ],
+          ),
         ),
       ),
     );

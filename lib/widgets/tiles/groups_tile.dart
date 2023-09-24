@@ -32,7 +32,8 @@ class PansGroupsTile extends ConsumerWidget{
               return const SizedBox.shrink();
             }
             return ListTile(
-              title: Text("${L10n.of(context).group} ${group.symbol} (${L10n.of(context).group_name(group.name)})"),
+              title: Text(L10n.of(context).group_name(group.name)),
+              subtitle: Text("${L10n.of(context).group} ${group.symbol}"),
               trailing: SizedBox(
                 width: MediaQuery.of(context).size.width * .6,
                 child: SingleChildScrollView(
