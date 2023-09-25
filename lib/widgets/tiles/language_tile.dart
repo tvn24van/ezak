@@ -32,6 +32,7 @@ final class PansLanguageTile extends ConsumerWidget{
         ref.read(SettingsProvider.instance.notifier)
           .changeLocale(locale);
       },
+      underline: const SizedBox.shrink(),
     );
 
     return ListTile(
