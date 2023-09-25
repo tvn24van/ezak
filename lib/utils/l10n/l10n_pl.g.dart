@@ -106,6 +106,9 @@ class L10nPl extends L10n {
   String get check_for_schedule_update => 'Sprawdź aktualność planu';
 
   @override
+  String get schedule_updating => 'Aktualizowanie planu';
+
+  @override
   String get auto_updates => 'Automatyczne aktualizacje';
 
   @override

@@ -15,7 +15,7 @@ final class PansUpdateScheduleTile extends ConsumerWidget{
     )!=Settings.defaultSpecializationKey;
     return ListTile(
       leading: const Icon(Icons.update),
-      title: Text(L10n.of(context).check_for_schedule_update),
+      title: Text(L10n.of(context).schedule_updating),
       trailing: FilledButton(
         onPressed: isSpecializationSelected?
           ()async=> ScheduleWidget.showUpdateDialog(context, ref):

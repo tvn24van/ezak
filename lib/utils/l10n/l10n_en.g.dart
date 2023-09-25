@@ -106,6 +106,9 @@ class L10nEn extends L10n {
   String get check_for_schedule_update => 'Check schedule for updates';
 
   @override
+  String get schedule_updating => 'Schedule updating';
+
+  @override
   String get auto_updates => 'Auto updates';
 
   @override

@@ -261,6 +261,12 @@ abstract class L10n {
   /// **'Sprawdź aktualność planu'**
   String get check_for_schedule_update;
 
+  /// No description provided for @schedule_updating.
+  ///
+  /// In pl, this message translates to:
+  /// **'Aktualizowanie planu'**
+  String get schedule_updating;
+
   /// No description provided for @auto_updates.
   ///
   /// In pl, this message translates to:

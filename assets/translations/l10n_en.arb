@@ -18,6 +18,7 @@
   "academic_teacher_mode": "Teacher mode",
   "specialization": "Specialization",
   "error_occurred": "An error occurred:",
+  "schedule_updating": "Schedule updating",
   "legend": "Legend",
   "group_name": "{group, select, lecture{Lecture} exercises{Exercises} laboratories{Laboratories} project{Project} seminar{Seminar} other{Other}}",
   "@group_name": {

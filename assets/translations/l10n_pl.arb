@@ -46,6 +46,7 @@
   "schedule_update_prompt": "W jaki sposób chcesz zaktualizować plan?",
   "force_schedule_redownload": "Wymuś ponowne pobranie planu",
   "check_for_schedule_update": "Sprawdź aktualność planu",
+  "schedule_updating": "Aktualizowanie planu",
 
   "auto_updates": "Automatyczne aktualizacje",
   "auto_updates_subtitle": "Automatyczne aktualizacje działają tylko dla studentów z powodu limitów narzuconych przez REST API",
