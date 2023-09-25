@@ -17,7 +17,7 @@ class PansBreakIndicator extends StatelessWidget{
         child: Column(
           children: [
             Icon(Icons.more_horiz, size: 50, color: PansAppereance.colors.gray,),
-            Text(breakTime.toPansString())
+            Text(breakTime.formatTime())
           ],
         ),
       ),

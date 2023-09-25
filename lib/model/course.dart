@@ -137,7 +137,7 @@ class Course extends CourseModel with CourseWidget{
     "G": "Obrońców Tobruku 5, 48-300 Nysa",
     "C": "Obrońców Tobruku 5, 48-300 Nysa",
     "H": "Marcinkowskiego 6-8 48-300 Nysa",
-    "Z": "ul. Obrońców Tobruku 5a 48-300 Nysa",
+    "Z": "Obrońców Tobruku 5a 48-300 Nysa",
     "X": "Głuchołaska 12 48-303 Nysa",
     "O": "Otmuchowska 74 48-300 Nysa"
   };

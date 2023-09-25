@@ -18,10 +18,9 @@ extension DateTimeSerializer on DateTime{
 }
 
 extension DurationToHour on Duration{
-  String toPansString(){
+  String formatTime(){
     final whole = '$this'.split('.')[0].padLeft(8, '0');
     return whole.substring(0, whole.length-3);
-    // return DateFormat.
   }
 }
 
@@ -38,12 +37,3 @@ extension JsonToDatesMap on Iterable{
     );
   }
 }
-
-// extension JsonToDatesMap on List<dynamic>{
-//   DatesMap toDatesMap(){
-//     return fold(
-//       <DateTime, List<int>>{}, (map, item) =>
-//         map..putIfAbsent(DateTime.parse(item['dzien']), () => []).add(item['pk'])
-//     );
-//   }
-// }
