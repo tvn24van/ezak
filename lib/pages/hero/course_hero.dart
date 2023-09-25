@@ -7,7 +7,7 @@ import 'package:ezak/widgets/popup_items/settings_popup_item.dart';
 import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
-class CourseHero extends StatelessWidget{
+final class CourseHero extends StatelessWidget{
   final Course course;
   const CourseHero({super.key, required this.course});
 

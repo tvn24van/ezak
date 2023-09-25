@@ -8,7 +8,7 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansSpecializationTile extends ConsumerWidget{
+final class PansSpecializationTile extends ConsumerWidget{
   const PansSpecializationTile({super.key});
 
   static final _searchController = SearchController();
@@ -46,7 +46,7 @@ class PansSpecializationTile extends ConsumerWidget{
       onTap: (){},
       trailing: SizedBox(
         width: MediaQuery.of(context).size.width*.6,
-        child: specializations.when(  
+        child: specializations.when(
           data: (data){
 
             final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;

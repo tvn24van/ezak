@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:time/time.dart';
 
-class Constants{
+final class Constants{
   static String appName = DateTime.now().isAtSameDayAs(DateTime(DateTime.now().year, 4, 1))? 'leŻak Nysa' : 'eŻak Nysa';
   //theres a problem with ssl certificate on server-side, nothing to do there
   static const restUrl = 'mobile.pwsz.nysa.pl'; //'mobile.pans.nysa.pl';

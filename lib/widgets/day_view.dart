@@ -5,7 +5,7 @@ import 'package:ezak/model/decoders/hours_decoder.dart';
 import 'package:ezak/widgets/break_indicator.dart';
 import 'package:flutter/material.dart';
 
-class PansDayView extends StatelessWidget{
+final class PansDayView extends StatelessWidget{
 
   final List<Course> courses;
 

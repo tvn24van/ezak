@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart' show getApplicationSupportDirectory;
 // import 'package:path/path.dart' as p;
 
-class AppDir{
+final class AppDir{
   static String? _localPath;
 
   static Future<String> getLocalPath() async{

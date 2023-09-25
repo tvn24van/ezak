@@ -8,7 +8,7 @@ import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingsProvider extends Notifier<Settings>{
+final class SettingsProvider extends Notifier<Settings>{
 
   static final instance = NotifierProvider<SettingsProvider, Settings>(()=>
     SettingsProvider()

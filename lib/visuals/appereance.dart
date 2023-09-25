@@ -5,7 +5,7 @@ import 'package:time/time.dart';
 /// All these colors were grabbed from this
 /// <a href="https://arc.pans.nysa.pl/sitecontent/logo/ksiega_znaku_PANS.pdf">PDF</a>
 /// {@endtemplate}
-class _PansColors{
+final class _PansColors{
   const _PansColors();
 
   get red => const Color.fromARGB(255, 226, 0, 26);
@@ -16,14 +16,14 @@ class _PansColors{
 /// {@template pans_page_controller_settings}
 /// Default controller settings used by app
 /// {@endtemplate}
-class _PansPageControllerSettings{
+final class _PansPageControllerSettings{
   const _PansPageControllerSettings();
 
   get duration => 500.milliseconds;
   get curve => Curves.easeInOut;
 }
 
-class PansAppereance {
+final class PansAppereance {
 
   /// {@macro pans_colors}
   static const colors = _PansColors();

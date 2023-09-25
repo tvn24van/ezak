@@ -2,7 +2,7 @@ import 'package:ezak/model/group.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 
-class PansInfoButton extends StatelessWidget{
+final class PansInfoButton extends StatelessWidget{
   const PansInfoButton({super.key});
 
   @override

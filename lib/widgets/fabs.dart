@@ -5,7 +5,7 @@ import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansFloatingActionButtons extends ConsumerWidget{
+final class PansFloatingActionButtons extends ConsumerWidget{
   const PansFloatingActionButtons({super.key});
 
   @override

@@ -3,7 +3,7 @@ import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
 
-class PansBreakIndicator extends StatelessWidget{
+final class PansBreakIndicator extends StatelessWidget{
   final Duration breakTime;
 
   const PansBreakIndicator(this.breakTime, {super.key});

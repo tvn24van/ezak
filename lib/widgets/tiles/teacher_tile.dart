@@ -5,7 +5,7 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansTeacherTile extends ConsumerWidget{
+final class PansTeacherTile extends ConsumerWidget{
   const PansTeacherTile({super.key});
 
   @override

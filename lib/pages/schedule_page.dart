@@ -10,7 +10,7 @@ import 'package:ezak/widgets/popup_items/settings_popup_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class SchedulePage extends StatelessWidget {
+final class SchedulePage extends StatelessWidget {
 
   const SchedulePage({super.key});
 

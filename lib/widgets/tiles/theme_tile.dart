@@ -3,7 +3,7 @@ import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansThemeTile extends ConsumerWidget{
+final class PansThemeTile extends ConsumerWidget{
   const PansThemeTile({super.key});
 
   @override

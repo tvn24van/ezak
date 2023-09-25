@@ -5,7 +5,7 @@ import 'package:ezak/widgets/mixins/schedule_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansUpdateScheduleTile extends ConsumerWidget{
+final class PansUpdateScheduleTile extends ConsumerWidget{
   const PansUpdateScheduleTile({super.key});
 
   @override

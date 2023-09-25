@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PansPopupButton extends StatelessWidget{
+final class PansPopupButton extends StatelessWidget{
   final List<PopupMenuItem> items;
 
   const PansPopupButton({super.key, this.items=const []});

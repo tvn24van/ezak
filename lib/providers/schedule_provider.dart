@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:time/time.dart';
 
-class ScheduleProvider extends AsyncNotifier<Schedule>{
+final class ScheduleProvider extends AsyncNotifier<Schedule>{
   static final instance = AsyncNotifierProvider<ScheduleProvider, Schedule>((){
     return ScheduleProvider();
   });

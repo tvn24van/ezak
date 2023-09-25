@@ -8,7 +8,7 @@ import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansApp extends ConsumerWidget {
+final class PansApp extends ConsumerWidget {
   const PansApp({super.key});
 
   static const bool debug = bool.fromEnvironment('debug', defaultValue: false);

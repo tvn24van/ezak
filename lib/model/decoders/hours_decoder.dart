@@ -2,7 +2,7 @@ import 'package:time/time.dart';
 
 /// Util for decoding raw [int]s provided
 /// by rest api to more usable [Duration]
-class HoursDecoder{
+final class HoursDecoder{
   /// Break time between double length standard courses
   static final Duration breakLength = 10.minutes;
   /// Time of single course (standard course takes double this time)

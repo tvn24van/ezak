@@ -3,7 +3,7 @@ import 'package:ezak/widgets/popup_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 
-class PansAppBar extends AppBar{
+final class PansAppBar extends AppBar{
 
   PansAppBar({
     super.key,

@@ -6,7 +6,7 @@ import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansDateButton extends ConsumerWidget{
+final class PansDateButton extends ConsumerWidget{
   const PansDateButton({super.key});
 
   @override

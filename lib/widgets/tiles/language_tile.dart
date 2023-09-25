@@ -7,7 +7,7 @@ import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PansLanguageTile extends ConsumerWidget{
+final class PansLanguageTile extends ConsumerWidget{
   const PansLanguageTile({super.key});
 
   @override
