@@ -120,20 +120,33 @@ class Course extends CourseModel with CourseWidget{
   }
 
   /// One of possible Course's "location"
-  static String onlineLocation = ' Online';
+  static const String onlineLocation = ' Online';
 
   static Duration _readEndTime(Map map, String key){
     return HoursDecoder.decodeEndHour(map['godzinaod'], map['czaskursu']);
   }
 
+  /// addresses according to this
+  /// <a href="https://pans.nysa.pl/kontakt">page</a>
+  static const addresses = {
+    "R": "Armii Krajowej 7 48-300 Nysa",
+    "A": "Chodowieckiego 4 48-300 Nysa",
+    "D": "Ujejskiego 12 48-300 Nysa",
+    "E": "Armii Krajowej 19 48-300 Nysa",
+    "F": "Armii Krajowej 21 48-300 Nysa",
+    "G": "Obrońców Tobruku 5, 48-300 Nysa",
+    "C": "Obrońców Tobruku 5, 48-300 Nysa",
+    "H": "Marcinkowskiego 6-8 48-300 Nysa",
+    "Z": "ul. Obrońców Tobruku 5a 48-300 Nysa",
+    "X": "Głuchołaska 12 48-303 Nysa",
+    "O": "Otmuchowska 74 48-300 Nysa"
+  };
+
   //todo replace this with data grabbed from internet somehow
   String? getLocationAddress(){
-    switch(location){
-      case "C":
-      case "G": return "Obrońców Tobruku 5, 48-300 Nysa";
-      case "X": return "Otmuchowska 74, 48-300 Nysa";
-    }
-    return null;
+    return addresses.entries.where((element) =>
+      location.contains(element.key)
+    ).firstOrNull?.value;
   }
 
   @override
@@ -143,14 +156,6 @@ class Course extends CourseModel with CourseWidget{
   bool operator==(Object other) =>
       identical(this, other) || other is Course && hashCode == other.hashCode;
 
-  /*
-  After every change run following:
-  flutter pub run build_runner build
-  to generate json encoding
-   */
-
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
-
-  // Map<String, dynamic> toJson() => _$CourseToJson(this);
 
 }
