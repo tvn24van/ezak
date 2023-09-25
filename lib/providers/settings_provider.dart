@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
+import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/shared_preferences_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsProvider extends Notifier<Settings>{
@@ -72,12 +74,26 @@ class SettingsProvider extends Notifier<Settings>{
 
   void setGroupNumbers(Group group, Set<int> numbers){
     final newGroups = GroupsMap.from(state.groups)..update(group, (value) => numbers);
-    // final newGroups = state.groups..update(group, (value) => numbers).toSet();
     ref.read(ScheduleProvider.instance).value?.filter(newGroups);
     state = state.copyWith(
       groups: newGroups
     );
     _saveGroupNumbers(group);
+
+    // after group changes some days may completely disappear however index of
+    // current day stays the same and this may cause problems so here are some
+    // checks
+    final schedule = ref.read(ScheduleProvider.instance).value;
+    if(schedule!=null){
+      if(!schedule.containsDate(ref.read(SchedulePage.currentDate))){
+        final accurateDate = schedule.getAccurateDate();
+        ref.read(SchedulePage.currentDate.notifier)
+          .update((state) => accurateDate);
+        ref.read(SchedulePage.pageViewController.notifier).update((state) =>
+            PageController(initialPage: schedule.getIndexOfDate(accurateDate))
+        );
+      }
+    }
   }
 
   void toggleGroupNumber(Group group, int number){
@@ -93,14 +109,6 @@ class SettingsProvider extends Notifier<Settings>{
       ..update(group, (value) => groupNumbers);
 
     ref.read(ScheduleProvider.instance).value?.filter(newGroups);
-    // ref.read(ScheduleProvider.instance).whenData((schedule) {
-    //   schedule.filter(newGroups);
-    //   state = state.copyWith(
-    //     groups: newGroups
-    //   );
-    //
-    //     _saveGroupNumbers(group);
-    // });
 
     state = state.copyWith(
       groups: newGroups

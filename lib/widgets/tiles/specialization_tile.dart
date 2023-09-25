@@ -46,7 +46,7 @@ class PansSpecializationTile extends ConsumerWidget{
       onTap: (){},
       trailing: SizedBox(
         width: MediaQuery.of(context).size.width*.6,
-        child: specializations.when(
+        child: specializations.when(  
           data: (data){
 
             final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;
@@ -77,8 +77,7 @@ class PansSpecializationTile extends ConsumerWidget{
                 searchController: _searchController,
                 isFullScreen: PlatformExtensions.isMobile(),
                 viewHintText: titleText,
-                builder: (context, controller) =>
-                button,
+                builder: (context, controller) => button,
                 suggestionsBuilder: (context, controller){
                   final text = controller.text;
                   final filtered = data.entries.where((element) =>
