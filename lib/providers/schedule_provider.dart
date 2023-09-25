@@ -13,7 +13,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     return ScheduleProvider();
   });
 
-  Future<Schedule> load() async{ //todo refactor
+  Future<Schedule> load({bool ignoreAutoUpdate=false}) async{ //todo refactor
     final key = ref.watch(SettingsProvider.instance.select((settings) => settings.specializationKey));
     final isTeacher = ref.watch(SettingsProvider.instance.select((settings)=> settings.isTeacher));
     final autoUpdate = ref.read(SettingsProvider.instance.select((settings) => settings.autoUpdates));
@@ -21,7 +21,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     Iterable<Future<dynamic>> futures;
 
     if(await ScheduleLoader.dataExists(isTeacher, key)){
-      if(autoUpdate){
+      if(autoUpdate && !ignoreAutoUpdate){
         final downloadDate = await ScheduleLoader.getDownloadDate(isTeacher, key);
         final updateDate = await ScheduleLoader.getUpdateDate(isTeacher, key).catchError((e)=>
             downloadDate.subtract(1.seconds) //hack, if no internet connection
@@ -56,8 +56,8 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
   }
 
   @override
-  Future<Schedule> build() async{
-    final schedule = await load()
+  Future<Schedule> build({bool ignoreAutoUpdate=false}) async {
+    final schedule = await load(ignoreAutoUpdate: ignoreAutoUpdate)
       ..filter(ref.read(SettingsProvider.instance).groups);
 
     final accurateDate = schedule.getAccurateDate();
@@ -65,7 +65,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     ref.read(SchedulePage.currentDate.notifier).update((state) => accurateDate);
 
     ref.read(SchedulePage.pageViewController.notifier).update((state) =>
-      PageController(initialPage: schedule.getIndexOfDate(accurateDate))
+        PageController(initialPage: schedule.getIndexOfDate(accurateDate))
     );
 
     return schedule;
