@@ -43,8 +43,7 @@ final class PansGroupsTile extends ConsumerWidget{
                     showSelectedIcon: false,
                     multiSelectionEnabled: true,
                     selected: groups[group]!,
-                    segments: List.generate(maxGroups, (
-                      index) =>
+                    segments: List.generate(maxGroups, (index) =>
                       ButtonSegment(
                         value: index + 1,
                         label: Text("${index + 1}")
@@ -52,7 +51,7 @@ final class PansGroupsTile extends ConsumerWidget{
                     ),
                     onSelectionChanged: (selection) {
                       ref.read(SettingsProvider.instance.notifier)
-                          .setGroupNumbers(group, selection);
+                        .setGroupNumbers(group, selection);
                     },
                   ),
                 ),

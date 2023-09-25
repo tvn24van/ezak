@@ -18,8 +18,8 @@ final class CourseHero extends StatelessWidget{
         pansLeading: Tooltip(
           message: MaterialLocalizations.of(context).backButtonTooltip,
           child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.adaptive.arrow_back)
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.adaptive.arrow_back)
           ),
         ),
         leadingText: course.name,
@@ -33,8 +33,8 @@ final class CourseHero extends StatelessWidget{
       body: Column(
         children: [
           Hero(
-              tag: course,
-              child: CourseWidget.getIconDescribingCourse(course)
+            tag: course,
+            child: CourseWidget.getIconDescribingCourse(course)
           ),
           Text(
             CourseWidget.getTranslationDescribingCourseLocation(course, context)
