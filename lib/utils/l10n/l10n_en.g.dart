@@ -109,6 +109,18 @@ class L10nEn extends L10n {
   String get schedule_updating => 'Schedule updating';
 
   @override
+  String get clearing_data => 'Clearing data';
+
+  @override
+  String get clear_data => 'Clear data';
+
+  @override
+  String get clear_data_confirmation => 'Are you sure you want to clear the data?';
+
+  @override
+  String get clear_data_description => 'After a semester you may want to clear caches of schedules you\'ve been viewing';
+
+  @override
   String get auto_updates => 'Auto updates';
 
   @override

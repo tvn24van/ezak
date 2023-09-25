@@ -4,6 +4,7 @@ import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
 import 'package:ezak/widgets/tiles/auto_update_tile.dart';
+import 'package:ezak/widgets/tiles/clear_data_tile.dart';
 import 'package:ezak/widgets/tiles/theme_tile.dart';
 import 'package:ezak/widgets/tiles/update_schedule_tile.dart';
 import 'package:ezak/widgets/tiles/groups_tile.dart';
@@ -73,7 +74,8 @@ final class SettingsPage extends StatelessWidget{
               PansTeacherTile(),
               PansSpecializationTile(),
               PansGroupsTile(),
-              PansUpdateScheduleTile()
+              PansUpdateScheduleTile(),
+              PansClearDataTile()
             ],
           ),
         ),

@@ -109,6 +109,18 @@ class L10nPl extends L10n {
   String get schedule_updating => 'Aktualizowanie planu';
 
   @override
+  String get clearing_data => 'Czyszczenie danych';
+
+  @override
+  String get clear_data => 'Wyczyść dane';
+
+  @override
+  String get clear_data_confirmation => 'Czy napewno chcesz wyczyścić dane?';
+
+  @override
+  String get clear_data_description => 'Po upłynięciu semestru możesz wyczyścić pamięć podręczną przeglądanych planów';
+
+  @override
   String get auto_updates => 'Automatyczne aktualizacje';
 
   @override

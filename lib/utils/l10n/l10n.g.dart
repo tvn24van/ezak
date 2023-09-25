@@ -267,6 +267,30 @@ abstract class L10n {
   /// **'Aktualizowanie planu'**
   String get schedule_updating;
 
+  /// No description provided for @clearing_data.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czyszczenie danych'**
+  String get clearing_data;
+
+  /// No description provided for @clear_data.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wyczyść dane'**
+  String get clear_data;
+
+  /// No description provided for @clear_data_confirmation.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy napewno chcesz wyczyścić dane?'**
+  String get clear_data_confirmation;
+
+  /// No description provided for @clear_data_description.
+  ///
+  /// In pl, this message translates to:
+  /// **'Po upłynięciu semestru możesz wyczyścić pamięć podręczną przeglądanych planów'**
+  String get clear_data_description;
+
   /// No description provided for @auto_updates.
   ///
   /// In pl, this message translates to:

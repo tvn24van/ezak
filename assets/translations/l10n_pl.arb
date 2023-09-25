@@ -48,6 +48,11 @@
   "check_for_schedule_update": "Sprawdź aktualność planu",
   "schedule_updating": "Aktualizowanie planu",
 
+  "clearing_data": "Czyszczenie danych",
+  "clear_data": "Wyczyść dane",
+  "clear_data_confirmation": "Czy napewno chcesz wyczyścić dane?",
+  "clear_data_description": "Po upłynięciu semestru możesz wyczyścić pamięć podręczną przeglądanych planów",
+
   "auto_updates": "Automatyczne aktualizacje",
   "auto_updates_subtitle": "Automatyczne aktualizacje działają tylko dla studentów z powodu limitów narzuconych przez REST API",
 

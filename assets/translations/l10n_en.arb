@@ -19,6 +19,10 @@
   "specialization": "Specialization",
   "error_occurred": "An error occurred:",
   "schedule_updating": "Schedule updating",
+  "clearing_data": "Clearing data",
+  "clear_data": "Clear data",
+  "clear_data_confirmation": "Are you sure you want to clear the data?",
+  "clear_data_description": "After a semester you may want to clear caches of schedules you've been viewing",
   "legend": "Legend",
   "group_name": "{group, select, lecture{Lecture} exercises{Exercises} laboratories{Laboratories} project{Project} seminar{Seminar} other{Other}}",
   "@group_name": {
