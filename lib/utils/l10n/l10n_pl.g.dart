@@ -18,7 +18,7 @@ class L10nPl extends L10n {
   String get university_website => 'Strona uczelni';
 
   @override
-  String get mail_us => 'Wyślij maila';
+  String get contact => 'Kontakt';
 
   @override
   String get date_selection => 'Wybór daty';

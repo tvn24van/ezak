@@ -18,7 +18,7 @@ class L10nEn extends L10n {
   String get university_website => 'University\'s website';
 
   @override
-  String get mail_us => 'Mail us';
+  String get contact => 'Contact';
 
   @override
   String get date_selection => 'Date selection';

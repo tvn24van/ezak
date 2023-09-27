@@ -35,16 +35,16 @@ final class PansAboutAppPopupItem extends PopupMenuItem{
                   child: const Text("Github")
                 ),
                 ElevatedButton(
-                    onPressed: () async{
-                      await launchUrl(Constants.supportMail);
-                    },
-                    child: Text(L10n.of(context).mail_us)
-                ),
-                ElevatedButton(
                   onPressed: () async{
                     await launchUrl(Constants.pansWebsite, mode: LaunchMode.externalApplication);
                   },
                   child: Text(L10n.of(context).university_website)
+                ),
+                ElevatedButton(
+                  onPressed: () async{
+                    await launchUrl(Constants.supportMail);
+                  },
+                  child: Text(L10n.of(context).contact)
                 ),
               ],
             )

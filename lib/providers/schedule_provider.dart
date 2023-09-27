@@ -55,6 +55,8 @@ final class ScheduleProvider extends AsyncNotifier<Schedule>{
     return Schedule(values.first as DatesMap, values.last as CoursesList);
   }
 
+  /// [ignoreAutoUpdate] indicates if we should ignore settings option for ignoring
+  /// auto-updates so it will force check for an update
   @override
   Future<Schedule> build({bool ignoreAutoUpdate=false}) async {
     final schedule = await load(ignoreAutoUpdate: ignoreAutoUpdate)
@@ -69,6 +71,21 @@ final class ScheduleProvider extends AsyncNotifier<Schedule>{
     );
 
     return schedule;
+  }
+
+  Future<void> checkForUpdate() async{
+    final key = ref.read(SettingsProvider.instance.select((settings) => settings.specializationKey));
+    final isTeacher = ref.read(SettingsProvider.instance.select((settings)=> settings.isTeacher));
+
+    final downloadDate = await ScheduleLoader.getDownloadDate(isTeacher, key);
+    final updateDate = await ScheduleLoader.getUpdateDate(isTeacher, key)
+        .catchError((e) =>
+        downloadDate.subtract(1.seconds) //hack, if no internet connection
+    );
+
+    if(updateDate.isAfter(downloadDate)){
+      redownload();
+    }
   }
 
   Future<void> redownload() async{

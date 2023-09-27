@@ -56,7 +56,7 @@ mixin ScheduleWidget on ScheduleModel implements ConsumerWidgetTransformable{
           ),
           TextButton(
             onPressed: (){
-              ref.read(ScheduleProvider.instance.notifier).build(ignoreAutoUpdate: true);
+              ref.read(ScheduleProvider.instance.notifier).checkForUpdate();
               Navigator.of(context).pop();
             },
             child: Text(L10n.of(context).check_for_schedule_update)
