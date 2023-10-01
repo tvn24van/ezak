@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/model/schedule.dart';
 import 'package:intl/intl.dart';
+import 'package:time/time.dart';
 
 extension PlatformExtensions on Platform{
   static bool isMobile(){
@@ -11,9 +12,18 @@ extension PlatformExtensions on Platform{
   }
 }
 
-extension DateTimeSerializer on DateTime{
+extension DateTimeExtension on DateTime{
   String toLocaleString(Locale locale){
     return DateFormat.yMd(locale.languageCode).format(this);
+  }
+
+  int get weekOfMonth {
+    int sum = firstDayOfMonth.weekday - 1 + day;
+    if (sum % 7 == 0) {
+      return sum ~/ 7;
+    } else {
+      return sum ~/ 7 + 1;
+    }
   }
 }
 

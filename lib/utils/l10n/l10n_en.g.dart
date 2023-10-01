@@ -76,6 +76,15 @@ class L10nEn extends L10n {
   }
 
   @override
+  String get week => 'Week';
+
+  @override
+  String get even => 'parzysty';
+
+  @override
+  String get odd => 'nieparzysty';
+
+  @override
   String get change_language_if_you_like => 'Change language if you like';
 
   @override

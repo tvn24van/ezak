@@ -33,6 +33,11 @@
     }
   },
 
+  "week": "Tydzień",
+  "even": "parzysty",
+  "odd": "nieparzysty",
+
+
   "change_language_if_you_like": "Zmień język, jeśli chcesz",
   "set_whether_you_are_a_teacher": "Ustaw, czy jesteś nauczycielem",
   "choose_specialization": "Wybierz specjalizację / wykładowcę",

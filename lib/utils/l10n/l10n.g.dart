@@ -201,6 +201,24 @@ abstract class L10n {
   /// **'{group, select, lecture{Wykład} exercises{Ćwiczenia} laboratories{Laboratoria} project{Projekt} seminar{Seminarium} other{Inny}}'**
   String group_name(String group);
 
+  /// No description provided for @week.
+  ///
+  /// In pl, this message translates to:
+  /// **'Tydzień'**
+  String get week;
+
+  /// No description provided for @even.
+  ///
+  /// In pl, this message translates to:
+  /// **'parzysty'**
+  String get even;
+
+  /// No description provided for @odd.
+  ///
+  /// In pl, this message translates to:
+  /// **'nieparzysty'**
+  String get odd;
+
   /// No description provided for @change_language_if_you_like.
   ///
   /// In pl, this message translates to:

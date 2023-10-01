@@ -76,6 +76,15 @@ class L10nPl extends L10n {
   }
 
   @override
+  String get week => 'Tydzień';
+
+  @override
+  String get even => 'parzysty';
+
+  @override
+  String get odd => 'nieparzysty';
+
+  @override
   String get change_language_if_you_like => 'Zmień język, jeśli chcesz';
 
   @override
