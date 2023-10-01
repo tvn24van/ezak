@@ -55,9 +55,9 @@ final class PansSpecializationTile extends ConsumerWidget{
               onPressed: () => _searchController.openView(),
               child: Text(
                 isSelected?
-                data.entries.singleWhere((element) =>
-                element.value==selectedSpecialization
-                ).key:
+                  data.entries.singleWhere((element) =>
+                    element.key==selectedSpecialization
+                ).value:
                 titleText,
               ),
             );
@@ -81,7 +81,7 @@ final class PansSpecializationTile extends ConsumerWidget{
                 suggestionsBuilder: (context, controller){
                   final text = controller.text;
                   final filtered = data.entries.where((element) =>
-                    element.key.toLowerCase().contains(text.toLowerCase())
+                    element.value.toLowerCase().contains(text.toLowerCase())
                   );
                   if(filtered.isEmpty) {
                     return List.filled(1,
@@ -90,10 +90,10 @@ final class PansSpecializationTile extends ConsumerWidget{
                   }
                   return (text.isNotEmpty? filtered : data.entries).map((e) =>
                     ListTile(
-                      title: Text(e.key),
+                      title: Text(e.value),
                       onTap: (){
                         ref.read(SettingsProvider.instance.notifier).changeSpecialization(
-                          data.entries.firstWhere((element) => element.key==e.key).value
+                          data.entries.firstWhere((element) => element.value==e.value).key
                         );
                         controller.closeView('');
                       },
