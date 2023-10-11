@@ -37,9 +37,20 @@ dev_dependencies:
   json_serializable: ^6.6.1
   flutter_lints: ^2.0.1
   build_runner: ^2.3.3
+  msix: ^3.16.4
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/logotypes/
+
+msix_config:
+  display_name: eŻak Nysa
+  publisher_display_name: tvn24van
+  identity_name: 34396tvn24van.eakNysa
+  publisher: CN=3CF0E6F9-DE9C-4363-BF23-6185D8CED471
+  msix_version: 1.0.6.0
+  capabilities: internetClient
+  languages: pl, en, uk
+  store: true

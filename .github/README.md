@@ -6,6 +6,7 @@
 
 ## Downloads
 - [Android (Google Play)](https://play.google.com/store/apps/details?id=pl.tvn24van.ezak)
+- [Windows 10/11 (Microsoft Store)](https://www.microsoft.com/store/apps/9NGGHP8GX2CB)
 - [Other platforms (<u>SOON</u>)](https://github.com/tvn24van/ezak/releases/latest)
 
 ## TODOs
@@ -25,4 +26,5 @@ this is only possible with platform-specified code
 - for icons `flutter pub run flutter_launcher_icons`
 
 ## Building
-`flutter build <platform> --release`
+- `flutter build <platform> --release`
+- for Microsoft Store `dart run msix:create`
