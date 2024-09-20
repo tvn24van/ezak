@@ -88,13 +88,14 @@ final class SettingsProvider extends Notifier<Settings>{
       if(!schedule.containsDate(ref.read(SchedulePage.currentDate))){
         final accurateDate = schedule.getAccurateDate();
         ref.read(SchedulePage.currentDate.notifier)
-          .update((state) => accurateDate);
+            .update((state) => accurateDate);
         ref.read(SchedulePage.pageViewController.notifier).update((state) =>
             PageController(initialPage: schedule.getIndexOfDate(accurateDate))
         );
       }
     }
   }
+
 
   void toggleGroupNumber(Group group, int number){
     final groupNumbers = state.groups[group]!.toSet(); //creating new Set

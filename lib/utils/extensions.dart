@@ -1,14 +1,19 @@
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:ezak/model/course.dart';
 import 'package:ezak/model/schedule.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:time/time.dart';
 
 extension PlatformExtensions on Platform{
   static bool isMobile(){
-    return Platform.isAndroid || Platform.isFuchsia || Platform.isIOS;
+    // todo make it react to screen size on web
+    // return Platform.isAndroid || Platform.isFuchsia || Platform.isIOS;
+    return defaultTargetPlatform == TargetPlatform.android ||
+    defaultTargetPlatform == TargetPlatform.fuchsia ||
+    defaultTargetPlatform == TargetPlatform.iOS;
   }
 }
 

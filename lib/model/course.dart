@@ -158,4 +158,6 @@ class Course extends CourseModel with CourseWidget{
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 
+  Map<String, dynamic> toJson() => _$CourseToJson(this);
+
 }

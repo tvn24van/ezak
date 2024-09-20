@@ -41,6 +41,10 @@ final class PansApp extends ConsumerWidget {
       darkTheme: PansAppereance.darkTheme,
       themeMode: darkTheme? ThemeMode.dark : ThemeMode.light,
 
+      routes: {
+        "/settings": (context)=> const SettingsPage(), // idk if it is needed
+      },
+
       home: !firstLaunch? const SchedulePage() : const SettingsPage(),
     );
   }

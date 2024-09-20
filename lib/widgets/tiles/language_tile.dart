@@ -3,7 +3,7 @@ import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/utils/l10n/l10n_en.g.dart';
 import 'package:ezak/utils/l10n/l10n_pl.g.dart';
 import 'package:ezak/visuals/appereance.dart';
-import 'package:feature_discovery/feature_discovery.dart';
+import 'package:feature_discovery_fork/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

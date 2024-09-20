@@ -12,7 +12,7 @@ import 'package:ezak/widgets/popup_items/about_popup_item.dart';
 import 'package:ezak/widgets/tiles/specialization_tile.dart';
 import 'package:ezak/widgets/tiles/language_tile.dart';
 import 'package:ezak/widgets/tiles/teacher_tile.dart';
-import 'package:feature_discovery/feature_discovery.dart';
+import 'package:feature_discovery_fork/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

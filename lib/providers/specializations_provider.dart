@@ -19,4 +19,5 @@ final specializationsProvider = FutureProvider<Map<int, String>>((ref) async {
   };
 
   return specializations;
+  // return {1: "Informatyka", 2: "aaa"};
 });
