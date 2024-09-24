@@ -5,13 +5,12 @@ import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/visuals/appereance.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansApp extends ConsumerWidget {
   const PansApp({super.key});
-
-  static const bool debug = bool.fromEnvironment('debug', defaultValue: false);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,10 +25,10 @@ final class PansApp extends ConsumerWidget {
     ) == Settings.defaultSpecializationKey;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: debug,
-      checkerboardOffscreenLayers: debug,
-      checkerboardRasterCacheImages: debug,
-      debugShowMaterialGrid: debug,
+      debugShowCheckedModeBanner: kDebugMode,
+      checkerboardOffscreenLayers: kDebugMode,
+      checkerboardRasterCacheImages: kDebugMode,
+      debugShowMaterialGrid: kDebugMode,
 
       title: Constants.appName,
 
