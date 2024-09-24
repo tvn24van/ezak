@@ -20,7 +20,7 @@ final class PansApp extends ConsumerWidget {
     final locale = ref.watch(
       SettingsProvider.instance.select((settings) => settings.locale)
     );
-    final firstLaunch = ref.read(
+    final firstLaunch = ref.read( // todo make it a provider ?
       SettingsProvider.instance.select((settings) => settings.specializationKey)
     ) == Settings.defaultSpecializationKey;
 
@@ -41,7 +41,7 @@ final class PansApp extends ConsumerWidget {
       themeMode: darkTheme? ThemeMode.dark : ThemeMode.light,
 
       routes: {
-        "/settings": (context)=> const SettingsPage(), // idk if it is needed
+        "/settings": (context)=> const SettingsPage(), // todo idk if it is the best way for routing
       },
 
       home: !firstLaunch? const SchedulePage() : const SettingsPage(),
