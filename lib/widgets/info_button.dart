@@ -12,7 +12,7 @@ final class PansInfoButton extends StatelessWidget{
         showAdaptiveDialog(context: context, builder: (context) {
           return AlertDialog.adaptive(
             title: Text(L10n.of(context).legend),
-            content: Column(
+            content: Column( // todo make text not overflow on small devices
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
