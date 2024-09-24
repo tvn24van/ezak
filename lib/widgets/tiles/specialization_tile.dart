@@ -26,7 +26,7 @@ final class PansSpecializationTile extends ConsumerWidget{
       L10n.of(context).lecturer:
       L10n.of(context).specialization;
 
-    // if(selectedSpecialization == Settings.defaultSpecializationKey){
+    // if(selectedSpecialization == Settings.defaultSpecializationKey){ // todo we must handle this better
     //   WidgetsBinding.instance.addPostFrameCallback((_) =>
     //     FeatureDiscovery.discoverFeatures(
     //       context,
@@ -75,7 +75,7 @@ final class PansSpecializationTile extends ConsumerWidget{
               ),
               child: SearchAnchor(
                 searchController: _searchController,
-                isFullScreen: PlatformExtensions.isMobile(),
+                isFullScreen: PlatformExtensions.isMobile(), // todo make it react to screen size on web
                 viewHintText: titleText,
                 builder: (context, controller) => button,
                 suggestionsBuilder: (context, controller){
