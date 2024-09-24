@@ -38,7 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
   json_serializable: ^6.6.1
   flutter_lints: ^4.0.0
   custom_lint: ^0.6.7
