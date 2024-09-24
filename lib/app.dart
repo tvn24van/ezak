@@ -25,10 +25,10 @@ final class PansApp extends ConsumerWidget {
     ) == Settings.defaultSpecializationKey;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: kDebugMode,
+      debugShowMaterialGrid: false,
+      debugShowCheckedModeBanner: false,
       checkerboardOffscreenLayers: kDebugMode,
       checkerboardRasterCacheImages: kDebugMode,
-      debugShowMaterialGrid: kDebugMode,
 
       title: Constants.appName,
 
