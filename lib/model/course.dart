@@ -42,6 +42,7 @@ part 'course.g.dart';
 
 abstract class CourseModel{
   final int id;
+  final int semesterId;
   final String name;
   final String lecturer;
   final DateTime date;
@@ -59,6 +60,7 @@ abstract class CourseModel{
 
   CourseModel(
     this.id,
+    this.semesterId,
     this.name,
     this.lecturer,
     this.date,
@@ -210,9 +212,9 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
   @JsonKey(name: 'skrot')
   get lecturer;
 
-  /// needs to be fetched from another path
-  @override
-  get date;
+  // needs to be fetched from another path
+  // @override
+  // get date;
 
   /// Course start hour
   @override
@@ -257,6 +259,7 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
 
   Course({
     required id,
+    required semesterId,
     required name,
     required date,
     required startTime,
@@ -267,7 +270,7 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
     required lecturer,
     required location,
     required roomNumber,
-  }):super(id, name, lecturer, date, startTime, /*timeOfCourse,*/ endTime, group, groupNumber, location, roomNumber);
+  }):super(id, semesterId, name, lecturer, date, startTime, /*timeOfCourse,*/ endTime, group, groupNumber, location, roomNumber);
 
   /// Returns whether this course
   /// will take place online or not
@@ -322,6 +325,7 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
   Map<String, drift.Expression<Object>> toColumns(bool nullToAbsent) {
     return CourseTableCompanion(
       id: drift.Value(id),
+      semesterId: drift.Value(semesterId),
       name: drift.Value(name),
       date: drift.Value(date),
       endTime: drift.Value(endTime),
