@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 final class CourseHero extends StatelessWidget{
-  final Course course;
+  final CourseModel course;
   const CourseHero({super.key, required this.course});
 
   @override

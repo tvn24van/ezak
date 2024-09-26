@@ -6,10 +6,8 @@ final class PansSettingsPopupItem extends PopupMenuItem{
   final BuildContext context;
 
   PansSettingsPopupItem(this.context, {super.key}):super(
-    onTap: () => Future(() =>
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => const SettingsPage(), settings: const RouteSettings(name: "/settings")),
-      ),
+    onTap: () => Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const SettingsPage(), settings: const RouteSettings(name: "/settings")),
     ),
     padding: EdgeInsets.zero,
     child: ListTile(

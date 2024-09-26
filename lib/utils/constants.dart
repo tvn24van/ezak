@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:time/time.dart';
+import 'package:ezak/utils/extensions.dart';
 
 final class Constants{
-  static String appName = DateTime.now().isAtSameDayAs(DateTime(DateTime.now().year, 4, 1))? 'leŻak Nysa' : 'eŻak Nysa';
+  static String appName = DateTime.now().isAprilFoolsDay? 'leŻak Nysa' : 'eŻak Nysa';
   //theres a problem with ssl certificate on server-side, nothing to do there
   static const restUrl = 'mobile.pwsz.nysa.pl'; //'mobile.pans.nysa.pl';
 
@@ -12,7 +12,7 @@ final class Constants{
       scheme: 'mailto',
       path: 'ezaknysa@gmail.com',
       queryParameters: {
-        'subject': 'Help / Idea',
+        'subject': 'Help/Idea',
         'body': 'Please change mail subject depending on your intentions'
       },
   );

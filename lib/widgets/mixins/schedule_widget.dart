@@ -30,7 +30,7 @@ mixin ScheduleWidget on ScheduleModel implements ConsumerWidgetTransformable{
         final courses = isTeacher || groups.areGroupsEmpty()?
           getCoursesForDate(getDateOfIndex(index)):
           getCoursesForDateAndGroup(getDateOfIndex(index), groups);
-        courses.sort((a,b)=> a.startHour.compareTo(b.startHour));
+        courses.sort((a,b)=> a.startTime.compareTo(b.startTime));
         return RefreshIndicator(
           onRefresh: () async{
             showUpdateDialog(context, ref);

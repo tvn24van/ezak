@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'l10n_en.g.dart';
 import 'l10n_pl.g.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of L10n
 /// returned by `L10n.of(context)`.
 ///

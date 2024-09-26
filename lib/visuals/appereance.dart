@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:time/time.dart';
 
 /// {@template pans_colors}
 /// All these colors were grabbed from this
@@ -19,7 +18,7 @@ final class _PansColors{
 final class _PansPageControllerSettings{
   const _PansPageControllerSettings();
 
-  get duration => 500.milliseconds;
+  get duration => const Duration(milliseconds: 500);
   get curve => Curves.easeInOut;
 }
 
@@ -38,7 +37,8 @@ final class PansAppereance {
       seedColor: colors.red,
       primary: colors.red,
       secondary: colors.gray,
-      onBackground: colors.gray
+      // onBackground: colors.gray
+      onSurface: colors.gray
     )
   );
 
@@ -49,7 +49,8 @@ final class PansAppereance {
       seedColor: colors.red,
       primary: colors.red,
       secondary: colors.gray,
-      onBackground: colors.gray
+      // onBackground: colors.gray
+      onSurface: colors.gray
     )
   );
 

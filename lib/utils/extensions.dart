@@ -4,7 +4,6 @@ import 'package:ezak/model/schedule.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:time/time.dart';
 
 extension PlatformExtensions on Platform{
   static bool isMobile(){
@@ -19,14 +18,18 @@ extension DateTimeExtension on DateTime{
     return DateFormat.yMd(locale.languageCode).format(this);
   }
 
-  int get weekOfMonth {
-    int sum = firstDayOfMonth.weekday - 1 + day;
-    if (sum % 7 == 0) {
-      return sum ~/ 7;
-    } else {
-      return sum ~/ 7 + 1;
-    }
+  bool get isAprilFoolsDay{
+    return month == 4 && day == 1;
   }
+
+  // int get weekOfMonth { // todo not sure if this is really used in project
+  //   int sum = firstDayOfMonth.weekday - 1 + day;
+  //   if (sum % 7 == 0) {
+  //     return sum ~/ 7;
+  //   } else {
+  //     return sum ~/ 7 + 1;
+  //   }
+  // }
 }
 
 extension DurationToHour on Duration{

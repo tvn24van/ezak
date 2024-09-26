@@ -1,6 +1,5 @@
 import 'package:ezak/model/course.dart';
 import 'package:ezak/pages/hero/course_hero.dart';
-import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/widgets/abstract/widget_transformable.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +31,10 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(L10n.of(context).from_hour(startHour.formatTime())),
-                  Text(L10n.of(context).to_hour(endHour.formatTime())),
+                  // Text(L10n.of(context).from_hour(startHour.formatTime())),
+                  // Text(L10n.of(context).to_hour(endHour.formatTime())),
+                  Text(L10n.of(context).from_hour(startTime.format(context))),
+                  Text(L10n.of(context).to_hour(endTime.format(context))),
                 ],
               ),
               const SizedBox(width: 15,),
