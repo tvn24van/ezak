@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/model/schedule.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension PlatformExtensions on Platform{
@@ -18,9 +18,7 @@ extension DateTimeExtension on DateTime{
     return DateFormat.yMd(locale.languageCode).format(this);
   }
 
-  bool get isAprilFoolsDay{
-    return month == 4 && day == 1;
-  }
+  bool get isAprilFoolsDay => month == 4 && day == 1;
 
   // int get weekOfMonth { // todo not sure if this is really used in project
   //   int sum = firstDayOfMonth.weekday - 1 + day;
@@ -30,6 +28,11 @@ extension DateTimeExtension on DateTime{
   //     return sum ~/ 7 + 1;
   //   }
   // }
+}
+
+extension TimeOfDayExtension on TimeOfDay{
+  int get minutes => hour * TimeOfDay.minutesPerHour + minute;
+  operator >(TimeOfDay other) => minutes > other.minutes;
 }
 
 extension DurationToHour on Duration{

@@ -3,6 +3,7 @@ import 'package:ezak/model/settings.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
+import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/widgets/day_view.dart';
 import 'package:ezak/widgets/abstract/widget_transformable.dart';
@@ -30,7 +31,8 @@ mixin ScheduleWidget on ScheduleModel implements ConsumerWidgetTransformable{
         final courses = isTeacher || groups.areGroupsEmpty()?
           getCoursesForDate(getDateOfIndex(index)):
           getCoursesForDateAndGroup(getDateOfIndex(index), groups);
-        courses.sort((a,b)=> a.startTime.compareTo(b.startTime));
+        // courses.sort((a,b)=> a.startTime.compareTo(b.startTime));
+        courses.sort((a,b)=> a.startTime > b.startTime);
         return RefreshIndicator(
           onRefresh: () async{
             showUpdateDialog(context, ref);
