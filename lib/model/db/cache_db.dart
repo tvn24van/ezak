@@ -14,8 +14,7 @@ part 'cache_db.g.dart';
 class CacheDb extends _$CacheDb{
   static final instance = Provider((ref) => CacheDb());
 
-  CacheDb()
-      : super(
+  CacheDb() : super(
     driftDatabase(
       name: "cache",
       web: DriftWebOptions(
