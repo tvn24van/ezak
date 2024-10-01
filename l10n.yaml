@@ -1,7 +1,7 @@
 arb-dir: assets/translations
 template-arb-file: l10n_pl.arb
 
-output-dir: lib/utils/l10n
+output-dir: lib/l10n
 synthetic-package: false
 
 output-localization-file: l10n.g.dart
