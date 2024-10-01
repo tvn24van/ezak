@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
 import 'package:ezak/model/course.dart';
-import 'package:ezak/model/db/converters/time_of_day_converter.dart';
-import 'package:ezak/model/db/tables/course_table.dart';
-import 'package:ezak/model/db/tables/semester_table.dart';
+import 'package:ezak/db/converters/time_of_day_converter.dart';
+import 'package:ezak/db/tables/course_table.dart';
+import 'package:ezak/db/tables/semester_table.dart';
 import 'package:ezak/model/group.dart';
 import 'package:flutter/material.dart' hide Table; // generated file panicked when saw Table
 import 'package:flutter_riverpod/flutter_riverpod.dart';
