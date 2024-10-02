@@ -1,15 +1,15 @@
-import 'dart:io';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/model/schedule.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-extension PlatformExtensions on Platform{
-  static bool isMobile(){
-    return defaultTargetPlatform == TargetPlatform.android ||
-    defaultTargetPlatform == TargetPlatform.fuchsia ||
-    defaultTargetPlatform == TargetPlatform.iOS;
+extension PlatformExtensions on TargetPlatform{
+  bool isMobile(){
+    return /*kIsWeb? false:*/
+      defaultTargetPlatform == TargetPlatform.android ||
+      defaultTargetPlatform == TargetPlatform.fuchsia ||
+      defaultTargetPlatform == TargetPlatform.iOS;
   }
 }
 

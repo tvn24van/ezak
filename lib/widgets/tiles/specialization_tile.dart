@@ -2,9 +2,10 @@ import 'package:ezak/model/settings.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/providers/specializations_provider.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/visuals/appereance.dart';
-import 'package:feature_discovery_fork/feature_discovery.dart';
+import 'package:flutter/foundation.dart';
+// import 'package:feature_discovery_fork/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -75,7 +76,7 @@ final class PansSpecializationTile extends ConsumerWidget{
               ),
               child: SearchAnchor(
                 searchController: _searchController,
-                isFullScreen: PlatformExtensions.isMobile(), // todo make it react to screen size on web
+                isFullScreen: defaultTargetPlatform.isMobile(), // todo make it react to screen size on web
                 viewHintText: titleText,
                 builder: (context, controller) => button,
                 suggestionsBuilder: (context, controller){
