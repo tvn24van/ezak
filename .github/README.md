@@ -5,7 +5,7 @@
 - Nieoficjalna aplikacja do przeglądania planu PANS w Nysie
 
 ## Website
-- <a href="https://ezak.pages.dev" target="_blank">ezak.pages.dev</a>
+- [ezak.pages.dev](https://ezak.pages.dev)
 
 ## Downloads
 - [Android (Google Play)](https://play.google.com/store/apps/details?id=pl.tvn24van.ezak)
@@ -22,5 +22,5 @@
 this is only possible with platform-specified code
 
 ## Building
-- `dart run build_runner <build|watch> && flutter build <web|windows|apk> --release`
+- `dart run build_runner <build|watch> && flutter build <web|windows|linux|apk|ios|macos> --release`
 - for Microsoft Store `dart run msix:create`
