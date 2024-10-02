@@ -5,7 +5,7 @@
 - Nieoficjalna aplikacja do przeglądania planu PANS w Nysie
 
 ## Website
-- [ezak.pages.dev](https://ezak.pages.dev)
+- <a href="https://ezak.pages.dev" target="_blank">ezak.pages.dev</a>
 
 ## Downloads
 - [Android (Google Play)](https://play.google.com/store/apps/details?id=pl.tvn24van.ezak)
