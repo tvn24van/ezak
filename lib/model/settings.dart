@@ -23,8 +23,8 @@ class Settings{
   /// locale in which app will be displayed
   final Locale locale;
 
-  /// true if user selected teacher's mode
-  final bool isTeacher;
+  /// true if user selected lecturer's mode
+  final bool isLecturer;
 
   /// identifies which semester and specialization
   /// user wants to display
@@ -37,14 +37,14 @@ class Settings{
     bool? darkTheme,
     bool? autoUpdates,
     Locale? locale,
-    bool? isTeacher,
+    bool? isLecturer,
     int? specializationKey,
     GroupsMap? groups,
   }):
   locale = locale ?? Constants.defaultLocale,
   darkTheme = darkTheme ?? false,
   autoUpdates = autoUpdates ?? true,
-  isTeacher = isTeacher ?? false,
+  isLecturer = isLecturer ?? false,
   specializationKey = specializationKey ?? defaultSpecializationKey, // 0 when no groups were selected
   groups = groups ?? Settings.defaultGroups;
 
@@ -68,14 +68,14 @@ class Settings{
     bool? darkTheme,
     bool? autoUpdates,
     Locale? locale,
-    bool? isTeacher,
+    bool? isLecturer,
     int? specializationKey,
     GroupsMap? groups,
   })=> Settings(
     darkTheme: darkTheme ?? this.darkTheme,
     autoUpdates: autoUpdates ?? this.autoUpdates,
     locale: locale ?? this.locale,
-    isTeacher: isTeacher ?? this.isTeacher,
+    isLecturer: isLecturer ?? this.isLecturer,
     specializationKey: specializationKey ?? this.specializationKey,
     groups: groups ?? this.groups,
   );
