@@ -1,5 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:ezak/db/tables/courses_dates_table.dart';
+import 'package:ezak/db/tables/dates_table.dart';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/db/converters/time_of_day_converter.dart';
 import 'package:ezak/db/tables/course_table.dart';
@@ -10,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'cache_db.g.dart';
 
-@DriftDatabase(tables: [CourseTable, SemesterTable])
+@DriftDatabase(tables: [CourseTable, DatesTable, CoursesDatesTable, SemesterTable])
 class CacheDb extends _$CacheDb{
   static final instance = Provider((ref) => CacheDb());
 
@@ -46,20 +48,33 @@ class CacheDb extends _$CacheDb{
   }
 
   Future<Semester?> getLastSemester(){
-    return (select(semesterTable)..orderBy([(t)=>OrderingTerm.desc(t.id)])..limit(1)).getSingleOrNull();
+    return (select(semesterTable)..orderBy([(t)=>OrderingTerm.asc(t.id)])..limit(1)).getSingleOrNull();
   }
 
-  Future<List<Course>> getCourses(){
-    return courseTable.all().get();
+  Future<bool> isCached({required int key, required bool isLecturer}) async{
+    return (select(coursesDatesTable)
+      ..where((tbl) => tbl.isLecturer.equals(isLecturer) & tbl.key.equals(key))
+      ..limit(1)
+    ).getSingleOrNull().then((value) => value!=null);
   }
 
-  Future<Course?> getCourse(int semesterId, Expression<bool> Function(GeneratedColumn<DateTime>) lambda){
-    return (courseTable.select()..where((tbl) => tbl.semesterId.equals(semesterId) & lambda(tbl.date))).getSingleOrNull();
-  }
+  Future<List<Course>> getCourses({
+    required int key,
+    required bool isLecturer,
+    required Expression<bool> Function(GeneratedColumn<DateTime>) date}){
 
-  // Future addCourse(Course course){
-  //   return courseTable.insertOne(course);
-  // }
+    return (select(courseTable)
+      ..where((courseTbl) => courseTbl.coursesDatesId.isInQuery(select(coursesDatesTable)
+        ..where((coursesDatesTbl) =>
+          coursesDatesTbl.key.equals(key) &
+          coursesDatesTbl.isLecturer.equals(isLecturer) &
+          coursesDatesTbl.id.isInQuery(select(datesTable)
+            ..where((datesTbl) => date(datesTbl.date))
+          )
+        )
+      ))
+    ).get();
+  }
 
   Future<void> addCourses(List<Course> courses) async {
     await batch((batch) {
