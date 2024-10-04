@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:ezak/model/actor.dart';
-import 'package:ezak/db/tables/semester_table.dart';
+import 'package:ezak/db/tables/courses_dates_table.dart';
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/db/converters/time_of_day_converter.dart';
@@ -12,16 +11,9 @@ import 'package:ezak/db/converters/time_of_day_converter.dart';
 // @TableIndex(name: "course_index_by_date_and_semester", columns: {#semesterId, #date})
 class CourseTable extends Table{
 
-  @override
-  Set<Column> get primaryKey => {id, specialization, owner};
-
   IntColumn get id => integer()();
 
-  IntColumn get specialization => integer()();
-
-  IntColumn get owner => intEnum<Actor>()();
-
-  // IntColumn get semesterId => integer().references(SemesterTable, #id)();
+  IntColumn get coursesDatesId => integer().references(CoursesDatesTable, #id)();
 
   TextColumn get name => text()();
 
