@@ -30,6 +30,9 @@ class Settings{
   /// user wants to display
   final int specializationKey;
 
+  /// similar to [specializationKey]
+  final int lecturerKey;
+
   /// groups selected to display
   final GroupsMap groups;
 
@@ -39,6 +42,7 @@ class Settings{
     Locale? locale,
     bool? isLecturer,
     int? specializationKey,
+    int? lecturerKey,
     GroupsMap? groups,
   }):
   locale = locale ?? Constants.defaultLocale,
@@ -46,6 +50,7 @@ class Settings{
   autoUpdates = autoUpdates ?? true,
   isLecturer = isLecturer ?? false,
   specializationKey = specializationKey ?? defaultSpecializationKey, // 0 when no groups were selected
+  lecturerKey = lecturerKey ?? defaultSpecializationKey,
   groups = groups ?? Settings.defaultGroups;
 
   static const int defaultSpecializationKey = 0;
@@ -58,18 +63,13 @@ class Settings{
     Group.seminar: <int>{},
   };
 
-  // static const GroupsMap defaultGroups = GroupsMap.fromEntries( //sadly, any of these work
-  //   // for(var group in Group.values) group: <int>{1}
-  //   for(var group in Group.values) MapEntry(group, <int>{1})
-  //   // Group.values.map((group) => MapEntry(group, <int>{1}))
-  // );
-
   Settings copyWith({
     bool? darkTheme,
     bool? autoUpdates,
     Locale? locale,
     bool? isLecturer,
     int? specializationKey,
+    int? lecturerKey,
     GroupsMap? groups,
   })=> Settings(
     darkTheme: darkTheme ?? this.darkTheme,
@@ -77,6 +77,7 @@ class Settings{
     locale: locale ?? this.locale,
     isLecturer: isLecturer ?? this.isLecturer,
     specializationKey: specializationKey ?? this.specializationKey,
+    lecturerKey: lecturerKey ?? this.lecturerKey,
     groups: groups ?? this.groups,
   );
 
