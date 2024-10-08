@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:ezak/model/course.dart';
-import 'package:ezak/model/decoders/hours_decoder.dart';
+import 'package:ezak/model/decoders/time_decoder.dart';
+import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/widgets/break_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -30,15 +31,15 @@ final class PansDayView extends StatelessWidget{
               TimeDecoder.breakLength;
 
             return [
-              if (currentBreak > TimeDecoder.breakLength)
-                PansBreakIndicator(currentBreak),
+              // if (currentBreak > TimeDecoder.breakLength) // todo repair this functionality
+              //   PansBreakIndicator(currentBreak),
               course.toWidget(context),
             ];
           }),
 
           // just a little space underneath to prevent fabs from covering
           // courses (spotted on windows, may not appear elsewhere)
-          const SizedBox(height: 90,),
+          const SizedBox(height: 90),
         ],
       ),
     );
