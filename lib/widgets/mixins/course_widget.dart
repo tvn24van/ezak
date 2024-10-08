@@ -1,6 +1,6 @@
 import 'package:ezak/model/course.dart';
 import 'package:ezak/pages/hero/course_hero.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/abstract/widget_transformable.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 import 'package:ezak/pages/settings_page.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 
 final class PansSettingsPopupItem extends PopupMenuItem{

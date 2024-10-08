@@ -1,5 +1,4 @@
-import 'package:ezak/utils/app_dir_utils.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 
 final class PansClearDataTile extends StatelessWidget{
@@ -22,7 +21,7 @@ final class PansClearDataTile extends StatelessWidget{
                 child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
               ),
               TextButton(
-                onPressed: () async=> AppDir.clear(),
+                onPressed: () async=> {}, // todo implement clearing
                 child: Text(MaterialLocalizations.of(context).okButtonLabel)
               )
             ],
