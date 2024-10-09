@@ -11,7 +11,7 @@ final keysProvider = FutureProvider<Map<int, String>>((ref) async {
   final teacherMode = ref.watch(SettingsProvider.instance.select((setting) => setting.isLecturer));
   final client = RetryClient(http.Client(), retries: 1);
   final response = await client.get(
-    Uri.http(Constants.restUrl, 'rest/${teacherMode?'prowadzacy':'wytrych'}')
+    Constants.restUrl.replace(path: 'rest/${teacherMode?'prowadzacy':'wytrych'}')
   );
   final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
 
