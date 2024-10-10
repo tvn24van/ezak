@@ -30,13 +30,13 @@ final class PansAboutAppPopupItem extends PopupMenuItem{
               children: [
                 ElevatedButton(
                   onPressed: () async{
-                    await launchUrl(Constants.github, mode: LaunchMode.externalApplication);
+                    await launchUrl(Constants.githubUrl, mode: LaunchMode.externalApplication);
                   },
                   child: const Text("Github")
                 ),
                 ElevatedButton(
                   onPressed: () async{
-                    await launchUrl(Constants.pansWebsite, mode: LaunchMode.externalApplication);
+                    await launchUrl(Constants.pansWebsiteUrl, mode: LaunchMode.externalApplication);
                   },
                   child: Text(L10n.of(context).university_website)
                 ),
