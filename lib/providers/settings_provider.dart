@@ -1,7 +1,5 @@
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
-// import 'package:ezak/pages/schedule_page.dart';
-// import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +19,12 @@ final class SettingsProvider extends Notifier<Settings>{
   static final instance = NotifierProvider<SettingsProvider, Settings>(()=>
     SettingsProvider()
   );
+
+  /// provides key of specialization or lecturer according to selected setting
+  static final key = Provider((ref){
+    final isLecturer = ref.watch(instance.select((value) => value.isLecturer));
+    return ref.watch(instance.select((value) => isLecturer? value.lecturerKey : value.specializationKey));
+  });
 
   @override
   Settings build() {
@@ -127,18 +131,13 @@ final class SettingsProvider extends Notifier<Settings>{
     _saveGroupNumbers(group);
   }
 
-  void changeSpecializationKey(int key){
+  void changeKey(int key){
+    final isLecturer = ref.read(instance.select((value) => value.isLecturer));
     state = state.copyWith(
-      specializationKey: key
+      lecturerKey: isLecturer? key : null,
+      specializationKey: !isLecturer? key : null
     );
-    ref.read(sharedPreferences).setInt(_SettingsKeys.specializationKey, key);
-  }
-
-  void changeLecturerKey(int key){
-    state = state.copyWith(
-        lecturerKey: key
-    );
-    ref.read(sharedPreferences).setInt(_SettingsKeys.lecturerKey, key);
+    ref.read(sharedPreferences).setInt(isLecturer? _SettingsKeys.lecturerKey : _SettingsKeys.specializationKey, key);
   }
 
 }

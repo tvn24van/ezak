@@ -66,8 +66,8 @@ final class PansSpecializationTile extends ConsumerWidget{
                     ListTile(
                       title: Text(e.value),
                       onTap: (){
-                        ref.read(SettingsProvider.instance.notifier).changeSpecializationKey(
-                            data.entries.firstWhere((element) => element.value==e.value).key
+                        ref.read(SettingsProvider.instance.notifier).changeKey(
+                          data.entries.firstWhere((element) => element.value==e.value).key
                         );
                         controller.closeView('');
                       },
