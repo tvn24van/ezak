@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class TimeOfDayConverter extends TypeConverter<TimeOfDay, int> {
   @override
   TimeOfDay fromSql(int fromDb) {
-    return TimeOfDay(hour: fromDb ~/ TimeOfDay.minutesPerHour, minute: fromDb % TimeOfDay.minutesPerHour);
+    return TimeOfDayExtension.fromMinutes(fromDb);
   }
 
   @override
   int toSql(TimeOfDay value) {
-    return value.minutes;
+    return value.totalMinutes;
   }
 
 }
