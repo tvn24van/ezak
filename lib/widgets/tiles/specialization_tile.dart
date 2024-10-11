@@ -15,9 +15,7 @@ final class PansSpecializationTile extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final specializations = ref.watch(keysProvider);
-    final selectedSpecialization = ref.watch(
-        SettingsProvider.instance.select((settings) => settings.specializationKey)
-    );
+    final key = ref.watch(SettingsProvider.key);
     final isTeacher = ref.watch(
         SettingsProvider.instance.select((settings) => settings.isLecturer)
     );
@@ -34,14 +32,14 @@ final class PansSpecializationTile extends ConsumerWidget{
         child: specializations.when(
           data: (data){
 
-            final isSelected = selectedSpecialization != Settings.defaultSpecializationKey;
+            final isSelected = key != Settings.defaultSpecializationKey;
 
             final button = OutlinedButton(
               onPressed: () => _searchController.openView(),
               child: Text(
                 isSelected?
                   data.entries.singleWhere((element) =>
-                    element.key==selectedSpecialization
+                    element.key==key
                 ).value:
                 titleText,
               ),
