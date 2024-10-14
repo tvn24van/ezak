@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:ezak/db/cache_db.dart';
 import 'package:ezak/model/course.dart';
+import 'package:ezak/model/course_date.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +14,7 @@ class PansRestApi{
     final response = await httpClient.get(
       Constants.restUrl.replace(
         path: 'rest/kalendarz',
-        queryParameters: {'wytrych': key}
+        queryParameters: {'wytrych': '$key'}
       )
     );
 
@@ -41,7 +41,7 @@ class PansRestApi{
     final response = await httpClient.get(
       Constants.restUrl.replace(
         path: 'rest/kursy${isLecturer? 'prowadzacy':''}',
-        queryParameters: {isLecturer?'jegoid':'wytrych': key}
+        queryParameters: {isLecturer?'jegoid':'wytrych': '$key'}
       )
     );
     final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
@@ -57,7 +57,7 @@ class PansRestApi{
     final response = await httpClient.get(
       Constants.restUrl.replace(
         path: 'rest/daty${isLecturer? 'prowadzacy':''}',
-        queryParameters: {isLecturer?'jegoid':'wytrych': key}
+        queryParameters: {isLecturer?'jegoid':'wytrych': '$key'}
       )
     );
     final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
