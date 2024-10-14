@@ -1,8 +1,8 @@
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
-import 'package:ezak/providers/schedule_provider.dart';
+import 'package:ezak/providers/max_groups_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,22 +12,21 @@ final class PansGroupsTile extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groups = ref.watch(SettingsProvider.instance.select((settings) => settings.groups));
-    final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isTeacher));
-    final isSpecializationSelected = ref.watch(
-      SettingsProvider.instance.select((settings) => settings.specializationKey)
-    ) != Settings.defaultSpecializationKey;
+    final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isLecturer));
+
+    final isSpecializationSelected = ref.watch(SettingsProvider.key) != Settings.defaultSpecializationKey; // todo make a provider for this
 
     if(teacherMode || !isSpecializationSelected){
       return const SizedBox.shrink();
     }
 
-    return ref.watch(ScheduleProvider.instance).when(
+    return ref.watch(maxGroupsProvider).when(
       data:(data){
 
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: Group.values.map((group) {
-            final maxGroups = data.getMaxGroupNumber(group);
+            final maxGroups = data[group]!;
             if(maxGroups==0){
               return const SizedBox.shrink();
             }
