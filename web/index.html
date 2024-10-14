@@ -14,31 +14,35 @@
     <!-- Favicon -->
     <link rel="icon" href="/assets/assets/logotypes/crest.svg">
 
+    <!-- fixes splash image displacement -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>eŻak Nysa</title>
     <link rel="manifest" href="manifest.json">
-  <style id="splash-screen-style">
-    html {
-      height: 100%
-    }
+    <style id="splash-screen-style">
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100%;
-      background-color: #DDDDDD;
-        background-size: 100% 100%;
-    }
+        body {
+            margin: 0;
+            min-height: 100%;
+            background-color: #DDDDDD;
+            background-size: 100% 100%;
+        }
 
-    #image {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        height: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-    }
+        #image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
 
-  </style>
+    </style>
 
 </head><body>
     <picture id="splash">
