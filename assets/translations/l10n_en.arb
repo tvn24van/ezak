@@ -1,15 +1,25 @@
 {
-  "caption": "eŻak Nysa ™️ is a clone of e-Student Nysa app, and exists to deliver our schedule even faster and more convenient!",
+  "caption": "{appName}™️ is a clone of e-Student Nysa app, and exists to deliver our schedule even faster and more convenient!",
+  "@caption": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "choose_courses_date": "Select a class date",
   "university_website": "University's website",
+  "contact": "Contact",
   "date_selection": "Date selection",
   "informations": "Info",
   "theme_change": "Theme change",
+  "dark_theme": "Dark theme",
   "previous_day": "Previous day",
   "next_day": "Next day",
   "language": "Language",
   "academic_teacher_mode": "Teacher mode",
   "specialization": "Specialization",
+  "no_matches_found": "No matches found",
   "error_occurred": "An error occurred:",
   "no_group_or_specialization": "There is nothing to show. Make sure you have selected your group, or specialization.",
   "legend": "Legend",
@@ -19,16 +29,28 @@
       "group": {}
     }
   },
+  "week": "Week",
+  "even": "even",
+  "odd": "odd",
   "change_language_if_you_like": "Change language if you like",
   "set_whether_you_are_a_teacher": "Set whether you are a teacher",
   "choose_specialization": "Choose specialization / lecturer",
   "go_to_schedule": "Go to schedule",
+  "show_on_map": "Show on map",
   "settings": "Settings",
   "about_app": "About app",
   "schedule_update_prompt": "How do you want to update schedule?",
   "force_schedule_redownload": "Force schedule redownload",
   "check_for_schedule_update": "Check schedule for updates",
+  "schedule_updating": "Schedule updating",
+  "clearing_data": "Clearing data",
+  "clear_data": "Clear data",
+  "clear_data_confirmation": "Are you sure you want to clear the data?",
+  "clear_data_description": "After a semester you may want to clear caches of schedules you've been viewing",
+  "auto_updates": "Auto updates",
+  "auto_updates_subtitle": "Auto updates works only for students due to limits enforced by REST API",
   "online_course": "Remote classes",
+  "full_time_course": "Full-time classes",
   "building_and_room": "Building {building}, room {room}",
   "@building_and_room": {
     "placeholders": {

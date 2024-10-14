@@ -1,15 +1,28 @@
 {
-  "caption": "eŻak Nysa ™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!",
+  "caption": "{appName}™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!",
+  "@caption": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "choose_courses_date": "Wybierz datę zajęć",
   "university_website": "Strona uczelni",
+  "contact": "Kontakt",
+
   "date_selection": "Wybór daty",
   "informations": "Informacje",
   "theme_change": "Zmiana motywu",
+  "dark_theme": "Ciemny motyw",
   "previous_day": "Poprzedni dzień",
   "next_day": "Następny dzień",
+
   "language": "Język",
   "academic_teacher_mode": "Tryb nauczyciela",
   "specialization": "Specjalizacja",
+  "no_matches_found": "Nie znaleziono dopasowań",
+
   "error_occurred": "Wystąpił błąd:",
   "no_group_or_specialization": "Nie ma nic do wyświetlenia. Upewnij się, że wybrałeś swoją grupę, lub specjalizację.",
   "legend": "Legenda",
@@ -19,16 +32,37 @@
       "group": {}
     }
   },
+
+  "week": "Tydzień",
+  "even": "parzysty",
+  "odd": "nieparzysty",
+
+
   "change_language_if_you_like": "Zmień język, jeśli chcesz",
   "set_whether_you_are_a_teacher": "Ustaw, czy jesteś nauczycielem",
   "choose_specialization": "Wybierz specjalizację / wykładowcę",
   "go_to_schedule": "Przejdź do planu zajęć",
+
+  "show_on_map": "Pokaż na mapie",
+
   "settings": "Ustawienia",
   "about_app": "O aplikacji",
+
   "schedule_update_prompt": "W jaki sposób chcesz zaktualizować plan?",
   "force_schedule_redownload": "Wymuś ponowne pobranie planu",
   "check_for_schedule_update": "Sprawdź aktualność planu",
+  "schedule_updating": "Aktualizowanie planu",
+
+  "clearing_data": "Czyszczenie danych",
+  "clear_data": "Wyczyść dane",
+  "clear_data_confirmation": "Czy napewno chcesz wyczyścić dane?",
+  "clear_data_description": "Po upłynięciu semestru możesz wyczyścić pamięć podręczną przeglądanych planów",
+
+  "auto_updates": "Automatyczne aktualizacje",
+  "auto_updates_subtitle": "Automatyczne aktualizacje działają tylko dla studentów z powodu limitów narzuconych przez REST API",
+
   "online_course": "Zajęcia zdalne",
+  "full_time_course": "Zajęcia stacjonarne",
   "building_and_room": "Budynek {building}, sala {room}",
   "@building_and_room": {
     "placeholders": {
@@ -43,6 +77,7 @@
   "lecturer": "Wykładowca",
   "group": "Grupa",
   "longer_break": "Dłuższa przerwa",
+
   "from_hour": "Od {hour}",
   "@from_hour": {
     "placeholders": {
