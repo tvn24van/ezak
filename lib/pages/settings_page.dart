@@ -3,6 +3,7 @@ import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
+import 'package:ezak/widgets/text_divider.dart';
 import 'package:ezak/widgets/tiles/auto_update_tile.dart';
 import 'package:ezak/widgets/tiles/clear_data_tile.dart';
 import 'package:ezak/widgets/tiles/theme_tile.dart';
@@ -53,17 +54,20 @@ final class SettingsPage extends StatelessWidget{
         ],
         context: context,
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            PansLanguageTile(),
-            PansThemeTile(),
-            PansAutoUpdateTile(),
-            PansTeacherTile(),
-            PansSpecializationTile(),
-            PansGroupsTile(),
-            PansUpdateScheduleTile(),
-            PansClearDataTile()
+            TextDivider(child: Text(L10n.of(context).section_of_personalization)),
+            const PansLanguageTile(),
+            const PansThemeTile(),
+            TextDivider(child: Text(L10n.of(context).section_of_schedule_configuration)),
+            const PansAutoUpdateTile(),
+            const PansTeacherTile(),
+            const PansSpecializationTile(),
+            const PansGroupsTile(),
+            TextDivider(child: Text(L10n.of(context).section_of_schedule_management)),
+            const PansUpdateScheduleTile(),
+            const PansClearDataTile()
           ],
         ),
       ),
