@@ -1,6 +1,6 @@
 import 'package:ezak/pages/schedule_page.dart';
-import 'package:ezak/providers/schedule_provider.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/providers/courses_provider.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +11,11 @@ final class PansDateButton extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final schedule = ref.watch(ScheduleProvider.instance);
+    final courses = ref.watch(CoursesProvider.instance);
 
     return Tooltip(
       message: L10n.of(context).date_selection,
-      child: schedule.when(
+      child: courses.when(
         data: (data) {
           final currentDate = ref.watch(SchedulePage.currentDate);
           return ElevatedButton(
@@ -26,16 +26,17 @@ final class PansDateButton extends ConsumerWidget{
                 keyboardType: TextInputType.datetime,
                 helpText: L10n.of(context).choose_courses_date,
                 initialDate: currentDate,
-                firstDate: data.getFirstDayDate(),
-                lastDate: data.getLastDayDate(),
-                selectableDayPredicate: (DateTime value)=>
-                  data.containsDate(value),
+                firstDate: data.entries.first.key,
+                lastDate: data.entries.last.key,
+                selectableDayPredicate: (DateTime value)=> data.keys.contains(value)
+                  // data.containsDate(value),
               );
               if(selectedDate==null) {
                 return;
               }
               ref.read(SchedulePage.pageViewController).animateToPage(
-                data.getIndexOfDate(selectedDate),
+                // data.getIndexOfDate(selectedDate),
+                data.keys.toList().indexOf(selectedDate),
                 duration: PansAppereance.pageControllerSettings.duration,
                 curve: PansAppereance.pageControllerSettings.curve,
               );
