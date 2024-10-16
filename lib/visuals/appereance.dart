@@ -37,8 +37,6 @@ final class PansAppereance {
       seedColor: colors.red,
       primary: colors.red,
       secondary: colors.gray,
-      // onBackground: colors.gray
-      onSurface: colors.gray
     )
   );
 
@@ -49,8 +47,6 @@ final class PansAppereance {
       seedColor: colors.red,
       primary: colors.red,
       secondary: colors.gray,
-      // onBackground: colors.gray
-      onSurface: colors.gray
     )
   );
 
