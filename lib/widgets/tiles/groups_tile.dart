@@ -1,4 +1,3 @@
-import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
 import 'package:ezak/providers/max_groups_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
@@ -25,11 +24,9 @@ final class PansGroupsTile extends ConsumerWidget{
 
         return Column(
           mainAxisSize: MainAxisSize.min,
-          children: Group.values.map((group) {
-            final maxGroups = data[group]!;
-            if(maxGroups==0){
-              return const SizedBox.shrink();
-            }
+          children: data.entries.map((e) {
+            final group = e.key;
+            final max = e.value;
             return ListTile(
               title: Text(L10n.of(context).group_name(group.name)),
               subtitle: Text("${L10n.of(context).group} ${group.symbol}"),
@@ -42,22 +39,22 @@ final class PansGroupsTile extends ConsumerWidget{
                     showSelectedIcon: false,
                     multiSelectionEnabled: true,
                     selected: groups[group]!,
-                    segments: List.generate(maxGroups, (index) =>
-                      ButtonSegment(
-                        value: index + 1,
-                        label: Text("${index + 1}")
-                      )
+                    segments: List.generate(max, (index) =>
+                        ButtonSegment(
+                            value: index + 1,
+                            label: Text("${index + 1}")
+                        )
                     ),
                     onSelectionChanged: (selection) {
                       ref.read(SettingsProvider.instance.notifier)
-                        .setGroupNumbers(group, selection);
+                          .setGroupNumbers(group, selection);
                     },
                   ),
                 ),
               ),
               onTap: () {},
             );
-          }).toList()
+          },).toList()
         );
       },
       loading: ()=> const CircularProgressIndicator.adaptive(),
