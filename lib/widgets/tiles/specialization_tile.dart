@@ -32,7 +32,7 @@ final class PansSpecializationTile extends ConsumerWidget{
         child: specializations.when(
           data: (data){
 
-            final isSelected = key != Settings.defaultSpecializationKey;
+            final isSelected = key != Settings.defaultKey;
 
             final button = OutlinedButton(
               onPressed: () => _searchController.openView(),
