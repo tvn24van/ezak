@@ -1,23 +1,31 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:ezak/db/log/debug_logging_query_executor.dart';
 import 'package:ezak/db/tables/courses_dates_table.dart';
 import 'package:ezak/db/tables/dates_table.dart';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/db/converters/time_of_day_converter.dart';
 import 'package:ezak/db/tables/course_table.dart';
 import 'package:ezak/db/tables/semester_table.dart';
+import 'package:ezak/model/course_date.dart';
 import 'package:ezak/model/group.dart';
+import 'package:ezak/model/settings.dart';
 import 'package:flutter/material.dart' hide Table; // generated file panicked when saw Table
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 part 'cache_db.g.dart';
 
+/// In-disk cache mainly for schedules
 @DriftDatabase(tables: [CourseTable, DatesTable, CoursesDatesTable, SemesterTable])
 class CacheDb extends _$CacheDb{
-  static final instance = Provider((ref) => CacheDb());
+  static final instance = Provider((ref){
+    final db = CacheDb();
+    ref.onDispose(() => db.close());
+    return db;
+  });
 
   CacheDb() : super(
-    driftDatabase(
+    DebugLoggingQueryExecutor.wrap(driftDatabase(
       name: "cache",
       web: DriftWebOptions(
         sqlite3Wasm: Uri.parse('sqlite3.wasm'),
@@ -31,7 +39,7 @@ class CacheDb extends _$CacheDb{
         }
       ),
     ),
-  );
+  ));
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -48,7 +56,10 @@ class CacheDb extends _$CacheDb{
   }
 
   Future<Semester?> getLastSemester(){
-    return (select(semesterTable)..orderBy([(t)=>OrderingTerm.asc(t.id)])..limit(1)).getSingleOrNull();
+    return (select(semesterTable)
+      ..orderBy([(t)=>OrderingTerm.asc(t.id)])
+      ..limit(1)
+    ).getSingleOrNull();//todo fix
   }
 
   Future<bool> isCached({required int key, required bool isLecturer}) async{
@@ -58,27 +69,111 @@ class CacheDb extends _$CacheDb{
     ).getSingleOrNull().then((value) => value!=null);
   }
 
+  Future<Map<Group, int>> getMaxGroups({
+    required int key,
+    required bool isLecturer,
+  })async{
+    final maxGroupNumber = courseTable.groupNumber.max();
+
+    final query = select(courseTable).join([
+      innerJoin(
+        coursesDatesTable,
+        coursesDatesTable.id.equalsExp(courseTable.coursesDatesId),
+        useColumns: false
+      ),
+    ])
+    ..where(
+      coursesDatesTable.isLecturer.equals(isLecturer) &
+      coursesDatesTable.key.equals(key)
+    )
+    ..addColumns([courseTable.group, maxGroupNumber])
+    ..groupBy([courseTable.group]);
+
+    return query.map((row) =>
+      MapEntry(Group.values[row.read(courseTable.group)!], row.read(maxGroupNumber)!)
+    ).get().then((value) => Map.fromEntries(value));
+  }
+
+  List<Expression<bool>> _groupsConditions(GroupsMap groups) => groups.entries.where((element) => element.value.isNotEmpty).map((entry) =>
+    Expression.and([
+      courseTable.group.equalsValue(entry.key),
+      courseTable.groupNumber.isIn(entry.value)
+    ])
+  ).toList();
+
+  Future<List<DateTime>> getDates({
+    required int key,
+    required bool isLecturer,
+    required GroupsMap groups,
+  })async{
+    final query = selectOnly(datesTable).join([
+      innerJoin(coursesDatesTable, coursesDatesTable.id.equalsExp(datesTable.coursesDatesId), useColumns: false),
+      innerJoin(courseTable, courseTable.coursesDatesId.equalsExp(coursesDatesTable.id) & courseTable.id.equalsExp(datesTable.id), useColumns: false)
+    ])
+    ..addColumns([datesTable.date])
+    ..where(
+      coursesDatesTable.isLecturer.equals(isLecturer) &
+      coursesDatesTable.key.equals(key) &
+      courseTable.group.caseMatch(when: {
+        for(final e in groups.entries.where((element) => element.value.isNotEmpty))
+          Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
+      }, orElse: Constant(false))
+    )
+    ..groupBy([datesTable.date])
+    ..orderBy([OrderingTerm.asc(datesTable.date)]);
+
+    return query.map((row)=> row.read(datesTable.date)!).get();
+  }
+
   Future<List<Course>> getCourses({
     required int key,
     required bool isLecturer,
-    required Expression<bool> Function(GeneratedColumn<DateTime>) date}){
+    required DateTime date
+  }){
+    final query = select(courseTable).join([
+      innerJoin(coursesDatesTable, coursesDatesTable.id.equalsExp(courseTable.coursesDatesId), useColumns: false),
+      innerJoin(datesTable, datesTable.coursesDatesId.equalsExp(coursesDatesTable.id) & courseTable.id.equalsExp(datesTable.id), useColumns: false)
+    ])
+    ..where(
+      coursesDatesTable.isLecturer.equals(isLecturer) &
+      coursesDatesTable.key.equals(key) &
+      datesTable.date.equals(date)
+    )
+    ..orderBy([OrderingTerm.asc(courseTable.startTime)]);
 
-    return (select(courseTable)
-      ..where((courseTbl) => courseTbl.coursesDatesId.isInQuery(select(coursesDatesTable)
-        ..where((coursesDatesTbl) =>
-          coursesDatesTbl.key.equals(key) &
-          coursesDatesTbl.isLecturer.equals(isLecturer) &
-          coursesDatesTbl.id.isInQuery(select(datesTable)
-            ..where((datesTbl) => date(datesTbl.date))
-          )
-        )
-      ))
-    ).get();
+    return query.map((row)=> row.readTable(courseTable)).get();
   }
 
-  Future<void> addCourses(List<Course> courses) async {
-    await batch((batch) {
-      batch.insertAll(courseTable, courses);
+  Future<void> addSchedule({
+    required int key,
+    required bool isLecturer,
+    required List<Course> courses,
+    required List<CourseDate> coursesDates
+  })async{
+    await transaction(() async {
+      final assignment = await into(coursesDatesTable).insertReturning(
+        CoursesDatesTableCompanion.insert(isLecturer: isLecturer, key: key)
+      );
+      await batch((batch) {
+        batch.insertAll(
+          courseTable,
+          courses.map((c) => c.copyWith(coursesDatesId: assignment.id))
+        );
+        batch.insertAll(
+          datesTable,
+          coursesDates.map((d)=> d.copyWith(coursesDatesId: assignment.id))
+        );
+      });
+    });
+
+  }
+
+  Future<void> removeSchedules(WidgetRef ref) async {
+    // todo reset settings (and prevent downloading schedule with default settings which lead to course_dates_table saving with key '0')
+    await batch((batch) { // starts transaction implicitly
+      batch.deleteAll(courseTable);
+      batch.deleteAll(datesTable);
+      batch.deleteAll(coursesDatesTable);
     });
   }
 
