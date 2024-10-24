@@ -30,7 +30,7 @@ final class SettingsPage extends StatelessWidget{
               final settingsCompleted = ref.watch(SettingsProvider.completed);
 
               return IconButton(
-                onPressed: settingsCompleted? null : (){
+                onPressed: !settingsCompleted? null : (){
                   if(Navigator.canPop(context)) {
                     Navigator.of(context).pop();
                   }else{
