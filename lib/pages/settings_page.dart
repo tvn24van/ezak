@@ -1,4 +1,3 @@
-import 'package:ezak/model/settings.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
@@ -28,12 +27,10 @@ final class SettingsPage extends StatelessWidget{
           message: MaterialLocalizations.of(context).backButtonTooltip,
           child: Consumer(
             builder:(context, ref, child){
-              final firstLaunch = ref.watch(
-                SettingsProvider.key
-              ) == Settings.defaultSpecializationKey;
+              final settingsCompleted = ref.watch(SettingsProvider.completed);
 
               return IconButton(
-                onPressed: firstLaunch? null : (){
+                onPressed: settingsCompleted? null : (){
                   if(Navigator.canPop(context)) {
                     Navigator.of(context).pop();
                   }else{
