@@ -29,7 +29,7 @@ final class SettingsPage extends StatelessWidget{
           child: Consumer(
             builder:(context, ref, child){
               final firstLaunch = ref.watch(
-                SettingsProvider.instance.select((settings) => settings.specializationKey)
+                SettingsProvider.key
               ) == Settings.defaultSpecializationKey;
 
               return IconButton(
