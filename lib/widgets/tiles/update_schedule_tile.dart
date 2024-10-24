@@ -1,4 +1,3 @@
-import 'package:ezak/model/settings.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
@@ -10,14 +9,12 @@ final class PansUpdateScheduleTile extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSpecializationSelected = ref.watch(
-        SettingsProvider.instance.select((settings) => settings.specializationKey)
-    )!=Settings.defaultSpecializationKey;
+    final settingsCompleted = ref.watch(SettingsProvider.completed);
     return ListTile(
       leading: const Icon(Icons.update),
       title: Text(L10n.of(context).schedule_updating),
       trailing: FilledButton(
-        onPressed: isSpecializationSelected?
+        onPressed: settingsCompleted?
           ()async=> SchedulePage.showUpdateDialog(context, ref):
           null,
         child: const Icon(Icons.update)

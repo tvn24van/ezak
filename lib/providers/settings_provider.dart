@@ -16,6 +16,7 @@ final class _SettingsKeys{
 
 final class SettingsProvider extends Notifier<Settings>{
 
+  /// provides current settings
   static final instance = NotifierProvider<SettingsProvider, Settings>(()=>
     SettingsProvider()
   );
@@ -25,6 +26,9 @@ final class SettingsProvider extends Notifier<Settings>{
     final isLecturer = ref.watch(instance.select((value) => value.isLecturer));
     return ref.watch(instance.select((value) => isLecturer? value.lecturerKey : value.specializationKey));
   });
+
+  /// indicates if user completed schedule selection
+  static final completed = Provider((ref)=> ref.read(key) != Settings.defaultKey);
 
   @override
   Settings build() {
@@ -87,26 +91,10 @@ final class SettingsProvider extends Notifier<Settings>{
 
   void setGroupNumbers(Group group, Set<int> numbers){
     final newGroups = GroupsMap.from(state.groups)..update(group, (value) => numbers);
-    // // ref.read(CoursesProvider.instance).value?.filter(newGroups);
     state = state.copyWith(
       groups: newGroups
     );
     _saveGroupNumbers(group);
-
-    // after group changes some days may completely disappear however index of
-    // current day stays the same and this may cause problems so here are some
-    // checks todo remove this!
-    // final schedule = ref.read(CoursesProvider.instance).value;
-    // if(schedule!=null){
-    //   if(!schedule.containsDate(ref.read(SchedulePage.currentDate))){
-    //     final accurateDate = schedule.getAccurateDate();
-    //     ref.read(SchedulePage.currentDate.notifier)
-    //         .update((state) => accurateDate);
-    //     ref.read(SchedulePage.pageViewController.notifier).update((state) =>
-    //         PageController(initialPage: schedule.getIndexOfDate(accurateDate))
-    //     );
-    //   }
-    // }
   }
 
 
@@ -122,8 +110,6 @@ final class SettingsProvider extends Notifier<Settings>{
     final newGroups = GroupsMap.fromEntries(state.groups.entries)
       ..update(group, (value) => groupNumbers);
 
-    // ref.read(CoursesProvider.instance).value?.filter(newGroups);
-
     state = state.copyWith(
       groups: newGroups
     );
@@ -138,6 +124,16 @@ final class SettingsProvider extends Notifier<Settings>{
       specializationKey: !isLecturer? key : null
     );
     ref.read(sharedPreferences).setInt(isLecturer? _SettingsKeys.lecturerKey : _SettingsKeys.specializationKey, key);
+  }
+
+  void resetKeys(){
+    state = state.copyWith(
+      lecturerKey: Settings.defaultKey,
+      specializationKey: Settings.defaultKey
+    );
+    ref.read(sharedPreferences)
+      ..setInt(_SettingsKeys.lecturerKey, Settings.defaultKey)
+      ..setInt(_SettingsKeys.specializationKey, Settings.defaultKey);
   }
 
 }

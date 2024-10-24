@@ -1,4 +1,3 @@
-import 'package:ezak/model/settings.dart';
 import 'package:ezak/providers/max_groups_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
@@ -13,9 +12,9 @@ final class PansGroupsTile extends ConsumerWidget{
     final groups = ref.watch(SettingsProvider.instance.select((settings) => settings.groups));
     final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isLecturer));
 
-    final isSpecializationSelected = ref.watch(SettingsProvider.key) != Settings.defaultSpecializationKey; // todo make a provider for this
+    final settingsCompleted = ref.watch(SettingsProvider.completed);
 
-    if(teacherMode || !isSpecializationSelected){
+    if(teacherMode || !settingsCompleted){
       return const SizedBox.shrink();
     }
 

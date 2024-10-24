@@ -49,11 +49,11 @@ class Settings{
   darkTheme = darkTheme ?? false,
   autoUpdates = autoUpdates ?? true,
   isLecturer = isLecturer ?? false,
-  specializationKey = specializationKey ?? defaultSpecializationKey, // 0 when no groups were selected
-  lecturerKey = lecturerKey ?? defaultSpecializationKey,
+  specializationKey = specializationKey ?? defaultKey,
+  lecturerKey = lecturerKey ?? defaultKey,
   groups = groups ?? Settings.defaultGroups;
 
-  static const int defaultSpecializationKey = 0;
+  static const int defaultKey = 0;
 
   static const GroupsMap defaultGroups = {
     Group.lecture: <int>{},

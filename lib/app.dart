@@ -1,4 +1,3 @@
-import 'package:ezak/model/settings.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/pages/settings_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
@@ -21,7 +20,7 @@ final class PansApp extends ConsumerWidget {
       SettingsProvider.instance.select((settings) => settings.locale)
     );
 
-    final firstLaunch = ref.read(SettingsProvider.key) == Settings.defaultSpecializationKey; // todo make it a provider ?
+    final settingsCompleted = ref.read(SettingsProvider.completed);
 
     return Listener(
       onPointerDown: (e)=> FocusManager.instance.primaryFocus?.unfocus(),
@@ -48,7 +47,7 @@ final class PansApp extends ConsumerWidget {
         home: Banner(
           message: "2.0 TEST",
           location: BannerLocation.topStart,
-          child: !firstLaunch? const SchedulePage() : const SettingsPage(),
+          child: settingsCompleted? const SchedulePage() : const SettingsPage(),
         ),
       ),
     );
