@@ -168,8 +168,7 @@ class CacheDb extends _$CacheDb{
 
   }
 
-  Future<void> removeSchedules(WidgetRef ref) async {
-    // todo reset settings (and prevent downloading schedule with default settings which lead to course_dates_table saving with key '0')
+  Future<void> removeSchedules(Ref ref) async {
     await batch((batch) { // starts transaction implicitly
       batch.deleteAll(courseTable);
       batch.deleteAll(datesTable);
