@@ -45,7 +45,11 @@ final class PansApp extends ConsumerWidget {
           "/settings": (context)=> const SettingsPage(), // todo idk if it is the best way for routing
         },
 
-        home: !firstLaunch? const SchedulePage() : const SettingsPage(),
+        home: Banner(
+          message: "2.0 TEST",
+          location: BannerLocation.topStart,
+          child: !firstLaunch? const SchedulePage() : const SettingsPage(),
+        ),
       ),
     );
   }
