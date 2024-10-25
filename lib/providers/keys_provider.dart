@@ -8,6 +8,7 @@ import 'package:http/retry.dart';
 final keysProvider = FutureProvider<Map<int, String>>((ref) async {
   final isLecturer = ref.watch(SettingsProvider.instance.select((setting) => setting.isLecturer));
   final client = RetryClient(http.Client(), retries: 1);
-
-  return PansRestApi.fetchKeys(httpClient: client, isLecturer: isLecturer);
+  final keys = PansRestApi.fetchKeys(httpClient: client, isLecturer: isLecturer);
+  client.close();
+  return keys;
 });
