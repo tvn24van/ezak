@@ -1,5 +1,6 @@
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
+import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,14 +22,21 @@ final class SettingsProvider extends Notifier<Settings>{
     SettingsProvider()
   );
 
+  /// indicates if user completed schedule selection
+  static final completed = Provider((ref)=> ref.watch(key) != Settings.defaultKey);
+
   /// provides key of specialization or lecturer according to selected setting
   static final key = Provider((ref){
     final isLecturer = ref.watch(instance.select((value) => value.isLecturer));
     return ref.watch(instance.select((value) => isLecturer? value.lecturerKey : value.specializationKey));
   });
 
-  /// indicates if user completed schedule selection
-  static final completed = Provider((ref)=> ref.read(key) != Settings.defaultKey);
+  /// provides groups with the difference that lecturer always get them empty
+  /// to force [ScheduleProvider] to get all courses
+  static final groups = Provider((ref){
+    final isLecturer = ref.watch(instance.select((s) => s.isLecturer));
+    return isLecturer? Settings.defaultGroups : ref.watch(instance.select((s)=> s.groups));
+  });
 
   @override
   Settings build() {
