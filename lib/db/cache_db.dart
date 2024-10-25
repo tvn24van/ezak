@@ -113,21 +113,23 @@ class CacheDb extends _$CacheDb{
     ..addColumns([datesTable.date])
     ..where(
       coursesDatesTable.isLecturer.equals(isLecturer) &
-      coursesDatesTable.key.equals(key) &
-      courseTable.group.caseMatch(when: {
-        for(final e in groups.entries.where((element) => element.value.isNotEmpty))
-          Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
-      }, orElse: Constant(false))
+      coursesDatesTable.key.equals(key)
     )
     ..groupBy([datesTable.date])
     ..orderBy([OrderingTerm.asc(datesTable.date)]);
-
+    if(!groups.areGroupsEmpty()){
+      query.where(courseTable.group.caseMatch(when: {
+        for(final e in groups.entries.where((element) => element.value.isNotEmpty))
+          Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
+      }));
+    }
     return query.map((row)=> row.read(datesTable.date)!).get();
   }
 
   Future<List<Course>> getCourses({
     required int key,
     required bool isLecturer,
+    required GroupsMap groups,
     required DateTime date
   }){
     final query = select(courseTable).join([
@@ -140,7 +142,12 @@ class CacheDb extends _$CacheDb{
       datesTable.date.equals(date)
     )
     ..orderBy([OrderingTerm.asc(courseTable.startTime)]);
-
+    if(!groups.areGroupsEmpty()){
+      query.where(courseTable.group.caseMatch(when: {
+        for(final e in groups.entries.where((element) => element.value.isNotEmpty))
+          Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
+      }));
+    }
     return query.map((row)=> row.readTable(courseTable)).get();
   }
 
