@@ -1,5 +1,7 @@
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/providers/courses_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansClearDataTile extends StatelessWidget{
   const PansClearDataTile({super.key});
@@ -20,9 +22,14 @@ final class PansClearDataTile extends StatelessWidget{
                 onPressed: ()=> Navigator.of(context).pop(),
                 child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
               ),
-              TextButton(
-                onPressed: () async=> {}, // todo implement clearing
-                child: Text(MaterialLocalizations.of(context).okButtonLabel)
+              Consumer(builder: (context, ref, child) =>
+                TextButton(
+                  onPressed: () {
+                    ref.read(CoursesProvider.instance.notifier).removeCourses();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(MaterialLocalizations.of(context).okButtonLabel)
+                )
               )
             ],
           ),
