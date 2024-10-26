@@ -52,10 +52,10 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
                 ),
               ),
               const SizedBox(width: 15,),
-              Hero(
-                tag: getCourse(),
-                child: getIconDescribingCourse(getCourse()),
-              )
+              // Hero(
+              //   tag: getCourse(),
+              //   child: getIconDescribingCourse(getCourse()),
+              // )
             ],
           ),
         ),
