@@ -14,11 +14,11 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
       margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: InkWell(
         borderRadius: _borderRadius,
-        onTap: ()async=>
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CourseHero(course: getCourse()))
-          ),
+        onTap: ()async=> {},
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => CourseHero(course: getCourse()))
+        //   ),
         child: Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
@@ -52,10 +52,10 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
                 ),
               ),
               const SizedBox(width: 15,),
-              // Hero(
-              //   tag: getCourse(),
-              //   child: getIconDescribingCourse(getCourse()),
-              // )
+              Hero(
+                tag: getCourse(),
+                child: getIconDescribingCourse(getCourse()),
+              )
             ],
           ),
         ),
