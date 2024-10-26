@@ -13,7 +13,13 @@ final class PansLanguageTile extends ConsumerWidget{
     );
 
     return ListTile(
-      title: Text(L10n.of(context).language),
+      title: Text.rich(TextSpan(
+        children: [
+          TextSpan(text: L10n.of(context).language),
+          TextSpan(text: " "),
+          TextSpan(text: "(Language)", style: TextStyle(fontStyle: FontStyle.italic))
+        ]
+      )),
       leading: const Icon(Icons.language),
       onTap: (){},
       trailing: DropdownButton<Locale>(

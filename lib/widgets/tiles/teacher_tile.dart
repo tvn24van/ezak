@@ -13,14 +13,21 @@ final class PansTeacherTile extends ConsumerWidget{
     ));
 
     return ListTile(
-      title: Text(L10n.of(context).academic_teacher_mode),
-      leading: const Icon(Icons.person),
-      trailing: Switch.adaptive(
-        value: isTeacher,
-        onChanged: (value){
-          ref.read(SettingsProvider.instance.notifier)
-              .toggleTeacherMode();
-        }
+      title: Text(L10n.of(context).user_profile),
+      leading: const Icon(Icons.school),
+      trailing: SegmentedButton<bool>(
+        segments: [
+          ButtonSegment(
+            value: false,
+            label: Text(L10n.of(context).student)
+          ),
+          ButtonSegment(
+            value: true,
+            label: Text(L10n.of(context).lecturer)
+          )
+        ],
+        selected: {isTeacher},
+        onSelectionChanged: (_) => ref.read(SettingsProvider.instance.notifier).toggleTeacherMode(),
       ),
       onTap: (){},
     );

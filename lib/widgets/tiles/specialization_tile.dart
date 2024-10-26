@@ -25,7 +25,7 @@ final class PansSpecializationTile extends ConsumerWidget{
 
     return ListTile(
       title: Text(titleText),
-      leading: const Icon(Icons.accessibility),
+      leading: const Icon(Icons.person_search),
       onTap: (){},
       trailing: SizedBox(
         width: MediaQuery.of(context).size.width*.6,
@@ -57,19 +57,19 @@ final class PansSpecializationTile extends ConsumerWidget{
                 );
                 if(filtered.isEmpty) {
                   return List.filled(1,
-                      Text(L10n.of(context).no_matches_found, textAlign: TextAlign.center)
+                    Text(L10n.of(context).no_matches_found, textAlign: TextAlign.center)
                   );
                 }
                 return (text.isNotEmpty? filtered : data.entries).map((e) =>
-                    ListTile(
-                      title: Text(e.value),
-                      onTap: (){
-                        ref.read(SettingsProvider.instance.notifier).changeKey(
-                          data.entries.firstWhere((element) => element.value==e.value).key
-                        );
-                        controller.closeView('');
-                      },
-                    )
+                  ListTile(
+                    title: Text(e.value),
+                    onTap: (){
+                      ref.read(SettingsProvider.instance.notifier).changeKey(
+                        data.entries.firstWhere((element) => element.value==e.value).key
+                      );
+                      controller.closeView('');
+                    },
+                  )
                 );
               },
             );
