@@ -19,7 +19,6 @@
   "next_day": "Następny dzień",
 
   "language": "Język",
-  "academic_teacher_mode": "Tryb nauczyciela",
   "specialization": "Specjalizacja",
   "no_matches_found": "Nie znaleziono dopasowań",
 
@@ -96,5 +95,7 @@
   },
   "section_of_personalization": "Personalizacja",
   "section_of_schedule_configuration": "Konfiguracja planu",
-  "section_of_schedule_management": "Zarządzanie planem"
+  "section_of_schedule_management": "Zarządzanie planem",
+  "user_profile": "Profil użytkownika",
+  "student": "Student"
 }

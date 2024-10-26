@@ -17,7 +17,6 @@
   "previous_day": "Previous day",
   "next_day": "Next day",
   "language": "Language",
-  "academic_teacher_mode": "Teacher mode",
   "specialization": "Specialization",
   "no_matches_found": "No matches found",
   "error_occurred": "An error occurred:",
@@ -83,5 +82,7 @@
   },
   "section_of_personalization": "Personalization",
   "section_of_schedule_configuration": "Schedule configuration",
-  "section_of_schedule_management": "Schedule management"
+  "section_of_schedule_management": "Schedule management",
+  "user_profile": "User profile",
+  "student": "Student"
 }
