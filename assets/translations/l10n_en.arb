@@ -21,7 +21,6 @@
   "no_matches_found": "No matches found",
   "error_occurred": "An error occurred:",
   "no_group_or_specialization": "There is nothing to show. Make sure you have selected your group, or specialization.",
-  "legend": "Legend",
   "group_name": "{group, select, lecture{Lecture} exercises{Exercises} laboratories{Laboratories} project{Project} seminar{Seminar} other{Other}}",
   "@group_name": {
     "placeholders": {
@@ -33,7 +32,8 @@
   "odd": "odd",
   "change_language_if_you_like": "Change language if you like",
   "set_whether_you_are_a_teacher": "Set whether you are a teacher",
-  "choose_specialization": "Choose specialization / lecturer",
+  "choose_specialization": "Choose specialization",
+  "select_lecturer": "Select lecturer",
   "go_to_schedule": "Go to schedule",
   "show_on_map": "Show on map",
   "settings": "Settings",

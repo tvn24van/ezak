@@ -22,6 +22,9 @@ final class PansSpecializationTile extends ConsumerWidget{
     final titleText = isTeacher?
       L10n.of(context).lecturer:
       L10n.of(context).specialization;
+    final buttonText = isTeacher?
+      L10n.of(context).select_lecturer:
+      L10n.of(context).choose_specialization;
 
     return ListTile(
       title: Text(titleText),
@@ -41,7 +44,7 @@ final class PansSpecializationTile extends ConsumerWidget{
                   data.entries.singleWhere((element) =>
                     element.key==key
                 ).value:
-                titleText,
+                buttonText,
               ),
             );
 

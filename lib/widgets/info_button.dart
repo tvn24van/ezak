@@ -11,7 +11,7 @@ final class PansInfoButton extends StatelessWidget{
       onPressed: (){
         showAdaptiveDialog(context: context, builder: (context) {
           return AlertDialog.adaptive(
-            title: Text(L10n.of(context).legend),
+            title: Text(L10n.of(context).informations),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
