@@ -1,5 +1,6 @@
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,8 +17,8 @@ final class PansLanguageTile extends ConsumerWidget{
       title: Text.rich(TextSpan(
         children: [
           TextSpan(text: L10n.of(context).language),
-          TextSpan(text: " "),
-          TextSpan(text: "(Language)", style: TextStyle(fontStyle: FontStyle.italic))
+          if(currentLocale != Constants.englishLocale)
+            TextSpan(text: " (Language)", style: TextStyle(fontStyle: FontStyle.italic))
         ]
       )),
       leading: const Icon(Icons.language),

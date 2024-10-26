@@ -23,5 +23,6 @@ final class Constants{
   static final pansWebsiteUrl = Uri.https('pans.nysa.pl');
 
   static const defaultLocale = Locale('pl');
+  static const englishLocale = Locale('en');
 
 }
