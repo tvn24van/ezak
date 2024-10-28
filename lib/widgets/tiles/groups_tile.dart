@@ -1,4 +1,4 @@
-import 'package:ezak/providers/max_groups_provider.dart';
+import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
@@ -18,18 +18,19 @@ final class PansGroupsTile extends ConsumerWidget{
       return const SizedBox.shrink();
     }
 
-    return ref.watch(maxGroupsProvider).when(
+    return ref.watch(ScheduleProvider.instance).when(
+      skipLoadingOnReload: true,
       data:(data){
 
         return Column(
           mainAxisSize: MainAxisSize.min,
-          children: data.entries.map((e) {
+          children: data.maxGroups.entries.map((e) {
             final group = e.key;
             final max = e.value;
             return ListTile(
               title: Text(L10n.of(context).group_name(group.name)),
               subtitle: Text("${L10n.of(context).group} ${group.symbol}"),
-              trailing: SizedBox(
+              trailing: SizedBox( //todo consider using maxWidth of Container instead
                 width: MediaQuery.of(context).size.width * .6,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -39,10 +40,10 @@ final class PansGroupsTile extends ConsumerWidget{
                     multiSelectionEnabled: true,
                     selected: groups[group]!,
                     segments: List.generate(max, (index) =>
-                        ButtonSegment(
-                            value: index + 1,
-                            label: Text("${index + 1}")
-                        )
+                      ButtonSegment(
+                        value: index + 1,
+                        label: Text("${index + 1}")
+                      )
                     ),
                     onSelectionChanged: (selection) {
                       ref.read(SettingsProvider.instance.notifier)
