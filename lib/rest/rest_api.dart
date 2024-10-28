@@ -21,6 +21,17 @@ class PansRestApi{
     return DateTime.parse(response.body);
   }
 
+  static Future<String> fetchCurrentSemester({
+    required http.Client httpClient
+  })async{
+    final response = await httpClient.get(
+      Constants.restUrl.replace(
+        path: 'rest/baza'
+      )
+    );
+    return response.body;
+  }
+
   static Future<Map<int, String>> fetchKeys({
     required http.Client httpClient,
     required bool isLecturer
