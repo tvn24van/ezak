@@ -8,7 +8,7 @@ import 'app.dart';
 
 void main() async{
   SharedPreferences.setPrefix('');
-
+  WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
   runApp( ProviderScope(
     overrides: [
