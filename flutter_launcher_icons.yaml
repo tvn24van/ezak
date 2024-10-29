@@ -10,9 +10,6 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   web:
     generate: false
-    image_path: "assets/launcher_icons/play_store_512.png"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
   windows:
     generate: true
     image_path: "assets/launcher_icons/play_store_512.png"
