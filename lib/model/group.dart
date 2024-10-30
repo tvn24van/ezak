@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 /// [Group] represents type of course which could be a
 /// [lecture], [exercises], [laboratories], [project] or [seminar]
+/// WARNING !!! DO NOT CHANGE ORDER OF ENUMS TO PRESERVE ITS INDEXES NEEDED FOR DB
 @JsonEnum(fieldRename: FieldRename.screamingSnake)
 enum Group{
 

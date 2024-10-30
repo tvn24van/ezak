@@ -18,7 +18,10 @@ final class PansAppBar extends AppBar{
     /// Items displayed in popup button
     List<PopupMenuItem> popupItems=const[],
   }):super(
-    leading: pansLeading ?? SvgPicture.asset('assets/logotypes/crest.svg'),
+    leading: pansLeading ?? Container(
+      padding: EdgeInsets.only(top: 1, bottom: 1),
+        child: SvgPicture.asset('assets/logotypes/crest.svg')
+    ),
     title: Text(leadingText ?? Constants.appName),
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     titleSpacing: 0,

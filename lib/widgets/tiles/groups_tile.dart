@@ -1,8 +1,6 @@
-import 'package:ezak/model/group.dart';
-import 'package:ezak/model/settings.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,29 +10,27 @@ final class PansGroupsTile extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groups = ref.watch(SettingsProvider.instance.select((settings) => settings.groups));
-    final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isTeacher));
-    final isSpecializationSelected = ref.watch(
-      SettingsProvider.instance.select((settings) => settings.specializationKey)
-    ) != Settings.defaultSpecializationKey;
+    final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isLecturer));
 
-    if(teacherMode || !isSpecializationSelected){
+    final settingsCompleted = ref.watch(SettingsProvider.completed);
+
+    if(teacherMode || !settingsCompleted){
       return const SizedBox.shrink();
     }
 
     return ref.watch(ScheduleProvider.instance).when(
+      skipLoadingOnReload: true,
       data:(data){
 
         return Column(
           mainAxisSize: MainAxisSize.min,
-          children: Group.values.map((group) {
-            final maxGroups = data.getMaxGroupNumber(group);
-            if(maxGroups==0){
-              return const SizedBox.shrink();
-            }
+          children: data.maxGroups.entries.map((e) {
+            final group = e.key;
+            final max = e.value;
             return ListTile(
               title: Text(L10n.of(context).group_name(group.name)),
               subtitle: Text("${L10n.of(context).group} ${group.symbol}"),
-              trailing: SizedBox(
+              trailing: SizedBox( //todo consider using maxWidth of Container instead
                 width: MediaQuery.of(context).size.width * .6,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -43,7 +39,7 @@ final class PansGroupsTile extends ConsumerWidget{
                     showSelectedIcon: false,
                     multiSelectionEnabled: true,
                     selected: groups[group]!,
-                    segments: List.generate(maxGroups, (index) =>
+                    segments: List.generate(max, (index) =>
                       ButtonSegment(
                         value: index + 1,
                         label: Text("${index + 1}")
@@ -51,14 +47,14 @@ final class PansGroupsTile extends ConsumerWidget{
                     ),
                     onSelectionChanged: (selection) {
                       ref.read(SettingsProvider.instance.notifier)
-                        .setGroupNumbers(group, selection);
+                          .setGroupNumbers(group, selection);
                     },
                   ),
                 ),
               ),
               onTap: () {},
             );
-          }).toList()
+          },).toList()
         );
       },
       loading: ()=> const CircularProgressIndicator.adaptive(),

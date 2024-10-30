@@ -1,5 +1,5 @@
 import 'package:ezak/model/group.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 
 final class PansInfoButton extends StatelessWidget{
@@ -11,16 +11,18 @@ final class PansInfoButton extends StatelessWidget{
       onPressed: (){
         showAdaptiveDialog(context: context, builder: (context) {
           return AlertDialog.adaptive(
-            title: Text(L10n.of(context).legend),
+            title: Text(L10n.of(context).informations),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
+                Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: Group.values.map((group) {
                         return Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
                               padding: const EdgeInsets.all(10),
@@ -40,6 +42,7 @@ final class PansInfoButton extends StatelessWidget{
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.home),
                             const SizedBox(width: 10, height: 30,),
@@ -47,6 +50,7 @@ final class PansInfoButton extends StatelessWidget{
                           ],
                         ),
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.online_prediction),
                             const SizedBox(width: 10, height: 30,),

@@ -1,8 +1,8 @@
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/pages/schedule_page.dart';
+import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/schedule_provider.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,13 +11,14 @@ final class PansDateButton extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final schedule = ref.watch(ScheduleProvider.instance);
+    final allAndInitialDate = ref.watch(ScheduleProvider.instance);
+    final currentDate = ref.watch(displayedDate);
 
     return Tooltip(
       message: L10n.of(context).date_selection,
-      child: schedule.when(
+      child: allAndInitialDate.when(
         data: (data) {
-          final currentDate = ref.watch(SchedulePage.currentDate);
+          final dates = data.dates;
           return ElevatedButton(
             onPressed: () async {
               DateTime? selectedDate = await showDatePicker(
@@ -26,23 +27,12 @@ final class PansDateButton extends ConsumerWidget{
                 keyboardType: TextInputType.datetime,
                 helpText: L10n.of(context).choose_courses_date,
                 initialDate: currentDate,
-                firstDate: data.getFirstDayDate(),
-                lastDate: data.getLastDayDate(),
-                selectableDayPredicate: (DateTime value)=>
-                  data.containsDate(value),
+                firstDate: dates.first,
+                lastDate: dates.last,
+                selectableDayPredicate: (DateTime value)=> dates.contains(value)
               );
-              if(selectedDate==null) {
-                return;
-              }
-              ref.read(SchedulePage.pageViewController).animateToPage(
-                data.getIndexOfDate(selectedDate),
-                duration: PansAppereance.pageControllerSettings.duration,
-                curve: PansAppereance.pageControllerSettings.curve,
-              );
-
-              ref.read(SchedulePage.currentDate.notifier).update((state) =>
-                selectedDate
-              );
+              if(selectedDate==null) return;
+              SchedulePage.pageController?.jumpToPage(dates.indexOf(selectedDate));
             },
             child: Text(currentDate.toLocaleString(Localizations.localeOf(context))),
           );

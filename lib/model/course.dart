@@ -1,39 +1,46 @@
+import 'package:drift/drift.dart' as drift;
+import 'package:ezak/db/cache_db.dart';
 import 'package:ezak/model/group.dart';
-import 'package:ezak/model/decoders/hours_decoder.dart';
 import 'package:ezak/widgets/mixins/course_widget.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'decoders/time_decoder.dart';
 
 part 'course.g.dart';
 
 /// General representation of "Course"
 abstract class CourseModel{
   final int id;
+  final int? coursesDatesId;
+
   final String name;
   final String lecturer;
-  final Duration startHour;
-  final int timeOfCourse;
-  final Duration endHour;
+  final TimeOfDay startTime;
+  final TimeOfDay endTime;
   final Group group;
   final int groupNumber;
   final String location;
   final int roomNumber;
 
-  bool isOnline();
-  Course getCourse();
+  /// Returns whether this course
+  /// will take place online or not
+  bool isOnline() => location == Course.onlineLocation;
+  String? getLocationAddress();
+  CourseModel getCourse() => this;
 
   CourseModel(
     this.id,
+    this.coursesDatesId,
     this.name,
     this.lecturer,
-    this.startHour,
-    this.timeOfCourse,
-    this.endHour,
+    this.startTime,
+    this.endTime,
     this.group,
     this.groupNumber,
     this.location,
     this.roomNumber
-  );
+    );
 
 }
 
@@ -42,7 +49,15 @@ abstract class CourseModel{
 /// at which course will take place!
 @immutable
 @JsonSerializable()
-class Course extends CourseModel with CourseWidget{
+class Course extends CourseModel with CourseWidget implements drift.Insertable<Course>{
+
+  @override
+  @JsonKey(name: "id")
+  get id;
+
+  @override
+  @JsonKey(includeFromJson: false)
+  get coursesDatesId;
 
   /// Name of this Course
   @override
@@ -57,19 +72,13 @@ class Course extends CourseModel with CourseWidget{
 
   /// Course start hour
   @override
-  @JsonKey(name: 'godzinaod', fromJson: HoursDecoder.decodeStartHour)
-  get startHour;
-
-  /// Amount of course's hours
-  /// (each represents 45 minutes)
-  @override
-  @JsonKey(name: 'czaskursu')
-  get timeOfCourse;
+  @JsonKey(name: 'godzinaod', fromJson: TimeDecoder.decodeStartTime, toJson: TimeDecoder.encodeStartTime)
+  get startTime;
 
   /// Course end hour
   @override
-  @JsonKey(readValue: _readEndTime)
-  get endHour;
+  @JsonKey(readValue: _readEndTime, toJson: TimeDecoder.encodeEndTime)
+  get endTime;
 
   /// Specifies whether this course is a
   /// laboratory (L), exercises (C) etc.
@@ -98,32 +107,48 @@ class Course extends CourseModel with CourseWidget{
 
   Course({
     required id,
+    coursesDatesId,
     required name,
-    required startHour,
-    required timeOfCourse,
-    required endHour,
+    required startTime,
+    required endTime,
     required group,
     required groupNumber,
     required lecturer,
     required location,
     required roomNumber,
-  }):super(id, name, lecturer, startHour, timeOfCourse, endHour, group, groupNumber, location, roomNumber);
+  }):super(id, coursesDatesId, name, lecturer, startTime, /*timeOfCourse,*/ endTime, group, groupNumber, location, roomNumber);
 
-  @override
-  Course getCourse() => this;
-
-  /// Returns whether this course
-  /// will take place online or not
-  @override
-  bool isOnline(){
-    return location == onlineLocation;
+  Course copyWith({
+    int? id,
+    int? coursesDatesId,
+    String? name,
+    String? lecturer,
+    TimeOfDay? startTime,
+    TimeOfDay? endTime,
+    Group? group,
+    int? groupNumber,
+    String? location,
+    int? roomNumber,
+  }) {
+    return Course(
+      id: id ?? this.id,
+      coursesDatesId: coursesDatesId ?? this.coursesDatesId,
+      name: name ?? this.name,
+      lecturer: lecturer ?? this.lecturer,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      group: group ?? this.group,
+      groupNumber: groupNumber ?? this.groupNumber,
+      location: location ?? this.location,
+      roomNumber: roomNumber ?? this.roomNumber,
+    );
   }
 
   /// One of possible Course's "location"
   static const String onlineLocation = ' Online';
 
-  static Duration _readEndTime(Map map, String key){
-    return HoursDecoder.decodeEndHour(map['godzinaod'], map['czaskursu']);
+  static TimeOfDay _readEndTime(Map map, String key){
+    return TimeDecoder.decodeEndTime(map['godzinaod'], map['czaskursu']);
   }
 
   /// addresses according to this
@@ -142,10 +167,11 @@ class Course extends CourseModel with CourseWidget{
     "O": "Otmuchowska 74 48-300 Nysa"
   };
 
-  //todo replace this with data grabbed from internet somehow
+  //maybe replace this with data grabbed from internet somehow
+  @override
   String? getLocationAddress(){
     return addresses.entries.where((element) =>
-      location.contains(element.key)
+        location.contains(element.key)
     ).firstOrNull?.value;
   }
 
@@ -157,5 +183,23 @@ class Course extends CourseModel with CourseWidget{
       identical(this, other) || other is Course && hashCode == other.hashCode;
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
+
+  // Map<String, dynamic> toJson() => _$CourseToJson(this);
+
+  @override
+  Map<String, drift.Expression<Object>> toColumns(bool nullToAbsent) {
+    return CourseTableCompanion(
+      id: drift.Value(id),
+      coursesDatesId: drift.Value(coursesDatesId!),
+      name: drift.Value(name),
+      endTime: drift.Value(endTime),
+      group: drift.Value(group),
+      groupNumber: drift.Value(groupNumber),
+      lecturer: drift.Value(lecturer),
+      location: drift.Value(location),
+      roomNumber: drift.Value(roomNumber),
+      startTime: drift.Value(startTime)
+    ).toColumns(nullToAbsent);
+  }
 
 }

@@ -1,14 +1,13 @@
 import 'package:ezak/model/course.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
 import 'package:ezak/widgets/mixins/course_widget.dart';
 import 'package:ezak/widgets/popup_items/about_popup_item.dart';
 import 'package:ezak/widgets/popup_items/settings_popup_item.dart';
 import 'package:flutter/material.dart';
-import 'package:maps_launcher/maps_launcher.dart';
 
 final class CourseHero extends StatelessWidget{
-  final Course course;
+  final CourseModel course;
   const CourseHero({super.key, required this.course});
 
   @override
@@ -41,8 +40,8 @@ final class CourseHero extends StatelessWidget{
           ),
           IconButton(
             onPressed: (course.isOnline() || course.getLocationAddress()==null?
-              null:
-              ()async=> MapsLauncher.launchQuery(course.getLocationAddress()!)
+              null: // todo implement in another way
+              ()async=> {} /*MapsLauncher.launchQuery(course.getLocationAddress()!) */
             ),
             icon: const Icon(Icons.map),
             tooltip: L10n.of(context).show_on_map,
@@ -53,7 +52,7 @@ final class CourseHero extends StatelessWidget{
   }
 
   static Color? lerpColorWithBackground(BuildContext context, Color color, {double t=.2}){
-    return Color.lerp(Theme.of(context).colorScheme.background, color, t);
+    return Color.lerp(Theme.of(context).colorScheme.surface, color, t);
   }
 
 }

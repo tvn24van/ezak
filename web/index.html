@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="pl"><head>
+    <base href="$FLUTTER_BASE_HREF">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Unofficial app for viewing schedule for PANS in Nysa">
+
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="eŻak Nysa">
+    <link rel="apple-touch-icon" href="/assets/assets/logotypes/crest.svg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/assets/logotypes/crest.svg">
+
+    <!-- fixes splash image displacement -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>eŻak Nysa</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #DDDDDD;
+            background-size: 100% 100%;
+        }
+        #image{
+            width: 60%;
+            height: 60%;
+            user-select: none;
+            user-drag: none;
+            -webkit-user-drag: none;
+        }
+    </style>
+
+</head><body>
+    <img id="image" src="/assets/assets/logotypes/logo.svg" alt="">
+    <script async src="flutter_bootstrap.js"></script>
+    <script>
+        window.addEventListener('flutter-first-frame', function () {
+            const el = document.getElementById('image');
+            el.remove();
+        });
+    </script>
+</body></html>

@@ -1,23 +1,28 @@
 import 'dart:ui';
 
-import 'package:time/time.dart';
+import 'package:ezak/utils/extensions.dart';
 
 final class Constants{
-  static String appName = DateTime.now().isAtSameDayAs(DateTime(DateTime.now().year, 4, 1))? 'leŻak Nysa' : 'eŻak Nysa';
-  //theres a problem with ssl certificate on server-side, nothing to do there
-  static const restUrl = 'mobile.pwsz.nysa.pl'; //'mobile.pans.nysa.pl';
+  static final appName = DateTime.now().isAprilFoolsDay? 'leŻak Nysa' : 'eŻak Nysa';
 
-  static final github = Uri.https('github.com', '/tvn24van/ezak');
-  static final supportMail = Uri(
+  static final restUrl = Uri.https('mobile.pwsz.nysa.pl');
+
+  static final githubUrl = Uri.https('github.com', '/tvn24van/ezak');
+
+  static final webAppUrl = Uri.https("ezak.pages.dev");
+
+  static final supportMail = Uri( // todo add app version mail subject
       scheme: 'mailto',
       path: 'ezaknysa@gmail.com',
       queryParameters: {
-        'subject': 'Help / Idea',
+        'subject': 'Help/Idea',
         'body': 'Please change mail subject depending on your intentions'
       },
   );
-  static final pansWebsite = Uri.https('pans.nysa.pl');
+
+  static final pansWebsiteUrl = Uri.https('pans.nysa.pl');
 
   static const defaultLocale = Locale('pl');
+  static const englishLocale = Locale('en');
 
 }

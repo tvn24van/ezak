@@ -1,107 +1,110 @@
 import 'dart:async';
 
-import 'package:ezak/model/loaders/schedule_loader.dart';
-import 'package:ezak/model/schedule.dart';
+import 'package:ezak/model/course.dart';
+import 'package:ezak/db/cache_db.dart';
+import 'package:ezak/model/group.dart';
 import 'package:ezak/pages/schedule_page.dart';
+import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
+import 'package:ezak/rest/rest_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:time/time.dart';
+import 'package:http/http.dart';
+import 'package:http/retry.dart';
 
-final class ScheduleProvider extends AsyncNotifier<Schedule>{
-  static final instance = AsyncNotifierProvider<ScheduleProvider, Schedule>((){
-    return ScheduleProvider();
-  });
+typedef Schedule = ({List<DateTime> dates, Map<DateTime, List<Course>> courses, Map<Group, int> maxGroups});
 
-  Future<Schedule> load({bool ignoreAutoUpdate=false}) async{ //todo refactor
-    final key = ref.watch(SettingsProvider.instance.select((settings) => settings.specializationKey));
-    final isTeacher = ref.watch(SettingsProvider.instance.select((settings)=> settings.isTeacher));
-    final autoUpdate = ref.read(SettingsProvider.instance.select((settings) => settings.autoUpdates));
+class ScheduleProvider extends AsyncNotifier<Schedule>{
 
-    Iterable<Future<dynamic>> futures;
+  static final instance = AsyncNotifierProvider<ScheduleProvider, Schedule>(ScheduleProvider.new);
 
-    if(await ScheduleLoader.dataExists(isTeacher, key)){
-      if(autoUpdate && !ignoreAutoUpdate){
-        final downloadDate = await ScheduleLoader.getDownloadDate(isTeacher, key);
-        final updateDate = await ScheduleLoader.getUpdateDate(isTeacher, key).catchError((e)=>
-            downloadDate.subtract(1.seconds) //hack, if no internet connection
-        );
-
-        if(updateDate.isBefore(downloadDate)) {
-          futures = [ // loading
-            ScheduleLoader.loadDates(isTeacher, key),
-            ScheduleLoader.loadCourses(isTeacher, key)
-          ];
-        }else {
-          futures = [ // updating
-            ScheduleLoader.downloadAndSaveDates(isTeacher, key),
-            ScheduleLoader.downloadAndSaveCourses(isTeacher, key)
-          ];
-        }
-      }else{
-        futures = [ // loading
-          ScheduleLoader.loadDates(isTeacher, key),
-          ScheduleLoader.loadCourses(isTeacher, key)
-        ];
-      }
-    }else{
-      futures = [ // downloading
-        ScheduleLoader.downloadAndSaveDates(isTeacher, key),
-        ScheduleLoader.downloadAndSaveCourses(isTeacher, key)
-      ];
-    }
-
-    final values = await Future.wait(futures);
-    return Schedule(values.first as DatesMap, values.last as CoursesList);
-  }
-
-  /// [ignoreAutoUpdate] indicates if we should ignore settings option for ignoring
-  /// auto-updates so it will force check for an update
+  /// [forceAutoUpdates] allows checking for updates even with them disabled
+  /// [forceDownload] forces build to always download schedule
   @override
-  Future<Schedule> build({bool ignoreAutoUpdate=false}) async {
-    final schedule = await load(ignoreAutoUpdate: ignoreAutoUpdate)
-      ..filter(ref.read(SettingsProvider.instance).groups);
+  Future<Schedule> build({forceAutoUpdates=false, forceDownload=false}) async{
+    final db = ref.watch(CacheDb.instance);
+    final isLecturer = ref.watch(SettingsProvider.instance.select((value) => value.isLecturer));
+    final key = ref.watch(SettingsProvider.key);
+    final groups = ref.watch(SettingsProvider.groups);
+    final autoUpdates = ref.watch(SettingsProvider.autoUpdates);
 
-    final accurateDate = schedule.getAccurateDate();
+    final assignment = await db.getAssignment(key: key, isLecturer: isLecturer);
+    final isCached = assignment != null;
+    final client = RetryClient(Client());
 
-    ref.read(SchedulePage.currentDate.notifier).update((state) => accurateDate);
+    if(!isCached){
+      debugPrint("Downloading Schedule...");
 
-    ref.read(SchedulePage.pageViewController.notifier).update((state) =>
-        PageController(initialPage: schedule.getIndexOfDate(accurateDate))
-    );
+      final (courses, dates) = await (
+        PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
+        PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
+      ).wait;
 
-    return schedule;
-  }
+      await db.addSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
+    }else if(forceDownload){
+      final (courses, dates) = await (
+        PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
+        PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
+      ).wait;
+      await db.updateSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
+    }else if(forceAutoUpdates? true : autoUpdates){
+      debugPrint("Schedule was cached before");
 
-  Future<void> checkForUpdate() async{
-    final key = ref.read(SettingsProvider.instance.select((settings) => settings.specializationKey));
-    final isTeacher = ref.read(SettingsProvider.instance.select((settings)=> settings.isTeacher));
-
-    final downloadDate = await ScheduleLoader.getDownloadDate(isTeacher, key);
-    final updateDate = await ScheduleLoader.getUpdateDate(isTeacher, key)
-        .catchError((e) =>
-        downloadDate.subtract(1.seconds) //hack, if no internet connection
-    );
-
-    if(updateDate.isAfter(downloadDate)){
-      redownload();
+      DateTime? fetchedUpdateDate;
+      try {
+        fetchedUpdateDate = await PansRestApi.fetchUpdateDate(httpClient: client, key: key);
+      }catch(e){
+        debugPrint("No internet connection");
+      }
+      if(fetchedUpdateDate!=null){
+        if(assignment.lastUpdate.isBefore(fetchedUpdateDate)){
+          debugPrint("Downloading update...");
+          final (courses, dates) = await (
+          PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
+          PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
+          ).wait;
+          await db.updateSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
+        } else {
+          debugPrint("No update detected");
+        }
+      }
     }
+    client.close();
+    final allDates = await db.getDates(key: key, isLecturer: isLecturer, groups: groups);
+    final date = getInitialDate(allDates);
+    final initialDates = getDatesAround(allDates, currentDate: date);
+
+    ref.read(displayedDate.notifier).state = date;
+    SchedulePage.pageController = PageController(initialPage: allDates.indexOf(date));
+
+    final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: initialDates);
+    final maxGroups = await db.getMaxGroups(key: key, isLecturer: isLecturer);
+    debugPrint(courses.toString());
+    return (dates: allDates, courses: courses, maxGroups: maxGroups);
   }
 
-  Future<void> redownload() async{
-    final key = ref.read(SettingsProvider.instance.select((settings) => settings.specializationKey));
-    final isTeacher = ref.read(SettingsProvider.instance.select((settings)=> settings.isTeacher));
-    state = const AsyncValue.loading();
+  Future<void> loadCourses(DateTime date) async {
+    final db = ref.read(CacheDb.instance);
+    final key = ref.read(SettingsProvider.key);
+    final isLecturer = ref.read(SettingsProvider.instance.select((value) => value.isLecturer));
+    final groups = ref.read(SettingsProvider.groups);
+    final datesToLoad = getDatesAround(state.value!.dates, currentDate: date)
+      .where((d) => !state.value!.courses.keys.contains(d))
+      .toList();
+    if(datesToLoad.isEmpty) return;
+    debugPrint("Loading courses for $datesToLoad");
+    final current = state.value;
 
-    state = await AsyncValue.guard(() async {
-      final values = await Future.wait([
-        ScheduleLoader.downloadAndSaveDates(isTeacher, key),
-        ScheduleLoader.downloadAndSaveCourses(isTeacher, key)
-      ]);
-      return Schedule(values.first as DatesMap, values.last as CoursesList)
-        ..filter(ref.read(SettingsProvider.instance).groups);
-    });
+    final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: datesToLoad);
 
+    state = AsyncValue.data(
+      current!..courses.addAll(courses)
+    );
+  }
+
+  Future<void> removeCourses({bool? isLecturer, int? key})async {
+    ref.read(CacheDb.instance).removeSchedules(ref); // todo add possibility to remove specific schedule
+    ref.read(SettingsProvider.instance.notifier).resetKeys();
   }
 
 }

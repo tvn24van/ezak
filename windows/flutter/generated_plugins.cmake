@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  maps_launcher
+  sqlite3_flutter_libs
   url_launcher_windows
 )
 

@@ -23,12 +23,15 @@ class Settings{
   /// locale in which app will be displayed
   final Locale locale;
 
-  /// true if user selected teacher's mode
-  final bool isTeacher;
+  /// true if user selected lecturer's mode
+  final bool isLecturer;
 
   /// identifies which semester and specialization
   /// user wants to display
   final int specializationKey;
+
+  /// similar to [specializationKey]
+  final int lecturerKey;
 
   /// groups selected to display
   final GroupsMap groups;
@@ -37,18 +40,20 @@ class Settings{
     bool? darkTheme,
     bool? autoUpdates,
     Locale? locale,
-    bool? isTeacher,
+    bool? isLecturer,
     int? specializationKey,
+    int? lecturerKey,
     GroupsMap? groups,
   }):
   locale = locale ?? Constants.defaultLocale,
   darkTheme = darkTheme ?? false,
   autoUpdates = autoUpdates ?? true,
-  isTeacher = isTeacher ?? false,
-  specializationKey = specializationKey ?? defaultSpecializationKey, // 0 when no groups were selected
+  isLecturer = isLecturer ?? false,
+  specializationKey = specializationKey ?? defaultKey,
+  lecturerKey = lecturerKey ?? defaultKey,
   groups = groups ?? Settings.defaultGroups;
 
-  static const int defaultSpecializationKey = 0;
+  static const int defaultKey = 0;
 
   static const GroupsMap defaultGroups = {
     Group.lecture: <int>{},
@@ -58,25 +63,21 @@ class Settings{
     Group.seminar: <int>{},
   };
 
-  // static const GroupsMap defaultGroups = GroupsMap.fromEntries( //sadly, any of these work
-  //   // for(var group in Group.values) group: <int>{1}
-  //   for(var group in Group.values) MapEntry(group, <int>{1})
-  //   // Group.values.map((group) => MapEntry(group, <int>{1}))
-  // );
-
   Settings copyWith({
     bool? darkTheme,
     bool? autoUpdates,
     Locale? locale,
-    bool? isTeacher,
+    bool? isLecturer,
     int? specializationKey,
+    int? lecturerKey,
     GroupsMap? groups,
   })=> Settings(
     darkTheme: darkTheme ?? this.darkTheme,
     autoUpdates: autoUpdates ?? this.autoUpdates,
     locale: locale ?? this.locale,
-    isTeacher: isTeacher ?? this.isTeacher,
+    isLecturer: isLecturer ?? this.isLecturer,
     specializationKey: specializationKey ?? this.specializationKey,
+    lecturerKey: lecturerKey ?? this.lecturerKey,
     groups: groups ?? this.groups,
   );
 

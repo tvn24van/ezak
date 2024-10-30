@@ -19,13 +19,11 @@
   "next_day": "Następny dzień",
 
   "language": "Język",
-  "academic_teacher_mode": "Tryb nauczyciela",
   "specialization": "Specjalizacja",
   "no_matches_found": "Nie znaleziono dopasowań",
 
   "error_occurred": "Wystąpił błąd:",
   "no_group_or_specialization": "Nie ma nic do wyświetlenia. Upewnij się, że wybrałeś swoją grupę, lub specjalizację.",
-  "legend": "Legenda",
   "group_name": "{group, select, lecture{Wykład} exercises{Ćwiczenia} laboratories{Laboratoria} project{Projekt} seminar{Seminarium} other{Inny}}",
   "@group_name": {
     "placeholders": {
@@ -40,7 +38,8 @@
 
   "change_language_if_you_like": "Zmień język, jeśli chcesz",
   "set_whether_you_are_a_teacher": "Ustaw, czy jesteś nauczycielem",
-  "choose_specialization": "Wybierz specjalizację / wykładowcę",
+  "choose_specialization": "Wybierz specjalizację",
+  "select_lecturer": "Wybierz prowadzącego",
   "go_to_schedule": "Przejdź do planu zajęć",
 
   "show_on_map": "Pokaż na mapie",
@@ -93,6 +92,10 @@
         "type": "String"
       }
     }
-  }
-
+  },
+  "section_of_personalization": "Personalizacja",
+  "section_of_schedule_configuration": "Konfiguracja planu",
+  "section_of_schedule_management": "Zarządzanie planem",
+  "user_profile": "Profil użytkownika",
+  "student": "Student"
 }

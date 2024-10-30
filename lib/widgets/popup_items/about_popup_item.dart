@@ -1,5 +1,5 @@
 import 'package:ezak/utils/constants.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -30,13 +30,13 @@ final class PansAboutAppPopupItem extends PopupMenuItem{
               children: [
                 ElevatedButton(
                   onPressed: () async{
-                    await launchUrl(Constants.github, mode: LaunchMode.externalApplication);
+                    await launchUrl(Constants.githubUrl, mode: LaunchMode.externalApplication);
                   },
                   child: const Text("Github")
                 ),
                 ElevatedButton(
                   onPressed: () async{
-                    await launchUrl(Constants.pansWebsite, mode: LaunchMode.externalApplication);
+                    await launchUrl(Constants.pansWebsiteUrl, mode: LaunchMode.externalApplication);
                   },
                   child: Text(L10n.of(context).university_website)
                 ),

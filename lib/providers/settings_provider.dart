@@ -1,18 +1,47 @@
-import 'dart:ui';
-
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
-import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final class _SettingsKeys{
+  static final darkTheme = "darkTheme";
+  static final autoUpdates = "autoUpdates";
+  static final locale = "locale";
+  static final isLecturer = "isTeacher"; // backwards comp.
+  static final specializationKey = "specializationKey";
+  static final lecturerKey = "lecturerKey";
+  // static final groups = "groups"; // this is auto-generated
+}
+
 final class SettingsProvider extends Notifier<Settings>{
 
+  /// provides current settings
   static final instance = NotifierProvider<SettingsProvider, Settings>(()=>
     SettingsProvider()
   );
+
+  /// indicates if user completed schedule selection
+  static final completed = Provider((ref)=> ref.watch(key) != Settings.defaultKey);
+
+  /// provides key of specialization or lecturer according to selected setting
+  static final key = Provider((ref){
+    final isLecturer = ref.watch(instance.select((value) => value.isLecturer));
+    return ref.watch(instance.select((value) => isLecturer? value.lecturerKey : value.specializationKey));
+  });
+
+  /// provides groups with the difference that lecturer always get them empty
+  /// to force [ScheduleProvider] to get all courses
+  static final groups = Provider((ref){
+    final isLecturer = ref.watch(instance.select((s) => s.isLecturer));
+    return isLecturer? Settings.defaultGroups : ref.watch(instance.select((s)=> s.groups));
+  });
+
+  static final autoUpdates = Provider((ref){
+    final isLecturer = ref.watch(instance.select((value) => value.isLecturer));
+    return isLecturer? false : ref.watch(instance.select((value) => value.autoUpdates));
+  });
 
   @override
   Settings build() {
@@ -28,11 +57,12 @@ final class SettingsProvider extends Notifier<Settings>{
     final noGroups = groups.areGroupsEmpty();
 
     return Settings(
-      darkTheme: sp.getBool('darkTheme'),
-      autoUpdates: sp.getBool('autoUpdates'),
-      locale: sp.getString('locale')!=null? Locale(sp.getString('locale')!) : null,
-      isTeacher: sp.getBool('isTeacher'),
-      specializationKey: sp.getInt('specialization'),
+      darkTheme: sp.getBool(_SettingsKeys.darkTheme),
+      autoUpdates: sp.getBool(_SettingsKeys.autoUpdates),
+      locale: sp.getString(_SettingsKeys.locale)!=null? Locale(sp.getString(_SettingsKeys.locale)!) : null,
+      isLecturer: sp.getBool(_SettingsKeys.isLecturer),
+      specializationKey: sp.getInt(_SettingsKeys.specializationKey),
+      lecturerKey: sp.getInt(_SettingsKeys.lecturerKey),
       groups: noGroups? null : groups,
     );
   }
@@ -41,28 +71,28 @@ final class SettingsProvider extends Notifier<Settings>{
     state = state.copyWith(
       locale: locale
     );
-    ref.read(sharedPreferences).setString('locale', locale.languageCode);
+    ref.read(sharedPreferences).setString(_SettingsKeys.locale, locale.languageCode);
   }
 
   void toggleTheme(){
     state = state.copyWith(
       darkTheme: !state.darkTheme
     );
-    ref.read(sharedPreferences).setBool('darkTheme', state.darkTheme);
+    ref.read(sharedPreferences).setBool(_SettingsKeys.darkTheme, state.darkTheme);
   }
 
   void toggleAutoUpdates(){
     state = state.copyWith(
         autoUpdates: !state.autoUpdates
     );
-    ref.read(sharedPreferences).setBool('autoUpdates', state.autoUpdates);
+    ref.read(sharedPreferences).setBool(_SettingsKeys.autoUpdates, state.autoUpdates);
   }
 
   void toggleTeacherMode(){
     state = state.copyWith(
-      isTeacher: !state.isTeacher
+      isLecturer: !state.isLecturer
     );
-    ref.read(sharedPreferences).setBool('isTeacher', state.isTeacher);
+    ref.read(sharedPreferences).setBool(_SettingsKeys.isLecturer, state.isLecturer);
   }
 
   void _saveGroupNumbers(Group group){
@@ -74,27 +104,12 @@ final class SettingsProvider extends Notifier<Settings>{
 
   void setGroupNumbers(Group group, Set<int> numbers){
     final newGroups = GroupsMap.from(state.groups)..update(group, (value) => numbers);
-    ref.read(ScheduleProvider.instance).value?.filter(newGroups);
     state = state.copyWith(
       groups: newGroups
     );
     _saveGroupNumbers(group);
-
-    // after group changes some days may completely disappear however index of
-    // current day stays the same and this may cause problems so here are some
-    // checks
-    final schedule = ref.read(ScheduleProvider.instance).value;
-    if(schedule!=null){
-      if(!schedule.containsDate(ref.read(SchedulePage.currentDate))){
-        final accurateDate = schedule.getAccurateDate();
-        ref.read(SchedulePage.currentDate.notifier)
-          .update((state) => accurateDate);
-        ref.read(SchedulePage.pageViewController.notifier).update((state) =>
-            PageController(initialPage: schedule.getIndexOfDate(accurateDate))
-        );
-      }
-    }
   }
+
 
   void toggleGroupNumber(Group group, int number){
     final groupNumbers = state.groups[group]!.toSet(); //creating new Set
@@ -108,8 +123,6 @@ final class SettingsProvider extends Notifier<Settings>{
     final newGroups = GroupsMap.fromEntries(state.groups.entries)
       ..update(group, (value) => groupNumbers);
 
-    ref.read(ScheduleProvider.instance).value?.filter(newGroups);
-
     state = state.copyWith(
       groups: newGroups
     );
@@ -117,11 +130,23 @@ final class SettingsProvider extends Notifier<Settings>{
     _saveGroupNumbers(group);
   }
 
-  void changeSpecialization(int key){
+  void changeKey(int key){
+    final isLecturer = ref.read(instance.select((value) => value.isLecturer));
     state = state.copyWith(
-      specializationKey: key
+      lecturerKey: isLecturer? key : null,
+      specializationKey: !isLecturer? key : null
     );
-    ref.read(sharedPreferences).setInt('specialization', key);
+    ref.read(sharedPreferences).setInt(isLecturer? _SettingsKeys.lecturerKey : _SettingsKeys.specializationKey, key);
+  }
+
+  void resetKeys(){
+    state = state.copyWith(
+      lecturerKey: Settings.defaultKey,
+      specializationKey: Settings.defaultKey
+    );
+    ref.read(sharedPreferences)
+      ..setInt(_SettingsKeys.lecturerKey, Settings.defaultKey)
+      ..setInt(_SettingsKeys.specializationKey, Settings.defaultKey);
   }
 
 }

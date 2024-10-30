@@ -1,6 +1,6 @@
 import 'package:ezak/pages/schedule_page.dart';
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/schedule_provider.dart';
-import 'package:ezak/utils/l10n/l10n.g.dart';
 import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +10,8 @@ final class PansFloatingActionButtons extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final disabled = !ref.watch(ScheduleProvider.instance).hasValue;
+    final schedule = ref.watch(ScheduleProvider.instance);
+    final disabled = !schedule.hasValue;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -18,11 +19,10 @@ final class PansFloatingActionButtons extends ConsumerWidget{
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
-            onPressed: disabled? null : (){
-              final controller = ref.read(SchedulePage.pageViewController);
-              controller.previousPage(
+            onPressed: disabled? null : () async{
+              SchedulePage.pageController?.previousPage(
                 duration: PansAppereance.pageControllerSettings.duration,
-                curve: PansAppereance.pageControllerSettings.curve,
+                curve: PansAppereance.pageControllerSettings.curve
               );
             },
             heroTag: null,
@@ -30,9 +30,8 @@ final class PansFloatingActionButtons extends ConsumerWidget{
             child: Icon(Icons.adaptive.arrow_back),
           ),
           FloatingActionButton(
-            onPressed: disabled? null : (){
-              final controller = ref.read(SchedulePage.pageViewController);
-              controller.nextPage(
+            onPressed: disabled? null : () async{
+              SchedulePage.pageController?.nextPage(
                 duration: PansAppereance.pageControllerSettings.duration,
                 curve: PansAppereance.pageControllerSettings.curve,
               );
