@@ -87,7 +87,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final db = ref.read(CacheDb.instance);
     final key = ref.read(SettingsProvider.key);
     final isLecturer = ref.read(SettingsProvider.instance.select((value) => value.isLecturer));
-    final groups = ref.read(SettingsProvider.instance.select((value) => value.groups));
+    final groups = ref.read(SettingsProvider.groups);
     final datesToLoad = getDatesAround(state.value!.dates, currentDate: date)
       .where((d) => !state.value!.courses.keys.contains(d))
       .toList();
