@@ -38,6 +38,11 @@ final class SettingsProvider extends Notifier<Settings>{
     return isLecturer? Settings.defaultGroups : ref.watch(instance.select((s)=> s.groups));
   });
 
+  static final autoUpdates = Provider((ref){
+    final isLecturer = ref.watch(instance.select((value) => value.isLecturer));
+    return isLecturer? false : ref.watch(instance.select((value) => value.autoUpdates));
+  });
+
   @override
   Settings build() {
     final sp = ref.read(sharedPreferences);
