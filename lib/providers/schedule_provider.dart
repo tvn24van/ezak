@@ -18,15 +18,19 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
 
   static final instance = AsyncNotifierProvider<ScheduleProvider, Schedule>(ScheduleProvider.new);
 
+  /// [forceAutoUpdates] allows checking for updates even with them disabled
+  /// [forceDownload] forces build to always download schedule
   @override
-  Future<Schedule> build() async{
+  Future<Schedule> build({forceAutoUpdates=false, forceDownload=false}) async{
     final db = ref.watch(CacheDb.instance);
     final isLecturer = ref.watch(SettingsProvider.instance.select((value) => value.isLecturer));
     final key = ref.watch(SettingsProvider.key);
     final groups = ref.watch(SettingsProvider.groups);
+    final autoUpdates = ref.watch(SettingsProvider.autoUpdates);
 
-    final isCached = await db.isCached(key: key, isLecturer: isLecturer);
-    final client = RetryClient(Client(), retries: 2);
+    final assignment = await db.getAssignment(key: key, isLecturer: isLecturer);
+    final isCached = assignment != null;
+    final client = RetryClient(Client());
 
     if(!isCached){
       debugPrint("Downloading Schedule...");
@@ -37,9 +41,33 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
       ).wait;
 
       await db.addSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
-    }else{
-      //todo check if there was update for this schedule
+    }else if(forceDownload){
+      final (courses, dates) = await (
+        PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
+        PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
+      ).wait;
+      await db.updateSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
+    }else if(forceAutoUpdates? true : autoUpdates){
       debugPrint("Schedule was cached before");
+
+      DateTime? fetchedUpdateDate;
+      try {
+        fetchedUpdateDate = await PansRestApi.fetchUpdateDate(httpClient: client, key: key);
+      }catch(e){
+        debugPrint("No internet connection");
+      }
+      if(fetchedUpdateDate!=null){
+        if(assignment.lastUpdate.isBefore(fetchedUpdateDate)){
+          debugPrint("Downloading update...");
+          final (courses, dates) = await (
+          PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
+          PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
+          ).wait;
+          await db.updateSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
+        } else {
+          debugPrint("No update detected");
+        }
+      }
     }
     client.close();
     final dates = await db.getDates(key: key, isLecturer: isLecturer, groups: groups);
