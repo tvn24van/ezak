@@ -59,14 +59,14 @@ class CacheDb extends _$CacheDb{
     return (select(semesterTable)
       ..orderBy([(t)=>OrderingTerm.asc(t.id)])
       ..limit(1)
-    ).getSingleOrNull();//todo fix
+    ).getSingleOrNull();
   }
 
-  Future<bool> isCached({required int key, required bool isLecturer}) async{
+  Future<Assignment?> getAssignment({required int key, required bool isLecturer}) async{
     return (select(coursesDatesTable)
       ..where((tbl) => tbl.isLecturer.equals(isLecturer) & tbl.key.equals(key))
       ..limit(1)
-    ).getSingleOrNull().then((value) => value!=null);
+    ).getSingleOrNull();
   }
 
   Future<Map<Group, int>> getMaxGroups({
@@ -93,13 +93,6 @@ class CacheDb extends _$CacheDb{
       MapEntry(Group.values[row.read(courseTable.group)!], row.read(maxGroupNumber)!)
     ).get().then((value) => Map.fromEntries(value));
   }
-
-  List<Expression<bool>> _groupsConditions(GroupsMap groups) => groups.entries.where((element) => element.value.isNotEmpty).map((entry) =>
-    Expression.and([
-      courseTable.group.equalsValue(entry.key),
-      courseTable.groupNumber.isIn(entry.value)
-    ])
-  ).toList();
 
   Future<List<DateTime>> getDates({
     required int key,
@@ -172,7 +165,37 @@ class CacheDb extends _$CacheDb{
         );
       });
     });
+  }
 
+  Future<void> updateSchedule({
+    required int key,
+    required bool isLecturer,
+    required List<Course> courses,
+    required List<CourseDate> coursesDates
+  })async {
+    await transaction(() async {
+      final assignment = (await (update(coursesDatesTable)
+        ..where((tbl) =>
+          tbl.key.equals(key) &
+          tbl.isLecturer.equals(isLecturer)
+        ))
+        .writeReturning(
+          CoursesDatesTableCompanion(lastUpdate: Value(DateTime.now())))
+        ).first;
+
+      await batch((batch) {
+        batch.deleteWhere(courseTable, (tbl) => tbl.coursesDatesId.equals(assignment.id));
+        batch.deleteWhere(datesTable, (tbl) => tbl.coursesDatesId.equals(assignment.id));
+        batch.insertAll(
+          courseTable,
+          courses.map((c) => c.copyWith(coursesDatesId: assignment.id))
+        );
+        batch.insertAll(
+          datesTable,
+          coursesDates.map((d) => d.copyWith(coursesDatesId: assignment.id))
+        );
+      });
+    });
   }
 
   Future<void> removeSchedules(Ref ref) async {

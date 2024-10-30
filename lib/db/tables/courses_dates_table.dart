@@ -7,4 +7,7 @@ class CoursesDatesTable extends Table{
   BoolColumn get isLecturer => boolean()();
 
   IntColumn get key => integer()();
+
+  DateTimeColumn get lastUpdate => dateTime().withDefault(currentDateAndTime)();
+
 }
