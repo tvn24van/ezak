@@ -119,29 +119,43 @@ class CacheDb extends _$CacheDb{
     return query.map((row)=> row.read(datesTable.date)!).get();
   }
 
-  Future<List<Course>> getCourses({
+  Future<Map<DateTime, List<Course>>> getCourses({
     required int key,
     required bool isLecturer,
     required GroupsMap groups,
-    required DateTime date
+    required List<DateTime> dates
   }){
     final query = select(courseTable).join([
       innerJoin(coursesDatesTable, coursesDatesTable.id.equalsExp(courseTable.coursesDatesId), useColumns: false),
       innerJoin(datesTable, datesTable.coursesDatesId.equalsExp(coursesDatesTable.id) & courseTable.id.equalsExp(datesTable.id), useColumns: false)
     ])
-    ..where(
-      coursesDatesTable.isLecturer.equals(isLecturer) &
-      coursesDatesTable.key.equals(key) &
-      datesTable.date.equals(date)
-    )
-    ..orderBy([OrderingTerm.asc(courseTable.startTime)]);
+      ..addColumns([datesTable.date])
+      ..where(
+        coursesDatesTable.isLecturer.equals(isLecturer) &
+        coursesDatesTable.key.equals(key) &
+        datesTable.date.isIn(dates)
+      )
+      ..orderBy([OrderingTerm.asc(courseTable.startTime)]);
     if(!groups.areGroupsEmpty()){
       query.where(courseTable.group.caseMatch(when: {
         for(final e in groups.entries.where((element) => element.value.isNotEmpty))
           Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
       }));
     }
-    return query.map((row)=> row.readTable(courseTable)).get();
+    return query.map((row) =>
+      MapEntry(row.read(datesTable.date)!, [row.readTable(courseTable)])
+    ).get()
+      .then((entries){
+        final map = entries.fold(<DateTime, List<Course>>{}, (acc, entry) {
+          acc.update(
+            entry.key,
+            (list) => list..addAll(entry.value),
+            ifAbsent: () => List.of(entry.value)
+          );
+          return acc;
+        });
+        return map;
+      });
   }
 
   Future<void> addSchedule({

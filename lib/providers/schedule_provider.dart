@@ -70,29 +70,35 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
       }
     }
     client.close();
-    final dates = await db.getDates(key: key, isLecturer: isLecturer, groups: groups);
-    final date = getInitialDate(dates);
-    ref.read(displayedDate.notifier).state = date;
-    SchedulePage.pageController = PageController(initialPage: dates.indexOf(date));
+    final allDates = await db.getDates(key: key, isLecturer: isLecturer, groups: groups);
+    final date = getInitialDate(allDates);
+    final initialDates = getDatesAround(allDates, currentDate: date);
 
-    final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, date: date);
+    ref.read(displayedDate.notifier).state = date;
+    SchedulePage.pageController = PageController(initialPage: allDates.indexOf(date));
+
+    final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: initialDates);
     final maxGroups = await db.getMaxGroups(key: key, isLecturer: isLecturer);
-    return (dates: dates, courses: {date: courses}, maxGroups: maxGroups);
+    debugPrint(courses.toString());
+    return (dates: allDates, courses: courses, maxGroups: maxGroups);
   }
 
   Future<void> loadCourses(DateTime date) async {
-    if(state.value?.courses.containsKey(date) ?? false) return;
-    debugPrint("Loading courses for $date");
     final db = ref.read(CacheDb.instance);
     final key = ref.read(SettingsProvider.key);
     final isLecturer = ref.read(SettingsProvider.instance.select((value) => value.isLecturer));
     final groups = ref.read(SettingsProvider.instance.select((value) => value.groups));
-
+    final datesToLoad = getDatesAround(state.value!.dates, currentDate: date)
+      .where((d) => !state.value!.courses.keys.contains(d))
+      .toList();
+    if(datesToLoad.isEmpty) return;
+    debugPrint("Loading courses for $datesToLoad");
     final current = state.value;
 
-    final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, date: date);
+    final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: datesToLoad);
+
     state = AsyncValue.data(
-      current!..courses.putIfAbsent(date, () => courses)
+      current!..courses.addAll(courses)
     );
   }
 
