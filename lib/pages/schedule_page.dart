@@ -1,6 +1,7 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/schedule_provider.dart';
+import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/widgets/day_view.dart';
 import 'package:ezak/widgets/info_button.dart';
 import 'package:ezak/widgets/date_button.dart';
@@ -49,7 +50,6 @@ final class SchedulePage extends StatelessWidget {
                   },
                   itemBuilder: (context, index) {
                     final date = data.dates[index];
-                    // final coursesForDate = ;
 
                     return RefreshIndicator(
                       onRefresh: () async {
@@ -79,17 +79,19 @@ final class SchedulePage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // todo add back or abandon these functionalities
+              ref.read(ScheduleProvider.instance.notifier).build(forceDownload: true);
               Navigator.of(context).pop();
             },
             child: Text(L10n.of(context).force_schedule_redownload),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(L10n.of(context).check_for_schedule_update),
-          ),
+          if(!ref.read(SettingsProvider.instance.select((value) => value.isLecturer)))
+            TextButton(
+              onPressed: () {
+                ref.read(ScheduleProvider.instance.notifier).build(forceAutoUpdates: true);
+                Navigator.of(context).pop();
+              },
+              child: Text(L10n.of(context).check_for_schedule_update),
+            ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
