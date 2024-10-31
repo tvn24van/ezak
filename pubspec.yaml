@@ -7,7 +7,6 @@ version: 2.0.0+10
 
 environment:
   sdk: ^3.5.0
-#  sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -22,9 +21,6 @@ dependencies:
 #    git:
 #      url: https://github.com/r-durao-pvotal/flutter-maps-launcher.git
 
-  #cupertino_icons: ^1.0.2
-#  feature_discovery_fork: ^0.14.2 # this package depends on provider :<
-#  flutter_native_splash: ^^2.4.1
   shared_preferences: ^2.0.18
   package_info_plus: ^8.0.2
   flutter_riverpod: ^2.2.0
