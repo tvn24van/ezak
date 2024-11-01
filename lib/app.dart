@@ -21,7 +21,7 @@ final class PansApp extends ConsumerWidget {
       SettingsProvider.instance.select((settings) => settings.locale)
     );
 
-    final settingsCompleted = ref.watch(SettingsProvider.completed);
+    final settingsCompleted = ref.read(SettingsProvider.completed);
 
     return Listener(
       onPointerDown: (e)=> FocusManager.instance.primaryFocus?.unfocus(),
@@ -44,10 +44,10 @@ final class PansApp extends ConsumerWidget {
         themeMode: darkTheme? ThemeMode.dark : ThemeMode.light,
 
         routes: {
-          "/settings": (context)=> const SettingsPage(), // todo idk if it is the best way for routing
+          "/settings": (context)=> const SettingsPage(),
         },
 
-        home: kIsWeb && settingsCompleted? Banner(
+        home: kIsWeb? Banner(
           message: "TEST",
           location: BannerLocation.bottomStart,
           child: settingsCompleted? const SchedulePage() : const SettingsPage(),
