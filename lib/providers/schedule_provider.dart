@@ -27,7 +27,8 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final key = ref.watch(SettingsProvider.key);
     final groups = ref.watch(SettingsProvider.groups);
     final autoUpdates = ref.watch(SettingsProvider.autoUpdates);
-
+    final isSettingsCompleted = ref.watch(SettingsProvider.completed);
+    if(!isSettingsCompleted) return (dates: <DateTime>[], courses: <DateTime, List<Course>>{}, maxGroups: <Group, int>{});
     final assignment = await db.getAssignment(key: key, isLecturer: isLecturer);
     final isCached = assignment != null;
     final client = RetryClient(Client());
