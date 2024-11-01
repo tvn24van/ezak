@@ -20,10 +20,12 @@ final class PansDayView extends StatelessWidget{
         ...courses.asMap().entries.expand((entry) {
           final index = entry.key;
           final course = entry.value;
-          final int currentBreak = index>0? (course.startTime - courses[index-1].endTime).totalMinutes : TimeDecoder.breakLengthInMinutes;
+          final int currentBreak = index>0?
+            (course.startTime - courses[index-1].endTime).totalMinutes :
+            TimeDecoder.breakLengthInMinutes;
 
           return [
-            if (currentBreak > TimeDecoder.breakLengthInMinutes) // todo repair this functionality
+            if (currentBreak > TimeDecoder.breakLengthInMinutes)
               PansBreakIndicator(Duration(minutes: currentBreak)),
             course.toWidget(context),
           ];
