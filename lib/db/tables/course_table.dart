@@ -5,10 +5,7 @@ import 'package:ezak/model/course.dart';
 import 'package:ezak/db/converters/time_of_day_converter.dart';
 
 @UseRowClass(Course)
-// @TableIndex(name: "course_index_by_date", columns: {#date})
-// @TableIndex(name: "course_index_by_semester", columns: {#semesterId})
-
-// @TableIndex(name: "course_index_by_date_and_semester", columns: {#semesterId, #date})
+@TableIndex(name: "course_table_courses_dates_id_and_group", columns: {#coursesDatesId, #group})
 class CourseTable extends Table{
 
   IntColumn get id => integer()();
@@ -19,11 +16,7 @@ class CourseTable extends Table{
 
   TextColumn get lecturer => text()();
 
-  // DateTimeColumn get date => dateTime()();
-
   IntColumn get startTime => integer().map(TimeOfDayConverter())();
-
-  // IntColumn get timeOfCourse => integer()(); // do we need to store time of course when we can obtain end time just after json deserialization
 
   IntColumn get endTime => integer().map(TimeOfDayConverter())();
 
