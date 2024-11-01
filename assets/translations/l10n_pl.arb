@@ -97,5 +97,7 @@
   "section_of_schedule_configuration": "Konfiguracja planu",
   "section_of_schedule_management": "Zarządzanie planem",
   "user_profile": "Profil użytkownika",
-  "student": "Student"
+  "student": "Student",
+  "short_hour": "godz.",
+  "short_minute": "min"
 }

@@ -84,5 +84,7 @@
   "section_of_schedule_configuration": "Schedule configuration",
   "section_of_schedule_management": "Schedule management",
   "user_profile": "User profile",
-  "student": "Student"
+  "student": "Student",
+  "short_hour": "h",
+  "short_minute": "min"
 }

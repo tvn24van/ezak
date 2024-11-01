@@ -1,3 +1,4 @@
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -39,8 +40,7 @@ extension TimeOfDayExtension on TimeOfDay{
 }
 
 extension DurationToHour on Duration{
-  String formatTime(){
-    final whole = '$this'.split('.')[0].padLeft(8, '0');
-    return whole.substring(0, whole.length-3);
+  String formatTime(BuildContext context){
+    return "${inHours!=0? ('$inHours ${L10n.of(context).short_hour}'):''} ${inMinutes!=0?('${inMinutes.remainder(TimeOfDay.minutesPerHour)} ${L10n.of(context).short_minute}'):''}";
   }
 }
