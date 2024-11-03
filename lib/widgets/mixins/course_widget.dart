@@ -27,12 +27,10 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
           ),
           child: Row(
             children: [
-              Column( // hours
+              Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text(L10n.of(context).from_hour(startHour.formatTime())),
-                  // Text(L10n.of(context).to_hour(endHour.formatTime())),
                   Text(L10n.of(context).from_hour(startTime.format(context))),
                   Text(L10n.of(context).to_hour(endTime.format(context))),
                 ],
