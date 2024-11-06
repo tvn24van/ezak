@@ -19,10 +19,10 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
         //     context,
         //     MaterialPageRoute(builder: (context) => CourseHero(course: getCourse()))
         //   ),
-        child: Container(
+        child: Ink(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: group.color.withOpacity(.2),
+            color: Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .2),
             borderRadius: _borderRadius
           ),
           child: Row(
