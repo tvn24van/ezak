@@ -1,5 +1,4 @@
 import 'package:ezak/pages/schedule_page.dart';
-import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/visuals/appereance.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
               );
             },
             heroTag: null,
-            tooltip: L10n.of(context).previous_day,
+            tooltip: MaterialLocalizations.of(context).previousPageTooltip,
             child: Icon(Icons.adaptive.arrow_back),
           ),
           FloatingActionButton(
@@ -37,7 +36,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
               );
             },
             heroTag: null,
-            tooltip: L10n.of(context).next_day,
+            tooltip: MaterialLocalizations.of(context).nextPageTooltip,
             child: Icon(Icons.adaptive.arrow_forward),
           ),
         ],
