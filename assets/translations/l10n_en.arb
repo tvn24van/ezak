@@ -1,5 +1,5 @@
 {
-  "caption": "{appName}™️ is a clone of e-Student Nysa app, and exists to deliver our schedule even faster and more convenient!",
+  "caption": "{appName}™️ is an application designed for quick and convenient access to schedules. The name refers to \"e-Student PWSZ Nysa\" - the recently popular equivalent of eŻak, and to a video clip worth checking out. (Link below)",
   "@caption": {
     "placeholders": {
       "appName": {
@@ -7,6 +7,10 @@
       }
     }
   },
+  "video_clip": "Video clip",
+  "web_app": "Web app",
+  "thank_you_for_your_contact": "Thank you for your contact",
+  "email_feedback_message": "You will usually wait no longer than a week for a response",
   "choose_courses_date": "Select a class date",
   "university_website": "University's website",
   "contact": "Contact",
@@ -14,8 +18,6 @@
   "informations": "Info",
   "theme_change": "Theme change",
   "dark_theme": "Dark theme",
-  "previous_day": "Previous day",
-  "next_day": "Next day",
   "language": "Language",
   "specialization": "Specialization",
   "no_matches_found": "No matches found",

@@ -11,6 +11,8 @@ final class Constants{
 
   static final webAppUrl = Uri.https("ezak.pages.dev");
 
+  static final videoClip = Uri.https('youtube.com', '/watch', {'v': 'zYQOpCfCOxI'});
+
   static final supportMail = Uri( // todo add app version mail subject
       scheme: 'mailto',
       path: 'ezaknysa@gmail.com',

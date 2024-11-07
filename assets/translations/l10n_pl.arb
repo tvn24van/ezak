@@ -1,5 +1,5 @@
 {
-  "caption": "{appName}™️ jest klonem aplikacji e-Student Nysa, i istnieje by dostarczać plan naszych zajęć jeszcze wygodniej!",
+  "caption": "{appName}™️ to aplikacja stworzona z myślą o szybkim i wygodnym dostępie do planów zajęć. Nazwa nawiązuje do \"e-Student PWSZ Nysa\" - niedawno popularnego odpowiednika eŻaka oraz do wartego sprawdzenia teledysku. (Link poniżej)",
   "@caption": {
     "placeholders": {
       "appName": {
@@ -7,6 +7,10 @@
       }
     }
   },
+  "video_clip": "Teledysk",
+  "web_app": "Aplikacja internetowa",
+  "thank_you_for_your_contact": "Dziękuję za kontakt",
+  "email_feedback_message": "Zazwyczaj na odpowiedź czeka się nie dłużej niż tydzień",
   "choose_courses_date": "Wybierz datę zajęć",
   "university_website": "Strona uczelni",
   "contact": "Kontakt",
@@ -15,8 +19,6 @@
   "informations": "Informacje",
   "theme_change": "Zmiana motywu",
   "dark_theme": "Ciemny motyw",
-  "previous_day": "Poprzedni dzień",
-  "next_day": "Następny dzień",
 
   "language": "Język",
   "specialization": "Specjalizacja",
@@ -34,7 +36,6 @@
   "week": "Tydzień",
   "even": "parzysty",
   "odd": "nieparzysty",
-
 
   "change_language_if_you_like": "Zmień język, jeśli chcesz",
   "set_whether_you_are_a_teacher": "Ustaw, czy jesteś nauczycielem",
