@@ -63,7 +63,7 @@ final class PansAboutAppPopupItem extends PopupMenuItem{
                         title: Text(L10n.of(context).thank_you_for_your_contact),
                         content: Text(L10n.of(context).email_feedback_message),
                         actions: [
-                          ElevatedButton(onPressed: () => Navigator.of(context).pop(), child: Text(MaterialLocalizations.of(context).okButtonLabel))
+                          TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(MaterialLocalizations.of(context).okButtonLabel))
                         ],
                       ),
                     );
