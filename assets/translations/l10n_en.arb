@@ -26,7 +26,9 @@
   "group_name": "{group, select, lecture{Lecture} exercises{Exercises} laboratories{Laboratories} project{Project} seminar{Seminar} other{Other}}",
   "@group_name": {
     "placeholders": {
-      "group": {}
+      "group": {
+        "type": "String"
+      }
     }
   },
   "week": "Week",

@@ -29,7 +29,9 @@
   "group_name": "{group, select, lecture{Wykład} exercises{Ćwiczenia} laboratories{Laboratoria} project{Projekt} seminar{Seminarium} other{Inny}}",
   "@group_name": {
     "placeholders": {
-      "group": {}
+      "group": {
+        "type": "String"
+      }
     }
   },
 
