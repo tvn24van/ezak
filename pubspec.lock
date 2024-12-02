@@ -258,10 +258,10 @@ packages:
     dependency: "direct main"
     description:
       name: drift
-      sha256: "530d6c5a79723dff418c49c0bb498360fd77c965ea234587e345826cb63ecdd2"
+      sha256: c2d073d35ad441730812f4ea05b5dd031fb81c5f9786a4f5fb77ecd6307b6f74
       url: "https://pub.dev"
     source: hosted
-    version: "2.22.0"
+    version: "2.22.1"
   drift_dev:
     dependency: "direct dev"
     description:
@@ -1099,10 +1099,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: "84ba388638ed7a8cb3445a320c8273136ab2631cd5f2c57888335504ddab1bc2"
+      sha256: "8b338d4486ab3fbc0ba0db9f9b4f5239b6697fcee427939a40e720cbb9ee0a69"
       url: "https://pub.dev"
     source: hosted
-    version: "5.8.0"
+    version: "5.9.0"
   xdg_directories:
     dependency: transitive
     description:
