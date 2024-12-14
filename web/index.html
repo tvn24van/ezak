@@ -48,9 +48,9 @@
                 document.body.style.backgroundColor='#1b1010';
             }
         })
-        window.addEventListener('flutter-first-frame', function () {
+        window.addEventListener('flutter-first-frame', ()=>{
             const el = document.getElementById('image');
-            el.remove();
+            el?.remove();
         });
     </script>
 </body></html>
