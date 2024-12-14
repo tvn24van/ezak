@@ -25,7 +25,6 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final db = ref.watch(CacheDb.instance);
     final isLecturer = ref.watch(SettingsProvider.instance.select((value) => value.isLecturer));
     final key = ref.watch(SettingsProvider.key);
-    final groups = ref.watch(SettingsProvider.groups);
     final autoUpdates = ref.watch(SettingsProvider.autoUpdates);
     final isSettingsCompleted = ref.watch(SettingsProvider.completed);
     if(!isSettingsCompleted) return (dates: <DateTime>[], courses: <DateTime, List<Course>>{}, maxGroups: <Group, int>{});
@@ -71,6 +70,9 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
       }
     }
     client.close();
+    final maxGroups = await db.getMaxGroups(key: key, isLecturer: isLecturer);
+    final scheduleGroups = maxGroups.keys;
+    final groups = {... ref.watch(SettingsProvider.groups)}..removeWhere((key, value) => !scheduleGroups.contains(key));
     final allDates = await db.getDates(key: key, isLecturer: isLecturer, groups: groups);
     final date = getInitialDate(allDates);
     final initialDates = getDatesAround(allDates, currentDate: date);
@@ -79,7 +81,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     SchedulePage.pageController = PageController(initialPage: allDates.indexOf(date));
 
     final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: initialDates);
-    final maxGroups = await db.getMaxGroups(key: key, isLecturer: isLecturer);
+
     debugPrint(courses.toString());
     return (dates: allDates, courses: courses, maxGroups: maxGroups);
   }
@@ -88,7 +90,8 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final db = ref.read(CacheDb.instance);
     final key = ref.read(SettingsProvider.key);
     final isLecturer = ref.read(SettingsProvider.instance.select((value) => value.isLecturer));
-    final groups = ref.read(SettingsProvider.groups);
+    // filter schedule only by groups it contains
+    final groups = {... ref.watch(SettingsProvider.groups)}..removeWhere((key, value) => !state.value!.maxGroups.keys.contains(key));
     final datesToLoad = getDatesAround(state.value!.dates, currentDate: date)
       .where((d) => !state.value!.courses.keys.contains(d))
       .toList();
