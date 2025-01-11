@@ -28,6 +28,7 @@ final class PansTeacherTile extends ConsumerWidget{
         ],
         selected: {isTeacher},
         onSelectionChanged: (_) => ref.read(SettingsProvider.instance.notifier).toggleTeacherMode(),
+        showSelectedIcon: false,
       ),
       onTap: (){},
     );
