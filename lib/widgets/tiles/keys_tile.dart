@@ -7,8 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final class PansSpecializationTile extends ConsumerWidget{
-  const PansSpecializationTile({super.key});
+final class PansKeysTile extends ConsumerWidget{
+  const PansKeysTile({super.key});
 
   static final _searchController = SearchController();
 

@@ -9,7 +9,7 @@ import 'package:ezak/widgets/tiles/theme_tile.dart';
 import 'package:ezak/widgets/tiles/update_schedule_tile.dart';
 import 'package:ezak/widgets/tiles/groups_tile.dart';
 import 'package:ezak/widgets/popup_items/about_popup_item.dart';
-import 'package:ezak/widgets/tiles/specialization_tile.dart';
+import 'package:ezak/widgets/tiles/keys_tile.dart';
 import 'package:ezak/widgets/tiles/language_tile.dart';
 import 'package:ezak/widgets/tiles/teacher_tile.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ final class SettingsPage extends StatelessWidget{
             TextDivider(child: Text(L10n.of(context).section_of_schedule_configuration)),
             const PansAutoUpdateTile(),
             const PansTeacherTile(),
-            const PansSpecializationTile(),
+            const PansKeysTile(),
             const PansGroupsTile(),
             TextDivider(child: Text(L10n.of(context).section_of_schedule_management)),
             const PansUpdateScheduleTile(),
