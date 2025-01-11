@@ -3,7 +3,7 @@ description: Unofficial app for viewing schedules of PANS in Nysa
 
 publish_to: 'none'
 
-version: 2.0.2+12
+version: 2.0.3+13
 
 environment:
   sdk: ^3.5.0
