@@ -14,15 +14,15 @@ final class PansSpecializationTile extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final specializations = ref.watch(keysProvider);
     final key = ref.watch(SettingsProvider.key);
-    final isTeacher = ref.watch(
+    final isLecturer = ref.watch(
         SettingsProvider.instance.select((settings) => settings.isLecturer)
     );
-    final titleText = isTeacher?
+    final specializations = ref.watch(keysProvider(isLecturer));
+    final titleText = isLecturer?
       L10n.of(context).lecturer:
       L10n.of(context).specialization;
-    final buttonText = isTeacher?
+    final buttonText = isLecturer?
       L10n.of(context).select_lecturer:
       L10n.of(context).choose_specialization;
 
