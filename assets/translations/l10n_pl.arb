@@ -102,5 +102,21 @@
   "user_profile": "Profil użytkownika",
   "student": "Student",
   "short_hour": "godz.",
-  "short_minute": "min"
+  "short_minute": "min",
+  "rate_app": "Oceń aplikację",
+  "schedule": "Plan zajęć",
+  "email_title": "Pomoc / inna sprawa (wersja aplikacji {app_version})",
+  "@email_title": {
+    "placeholders": {
+      "app_version": {
+        "type": "String"
+      }
+    }
+  },
+  "email_body": "Zmień tytuł zgodnie z tematem maila zostawiając wersję aplikacji",
+  "source_code": "Kod źródłowy",
+  "access_to_universitys_email": "Dostęp do poczty uczelnianej",
+  "open_default_email_app": "Otwórz aplikację pocztową",
+  "email_access_explanation": "Korzystając z androida możesz uzyskać łatwy dostęp do poczty uczelnianej z poziomu Twojej domyślnej aplikacji pocztowej (sprawdzone dla poczty Gmail). Wystarczy w ustawieniach Gmail-a wybrać opcję \"Dodaj konto\", następnie dotknąć \"Exchange i Office 365\" oraz uzupełnić dane logowania. Sposób ten nie wymaga pobierania dodatkowej aplikacji.",
+  "useful_links": "Przydatne linki"
 }

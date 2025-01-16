@@ -90,5 +90,21 @@
   "user_profile": "User profile",
   "student": "Student",
   "short_hour": "h",
-  "short_minute": "min"
+  "short_minute": "min",
+  "rate_app": "Rate app",
+  "schedule": "Schedule",
+  "email_title": "Help / other case (app version {app_version})",
+  "@email_title": {
+    "placeholders": {
+      "app_version": {
+        "type": "String"
+      }
+    }
+  },
+  "email_body": "Change the title according to the subject of the email leaving the application version",
+  "source_code": "Source code",
+  "access_to_universitys_email": "Access to university email",
+  "open_default_email_app": "Open email app",
+  "email_access_explanation": "Using android, you can easily access your university email from within your default email app (checked for Gmail). All you need to do is select ‘Add account’ in your Gmail settings, then tap on ‘Exchange and Office 365’ and complete your login details. This method does not require downloading an additional app.",
+  "useful_links": "Useful links"
 }
