@@ -2,13 +2,13 @@ import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
+import 'package:ezak/widgets/drawer.dart';
 import 'package:ezak/widgets/text_divider.dart';
 import 'package:ezak/widgets/tiles/auto_update_tile.dart';
 import 'package:ezak/widgets/tiles/clear_data_tile.dart';
 import 'package:ezak/widgets/tiles/theme_tile.dart';
 import 'package:ezak/widgets/tiles/update_schedule_tile.dart';
 import 'package:ezak/widgets/tiles/groups_tile.dart';
-import 'package:ezak/widgets/popup_items/about_popup_item.dart';
 import 'package:ezak/widgets/tiles/keys_tile.dart';
 import 'package:ezak/widgets/tiles/language_tile.dart';
 import 'package:ezak/widgets/tiles/teacher_tile.dart';
@@ -46,11 +46,9 @@ final class SettingsPage extends StatelessWidget{
           ),
         ),
         leadingText: L10n.of(context).settings,
-        popupItems: [
-          PansAboutAppPopupItem(context)
-        ],
         context: context,
       ),
+      endDrawer: PansNavigationDrawer(page: 1),
       body: SingleChildScrollView(
         child: Column(
           children: [

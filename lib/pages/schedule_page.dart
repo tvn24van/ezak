@@ -3,12 +3,10 @@ import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/widgets/day_view.dart';
+import 'package:ezak/widgets/drawer.dart';
 import 'package:ezak/widgets/info_button.dart';
-import 'package:ezak/widgets/date_button.dart';
 import 'package:ezak/widgets/app_bar.dart';
 import 'package:ezak/widgets/fabs.dart';
-import 'package:ezak/widgets/popup_items/about_popup_item.dart';
-import 'package:ezak/widgets/popup_items/settings_popup_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -20,16 +18,12 @@ final class SchedulePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PansAppBar(
-        additionalActions: const [
-          PansDateButton(),
+        additionalActions: [
           PansInfoButton(),
-        ],
-        popupItems: [
-          PansSettingsPopupItem(context),
-          PansAboutAppPopupItem(context)
         ],
         context: context,
       ),
+      endDrawer: PansNavigationDrawer(page: 0),
       body: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {

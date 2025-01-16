@@ -14,8 +14,6 @@ final class PansAppBar extends AppBar{
     String? leadingText,
     /// Widgets which will be displayed before default ones
     List<Widget> additionalActions=const[],
-    /// Items displayed in popup button
-    List<PopupMenuItem> popupItems=const[],
   }):super(
     leading: pansLeading ?? Container(
       padding: EdgeInsets.only(top: 1, bottom: 1),
