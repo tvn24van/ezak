@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 mixin CourseWidget on CourseModel implements WidgetTransformable{
 
-  static const BorderRadius _borderRadius = BorderRadius.all(Radius.circular(10));
+  static const BorderRadius _borderRadius = BorderRadius.all(Radius.circular(16));
 
   @override
   Widget toWidget(BuildContext context){
