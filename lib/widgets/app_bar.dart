@@ -1,5 +1,4 @@
 import 'package:ezak/utils/constants.dart';
-import 'package:ezak/widgets/popup_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 
@@ -20,15 +19,16 @@ final class PansAppBar extends AppBar{
   }):super(
     leading: pansLeading ?? Container(
       padding: EdgeInsets.only(top: 1, bottom: 1),
-        child: SvgPicture.asset('assets/logotypes/crest.svg')
+      child: SvgPicture.asset('assets/logotypes/crest.svg')
     ),
     title: Text(leadingText ?? Constants.appName),
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     titleSpacing: 0,
-    actions: additionalActions + [
-      PansPopupButton(
-        items: popupItems,
-      ),
+    actions: additionalActions+[
+      Builder(builder: (context) => IconButton(
+        icon: Icon(Icons.adaptive.more),
+        onPressed: () => Scaffold.of(context).openEndDrawer(),
+      ))
     ],
   );
 
