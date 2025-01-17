@@ -2,8 +2,6 @@ import 'package:ezak/model/course.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
 import 'package:ezak/widgets/mixins/course_widget.dart';
-import 'package:ezak/widgets/popup_items/about_popup_item.dart';
-import 'package:ezak/widgets/popup_items/settings_popup_item.dart';
 import 'package:flutter/material.dart';
 
 final class CourseHero extends StatelessWidget{
@@ -22,10 +20,6 @@ final class CourseHero extends StatelessWidget{
           ),
         ),
         leadingText: course.name,
-        popupItems: [
-          PansSettingsPopupItem(context),
-          PansAboutAppPopupItem(context)
-        ],
         context: context,
       ),
       backgroundColor: lerpColorWithBackground(context, course.group.color),
