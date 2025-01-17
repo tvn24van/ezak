@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/utils/query_param_encoder.dart';
 
 final class Constants{
   static final appName = DateTime.now().isAprilFoolsDay? 'leŻak Nysa' : 'eŻak Nysa';
@@ -19,10 +18,6 @@ final class Constants{
   static final supportMail = Uri( // todo add app version mail subject
       scheme: 'mailto',
       path: 'ezaknysa@gmail.com',
-      query: encodeQueryParameters({
-        'subject': 'Help / Idea',
-        'body': 'Please change mail subject depending on your intentions'
-      }),
   );
 
   static final pansWebsiteUrl = Uri.https('pans.nysa.pl');
