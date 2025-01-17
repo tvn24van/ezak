@@ -1,3 +1,4 @@
+import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ final class PansAppBar extends AppBar{
       Builder(builder: (context) => IconButton(
         icon: Icon(Icons.adaptive.more),
         onPressed: () => Scaffold.of(context).openEndDrawer(),
+        tooltip: MaterialLocalizations.of(context).moreButtonTooltip,
       ))
     ],
   );
