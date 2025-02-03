@@ -23,10 +23,31 @@ abstract class CourseModel{
   final String location;
   final int roomNumber;
 
+  /// addresses according to this
+  /// <a href="https://pans.nysa.pl/kontakt">page</a>
+  static const addresses = {
+    "R": "Armii Krajowej 7 48-300 Nysa",
+    "A": "Chodowieckiego 4 48-300 Nysa",
+    "D": "Ujejskiego 12 48-300 Nysa",
+    "E": "Armii Krajowej 19 48-300 Nysa",
+    "F": "Armii Krajowej 21 48-300 Nysa",
+    "G": "Obrońców Tobruku 5, 48-300 Nysa",
+    "C": "Obrońców Tobruku 5, 48-300 Nysa",
+    "H": "Marcinkowskiego 6-8 48-300 Nysa",
+    "Z": "Obrońców Tobruku 5a 48-300 Nysa",
+    "X": "Głuchołaska 12 48-303 Nysa",
+    "O": "Otmuchowska 74 48-300 Nysa"
+  };
+
+  /// One of possible Course's "location"
+  static const String onlineLocation = ' Online';
+
   /// Returns whether this course
   /// will take place online or not
-  bool isOnline() => location == Course.onlineLocation;
-  String? getLocationAddress();
+  bool isOnline()=> location == onlineLocation;
+
+  String? getLocationAddress()=> addresses[location];
+
   CourseModel getCourse() => this;
 
   CourseModel(
@@ -116,7 +137,7 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
     required lecturer,
     required location,
     required roomNumber,
-  }):super(id, coursesDatesId, name, lecturer, startTime, /*timeOfCourse,*/ endTime, group, groupNumber, location, roomNumber);
+  }):super(id, coursesDatesId, name, lecturer, startTime, endTime, group, groupNumber, location, roomNumber);
 
   Course copyWith({
     int? id,
@@ -144,35 +165,8 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
     );
   }
 
-  /// One of possible Course's "location"
-  static const String onlineLocation = ' Online';
-
   static TimeOfDay _readEndTime(Map map, String key){
     return TimeDecoder.decodeEndTime(map['godzinaod'], map['czaskursu']);
-  }
-
-  /// addresses according to this
-  /// <a href="https://pans.nysa.pl/kontakt">page</a>
-  static const addresses = {
-    "R": "Armii Krajowej 7 48-300 Nysa",
-    "A": "Chodowieckiego 4 48-300 Nysa",
-    "D": "Ujejskiego 12 48-300 Nysa",
-    "E": "Armii Krajowej 19 48-300 Nysa",
-    "F": "Armii Krajowej 21 48-300 Nysa",
-    "G": "Obrońców Tobruku 5, 48-300 Nysa",
-    "C": "Obrońców Tobruku 5, 48-300 Nysa",
-    "H": "Marcinkowskiego 6-8 48-300 Nysa",
-    "Z": "Obrońców Tobruku 5a 48-300 Nysa",
-    "X": "Głuchołaska 12 48-303 Nysa",
-    "O": "Otmuchowska 74 48-300 Nysa"
-  };
-
-  //maybe replace this with data grabbed from internet somehow
-  @override
-  String? getLocationAddress(){
-    return addresses.entries.where((element) =>
-        location.contains(element.key)
-    ).firstOrNull?.value;
   }
 
   @override
