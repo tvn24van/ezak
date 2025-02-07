@@ -17,7 +17,7 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
         onTap: ()async=> {},
         //   Navigator.push(
         //     context,
-        //     MaterialPageRoute(builder: (context) => CourseHero(course: getCourse()))
+        //     MaterialPageRoute(builder: (context) => CourseHero(course: this))
         //   ),
         child: Ink(
           padding: const EdgeInsets.all(15),
@@ -44,15 +44,15 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
                     Text(name),
                     Text(lecturer),
                     Text(
-                      getTranslationDescribingCourseLocation(getCourse(), context)
+                      getTranslationDescribingCourseLocation(this, context)
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 15,),
               Hero(
-                tag: getCourse(),
-                child: getIconDescribingCourse(getCourse()),
+                tag: this,
+                child: getIconDescribingCourse(this),
               )
             ],
           ),

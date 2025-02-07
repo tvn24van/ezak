@@ -48,8 +48,6 @@ abstract class CourseModel{
 
   String? getLocationAddress()=> addresses[location];
 
-  CourseModel getCourse() => this;
-
   CourseModel(
     this.id,
     this.coursesDatesId,
