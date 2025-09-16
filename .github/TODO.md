@@ -1,0 +1,11 @@
+## TODO
+- translations for ~~Polish~~, ~~english~~, ukrainian and maybe hungarian too?
+- in desktop computers set title to *app name* - day, 21-02-2023 for e.g.
+- add keys shortcuts for switching currently displayed day, etc
+- maybe someday home screen widgets to see schedule even without opening app thus this is only possible with platform-specified code
+- migrate to SharedPreferencesAsync/Cache api
+- I think weird things could happen when user tries to run more than one tab with ezak. [here](https://stackoverflow.com/questions/11008177/stop-people-having-my-website-loaded-on-multiple-tabs) goes the clear solution
+- add high contrast theme or setting to make current theme high contrast
+- defer not always needed imports
+- use flutter_shared_preferences api or its sp name to gain access to app's settings and change splash screen theme based on them
+- consider uploading app to appgallery
