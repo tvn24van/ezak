@@ -3,7 +3,7 @@ import 'package:ezak/pages/settings_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/l10n/l10n.g.dart';
-import 'package:ezak/visuals/appereance.dart';
+import 'package:ezak/visuals/appearance.dart';
 import 'package:ezak/visuals/scroll_behavior.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

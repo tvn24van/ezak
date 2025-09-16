@@ -1,6 +1,6 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/visuals/appereance.dart';
+import 'package:ezak/visuals/appearance.dart';
 import 'package:flutter/material.dart';
 
 final class PansBreakIndicator extends StatelessWidget{

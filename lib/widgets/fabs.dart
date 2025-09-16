@@ -3,7 +3,7 @@ import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/visuals/appereance.dart';
+import 'package:ezak/visuals/appearance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
