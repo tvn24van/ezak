@@ -131,7 +131,7 @@ final class SettingsProvider extends Notifier<Settings>{
   }
 
   void changeKey(int key){
-    final isLecturer = ref.read(instance.select((value) => value.isLecturer));
+    final isLecturer = state.isLecturer;
     state = state.copyWith(
       lecturerKey: isLecturer? key : null,
       specializationKey: !isLecturer? key : null
