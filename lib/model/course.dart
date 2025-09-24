@@ -48,18 +48,18 @@ abstract class CourseModel{
 
   String? getLocationAddress()=> addresses[location];
 
-  CourseModel({
-    required this.id,
+  CourseModel(
+    this.id,
     this.coursesDatesId,
-    required this.name,
-    required this.lecturer,
-    required this.startTime,
-    required this.endTime,
-    required this.group,
-    required this.groupNumber,
-    required this.location,
-    required this.roomNumber
-  });
+    this.name,
+    this.lecturer,
+    this.startTime,
+    this.endTime,
+    this.group,
+    this.groupNumber,
+    this.location,
+    this.roomNumber
+    );
 
 }
 
@@ -125,17 +125,17 @@ class Course extends CourseModel with CourseWidget implements drift.Insertable<C
   get roomNumber;
 
   Course({
-    required super.id,
-    super.coursesDatesId,
-    required super.name,
-    required super.lecturer,
-    required super.startTime,
-    required super.endTime,
-    required super.group,
-    required super.groupNumber,
-    required super.location,
-    required super.roomNumber
-  });
+    required id,
+    coursesDatesId,
+    required name,
+    required startTime,
+    required endTime,
+    required group,
+    required groupNumber,
+    required lecturer,
+    required location,
+    required roomNumber,
+  }):super(id, coursesDatesId, name, lecturer, startTime, endTime, group, groupNumber, location, roomNumber);
 
   Course copyWith({
     int? id,
