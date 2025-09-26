@@ -39,7 +39,7 @@ final class SchedulePage extends StatelessWidget {
                   controller: pageController,
                   onPageChanged: (index) {
                     final newDate = data.dates[index];
-                    ref.read(displayedDate.notifier).state = newDate;
+                    ref.read(displayedDate.notifier).change(newDate);
                     ref.read(ScheduleProvider.instance.notifier).loadCourses(newDate);
                   },
                   itemBuilder: (context, index) {

@@ -77,10 +77,10 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final date = getInitialDate(allDates);
     final initialDates = getDatesAround(allDates, currentDate: date);
 
-    ref.read(displayedDate.notifier).state = date;
     SchedulePage.pageController = PageController(initialPage: allDates.indexOf(date));
 
     final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: initialDates);
+    ref.read(displayedDate.notifier).change(date);
 
     debugPrint(courses.toString());
     return (dates: allDates, courses: courses, maxGroups: maxGroups);

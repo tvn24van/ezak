@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 
 //todo add checking if was current day, but should be now changed
-//todo move from legacy way
-  final displayedDate = StateProvider<DateTime>((ref)=> DateTime.now());
+final displayedDate = NotifierProvider<DisplayedDateNotifier, DateTime>(DisplayedDateNotifier.new);
+
+class DisplayedDateNotifier extends Notifier<DateTime>{
+  @override
+  DateTime build() {
+    return DateTime.now();
+  }
+
+  void change(DateTime newDate){
+    state = newDate;
+  }
+
+}
 
   DateTime getInitialDate(List<DateTime> allDates) {
     final currentDate = DateUtils.dateOnly(DateTime.now());
