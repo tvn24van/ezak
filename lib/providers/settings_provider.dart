@@ -25,6 +25,10 @@ final class SettingsProvider extends Notifier<Settings>{
   /// indicates if user completed schedule selection
   static final completed = Provider((ref)=> ref.watch(key) != Settings.defaultKey);
 
+  static final isLecturer = Provider((ref) {
+    return ref.watch(instance.select((value) => value.isLecturer));
+  });
+
   /// provides key of specialization or lecturer according to selected setting
   static final key = Provider((ref){
     final isLecturer = ref.watch(instance.select((value) => value.isLecturer));

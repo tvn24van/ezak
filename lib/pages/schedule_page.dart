@@ -28,12 +28,14 @@ final class SchedulePage extends StatelessWidget {
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
             final schedule = ref.watch(ScheduleProvider.instance);
-
+            final isLecturer = ref.watch(SettingsProvider.isLecturer);
+            final key = ref.read(SettingsProvider.key);
             return schedule.when(
               skipLoadingOnRefresh: true,
               data: (data) {
 
                 return PageView.builder(
+                  key: Key("${isLecturer}_$key"),
                   itemCount: data.dates.length,
                   physics: const BouncingScrollPhysics(),
                   controller: pageController,
