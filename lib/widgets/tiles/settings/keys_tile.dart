@@ -54,9 +54,9 @@ final class PansKeysTile extends ConsumerWidget{
               viewHintText: titleText,
               builder: (context, controller) => button,
               suggestionsBuilder: (context, controller){
-                final text = controller.text;
+                final text = controller.text.toLowerCase();
                 final filtered = data.entries.where((element) =>
-                    element.value.toLowerCase().contains(text.toLowerCase())
+                  text.split(' ').every((word) => element.value.toLowerCase().contains(word))
                 );
                 if(filtered.isEmpty) {
                   return List.filled(1,
