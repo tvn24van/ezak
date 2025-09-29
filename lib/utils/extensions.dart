@@ -1,6 +1,7 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 extension PlatformExtensions on TargetPlatform{
@@ -27,6 +28,10 @@ extension DateTimeExtension on DateTime{
   //     return sum ~/ 7 + 1;
   //   }
   // }
+}
+
+extension ContentTypeExtension on Response{
+  String? get contentType => headers['content-type'];
 }
 
 extension TimeOfDayExtension on TimeOfDay{

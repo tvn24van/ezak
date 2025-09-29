@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:ezak/model/course.dart';
 import 'package:ezak/model/course_date.dart';
 import 'package:ezak/utils/constants.dart';
+import 'package:ezak/utils/extensions.dart';
 import 'package:http/http.dart' as http;
 
 class PansRestApi{
@@ -55,6 +56,9 @@ class PansRestApi{
         queryParameters: {isLecturer?'jegoid':'wytrych': '$key'}
       )
     );
+    if(!response.contentType!.contains('application/json')) {
+      return List<Course>.empty();
+    }
     final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
 
     return List<Course>.from(json.map((courseJson)=> Course.fromJson(courseJson)));
@@ -71,6 +75,9 @@ class PansRestApi{
         queryParameters: {isLecturer?'jegoid':'wytrych': '$key'}
       )
     );
+    if(!response.contentType!.contains('application/json')) {
+      return List<CourseDate>.empty();
+    }
     final Iterable json = jsonDecode(utf8.decode(response.bodyBytes));
     final sorted = json.toList()..sort((a,b)=> a['dzien'].compareTo(b['dzien']));
 

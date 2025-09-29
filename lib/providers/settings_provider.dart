@@ -153,4 +153,8 @@ final class SettingsProvider extends Notifier<Settings>{
       ..setInt(_SettingsKeys.specializationKey, Settings.defaultKey);
   }
 
+  void resetCurrentKey(){
+    changeKey(Settings.defaultKey);
+  }
+
 }

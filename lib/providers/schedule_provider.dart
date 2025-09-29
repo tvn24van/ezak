@@ -60,9 +60,13 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
         if(assignment.lastUpdate.isBefore(fetchedUpdateDate)){
           debugPrint("Downloading update...");
           final (courses, dates) = await (
-          PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
-          PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
+            PansRestApi.fetchCourses(httpClient: client, isLecturer: isLecturer, key: key),
+            PansRestApi.fetchCoursesDates(httpClient: client, isLecturer: isLecturer, key: key)
           ).wait;
+          if(courses.isEmpty){ // quick fix for when a previously downloaded schedule has key which no longer exist
+            ref.read(SettingsProvider.instance.notifier).resetCurrentKey();
+            return (dates: <DateTime>[], courses: <DateTime, List<Course>>{}, maxGroups: <Group, int>{});
+          }
           await db.updateSchedule(key: key, isLecturer: isLecturer, courses: courses, coursesDates: dates);
         } else {
           debugPrint("No update detected");
