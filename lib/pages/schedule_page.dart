@@ -30,12 +30,13 @@ final class SchedulePage extends StatelessWidget {
             final schedule = ref.watch(ScheduleProvider.instance);
             final isLecturer = ref.watch(SettingsProvider.isLecturer);
             final key = ref.read(SettingsProvider.key);
+            final groups = ref.read(SettingsProvider.groups);
             return schedule.when(
               skipLoadingOnRefresh: true,
               data: (data) {
 
                 return PageView.builder(
-                  key: Key("${isLecturer}_$key"),
+                  key: Key("$isLecturer-$key-$groups"),
                   itemCount: data.dates.length,
                   physics: const BouncingScrollPhysics(),
                   controller: pageController,
