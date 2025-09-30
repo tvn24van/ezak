@@ -18,53 +18,51 @@ class PansNavigationDrawer extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsCompleted = ref.watch(SettingsProvider.completed);
-    return SizedBox(
-        child: NavigationDrawer(
-          selectedIndex: page,
-          children: [
-            NavigationDrawerDestination(
-              icon: Icon(Icons.table_rows_outlined),
-              label: Text(L10n.of(context).schedule),
-              enabled: settingsCompleted,
-            ),
-            NavigationDrawerDestination(
-              icon: Icon(Icons.settings),
-              label: Text(L10n.of(context).settings),
-            ),
-
-            Divider(),
-            PansEmailTutorTile(),
-            PansLinksTile(),
-            PansContactTile(),
-            PansRateTile(),
-            PansAboutTile(),
-            Divider(),
-            Text("${Constants.appName} 2023 - ${DateTime.now().year}", textAlign: TextAlign.center,)
-
-          ],
-          onDestinationSelected: (value) {
-            if(value==page)return;
-            final navigator = Navigator.of(context);
-            switch(value){
-              case 0:
-                navigator.pop();
-                if(navigator.canPop()) {
-                  navigator.pop();
-                }else{
-                  navigator.pushReplacement(
-                    MaterialPageRoute(builder: (_) => const SchedulePage())
-                  );
-                }
-                break;
-              case 1:
-                navigator..pop()..push(MaterialPageRoute(
-                  builder: (_) => const SettingsPage(),
-                  settings: const RouteSettings(name: "/settings")
-                ));
-            }
-          },
+    return NavigationDrawer(
+      selectedIndex: page,
+      children: [
+        NavigationDrawerDestination(
+          icon: Icon(Icons.table_rows_outlined),
+          label: Text(L10n.of(context).schedule),
+          enabled: settingsCompleted,
         ),
-      );
+        NavigationDrawerDestination(
+          icon: Icon(Icons.settings),
+          label: Text(L10n.of(context).settings),
+        ),
+
+        Divider(),
+        PansEmailTutorTile(),
+        PansLinksTile(),
+        PansContactTile(),
+        PansRateTile(),
+        PansAboutTile(),
+        Divider(),
+        Text("${Constants.appName} 2023 - ${DateTime.now().year}", textAlign: TextAlign.center,)
+
+      ],
+      onDestinationSelected: (value) {
+        if(value==page)return;
+        final navigator = Navigator.of(context);
+        switch(value){
+          case 0:
+            navigator.pop();
+            if(navigator.canPop()) {
+              navigator.pop();
+            }else{
+              navigator.pushReplacement(
+                MaterialPageRoute(builder: (_) => const SchedulePage())
+              );
+            }
+            break;
+          case 1:
+            navigator..pop()..push(MaterialPageRoute(
+              builder: (_) => const SettingsPage(),
+              settings: const RouteSettings(name: "/settings")
+            ));
+        }
+      },
+    );
   }
 
 }
