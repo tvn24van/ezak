@@ -42,6 +42,9 @@ android {
             dimension="default"
             applicationId="pl.tvn24van.ezak.dev"
         }
+        create("prod"){
+            dimension="default"
+        }
     }
 
     signingConfigs {
