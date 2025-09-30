@@ -19,7 +19,6 @@ class PansNavigationDrawer extends ConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsCompleted = ref.watch(SettingsProvider.completed);
     return SizedBox(
-        width: MediaQuery.sizeOf(context).width*.6,
         child: NavigationDrawer(
           selectedIndex: page,
           children: [
