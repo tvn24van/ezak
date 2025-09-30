@@ -21,7 +21,7 @@ final class PansApp extends ConsumerWidget {
       SettingsProvider.instance.select((settings) => settings.locale)
     );
 
-    final settingsCompleted = ref.watch(SettingsProvider.completed);
+    final settingsCompleted = ref.read(SettingsProvider.completed);
 
     return Listener(
       onPointerDown: (e)=> FocusManager.instance.primaryFocus?.unfocus(),

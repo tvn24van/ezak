@@ -2,6 +2,7 @@ import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/schedule_provider.dart';
+import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/visuals/appearance.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ final class PansFloatingActionButtons extends ConsumerWidget{
   Widget build(BuildContext context, WidgetRef ref) {
     final schedule = ref.watch(ScheduleProvider.instance);
     final disabled = !schedule.hasValue;
+    final settingsCompleted = ref.watch(SettingsProvider.completed);
+    if(!settingsCompleted) return SizedBox.shrink();
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20, left: 15, right: 15),
