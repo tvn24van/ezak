@@ -95,7 +95,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final key = ref.read(SettingsProvider.key);
     final isLecturer = ref.read(SettingsProvider.instance.select((value) => value.isLecturer));
     // filter schedule only by groups it contains
-    final groups = {... ref.watch(SettingsProvider.groups)}..removeWhere((key, value) => !state.value!.maxGroups.keys.contains(key));
+    final groups = {... ref.read(SettingsProvider.groups)}..removeWhere((key, value) => !state.value!.maxGroups.keys.contains(key));
     final datesToLoad = getDatesAround(state.value!.dates, currentDate: date)
       .where((d) => !state.value!.courses.keys.contains(d))
       .toList();
