@@ -28,7 +28,7 @@ final class SchedulePage extends StatelessWidget {
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
             final schedule = ref.watch(ScheduleProvider.instance);
-            final isLecturer = ref.watch(SettingsProvider.isLecturer);
+            final isLecturer = ref.read(SettingsProvider.isLecturer);
             final key = ref.read(SettingsProvider.key);
             final groups = ref.read(SettingsProvider.groups);
             return schedule.when(
