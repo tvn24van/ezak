@@ -7,6 +7,7 @@ import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/visuals/appearance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 final class PansFloatingActionButtons extends ConsumerWidget{
   const PansFloatingActionButtons({super.key});
@@ -43,7 +44,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
                 final dates = data.dates;
                 return FloatingActionButton.extended(
                   icon: Icon(Icons.date_range),
-                  label: Text(currentDate.toLocaleString(Localizations.localeOf(context))),
+                  label: Text('${DateFormat.E(L10n.of(context).localeName).format(currentDate)}\n${currentDate.toLocaleString(Localizations.localeOf(context))}', textAlign: TextAlign.center,),
                   tooltip: L10n.of(context).date_selection,
                   onPressed: () async{
                     DateTime? selectedDate = await showDatePicker(
