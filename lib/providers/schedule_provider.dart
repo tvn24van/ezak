@@ -106,7 +106,7 @@ class ScheduleProvider extends AsyncNotifier<Schedule>{
     final courses = await db.getCourses(key: key, isLecturer: isLecturer, groups: groups, dates: datesToLoad);
 
     state = AsyncValue.data(
-      current!..courses.addAll(courses)
+      (dates: current!.dates, courses: {...state.value!.courses}..addAll(courses), maxGroups: current.maxGroups)
     );
   }
 
