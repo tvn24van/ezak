@@ -47,7 +47,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
                   label: Text('${DateFormat.E(L10n.of(context).localeName).format(currentDate)}\n${currentDate.toLocaleString(Localizations.localeOf(context))}', textAlign: TextAlign.center,),
                   tooltip: L10n.of(context).date_selection,
                   onPressed: () async{
-                    DateTime? selectedDate = await showDatePicker(
+                    final selectedDate = await showDatePicker(
                       context: context,
                       locale: Localizations.localeOf(context),
                       keyboardType: TextInputType.datetime,
