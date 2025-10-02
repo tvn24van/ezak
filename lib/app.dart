@@ -47,11 +47,7 @@ final class PansApp extends ConsumerWidget {
           "/settings": (context)=> const SettingsPage(),
         },
 
-        home: kIsWeb? Banner(
-          message: "TEST",
-          location: BannerLocation.bottomStart,
-          child: settingsCompleted? const SchedulePage() : const SettingsPage(),
-        ): settingsCompleted? const SchedulePage() : const SettingsPage(),
+        home: settingsCompleted? const SchedulePage() : const SettingsPage(),
       ),
     );
   }
