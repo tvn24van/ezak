@@ -5,7 +5,7 @@ import 'package:http/retry.dart';
 
 final keysProvider = FutureProvider.family<Map<int, String>, bool>((ref, isLecturer) async {
   final client = RetryClient(http.Client(), retries: 1);
-  final keys = PansRestApi.fetchKeys(httpClient: client, isLecturer: isLecturer);
+  final keys = await PansRestApi.fetchKeys(httpClient: client, isLecturer: isLecturer);
   client.close();
   return keys;
 });
