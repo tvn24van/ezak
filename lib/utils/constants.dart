@@ -21,6 +21,7 @@ final class Constants{
   );
 
   static final pansWebsiteUrl = Uri.https('pans.nysa.pl');
+  static final pansElearningUrl = Uri.https('elearning.pans.nysa.pl');
 
   static const defaultLocale = Locale('pl');
   static const englishLocale = Locale('en');

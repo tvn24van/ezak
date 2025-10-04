@@ -18,10 +18,19 @@ class PansLinksTile extends StatelessWidget{
           title: Text(L10n.of(context).university_website),
           onTap: () => launchUrl(Constants.pansWebsiteUrl),
         ),
+        ListTile(
+          title: Text("Elearning"),
+          onTap: () => launchUrl(Constants.pansElearningUrl),
+        ),
         if(!kIsWeb)
           ListTile(
             title: Text(L10n.of(context).web_app),
             onTap: () => launchUrl(Constants.webAppUrl),
+          )
+        else
+          ListTile(
+            title: Text(L10n.of(context).mobile_app),
+            onTap: () => launchUrl(Constants.googlePlayUrl),
           )
       ],
     );
