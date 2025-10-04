@@ -9,3 +9,4 @@
 - defer not always needed imports
 - use flutter_shared_preferences api or its sp name to gain access to app's settings and change splash screen theme based on them
 - consider uploading app to appgallery
+- https://docs.flutter.dev/cookbook/navigation/set-up-app-links
