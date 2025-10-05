@@ -1,6 +1,4 @@
 import 'package:ezak/l10n/l10n.g.dart';
-import 'package:ezak/pages/schedule_page.dart';
-import 'package:ezak/pages/settings_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/widgets/tiles/drawer/about_tile.dart';
@@ -50,16 +48,11 @@ class PansNavigationDrawer extends ConsumerWidget{
             if(navigator.canPop()) {
               navigator.pop();
             }else{
-              navigator.pushReplacement(
-                MaterialPageRoute(builder: (_) => const SchedulePage())
-              );
+              navigator.pushReplacementNamed("/");
             }
             break;
           case 1:
-            navigator..pop()..push(MaterialPageRoute(
-              builder: (_) => const SettingsPage(),
-              settings: const RouteSettings(name: "/settings")
-            ));
+            navigator..pop()..pushNamed("/settings");
         }
       },
     );

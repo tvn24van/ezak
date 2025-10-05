@@ -1,8 +1,9 @@
 import 'package:ezak/pages/schedule_page.dart';
-import 'package:ezak/pages/settings_page.dart';
+import 'package:ezak/pages/settings_page.dart' deferred as settings_page;
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/utils/deferred_page_builder.dart';
 import 'package:ezak/visuals/appearance.dart';
 import 'package:ezak/visuals/scroll_behavior.dart';
 import 'package:flutter/foundation.dart';
@@ -44,10 +45,13 @@ final class PansApp extends ConsumerWidget {
         themeMode: darkTheme? ThemeMode.dark : ThemeMode.light,
 
         routes: {
-          "/settings": (context)=> const SettingsPage(),
+          "/": (context)=> const SchedulePage(),
+          "/settings": (context)=> DeferredPageBuilder(
+            future: settings_page.loadLibrary,
+            page: () => settings_page.SettingsPage(),
+          ),
         },
-
-        home: settingsCompleted? const SchedulePage() : const SettingsPage(),
+        initialRoute: settingsCompleted? "/" : "/settings",
       ),
     );
   }

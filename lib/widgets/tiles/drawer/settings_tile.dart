@@ -1,5 +1,4 @@
 import 'package:ezak/l10n/l10n.g.dart';
-import 'package:ezak/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class PansSettingsTile extends StatelessWidget{
@@ -11,12 +10,7 @@ class PansSettingsTile extends StatelessWidget{
       leading: Icon(Icons.settings),
       title: Text(L10n.of(context).settings),
       onTap: () {
-        Navigator.of(context)..pop()..push(
-          MaterialPageRoute(
-            builder: (_) => const SettingsPage(),
-            settings: const RouteSettings(name: "/settings")
-          ),
-        );
+        Navigator.of(context)..pop()..pushNamed("/settings");
       },
     );
   }
