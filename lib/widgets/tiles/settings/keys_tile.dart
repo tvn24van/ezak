@@ -56,7 +56,7 @@ final class PansKeysTile extends ConsumerWidget{
               suggestionsBuilder: (context, controller){
                 final text = controller.text.toLowerCase();
                 final filtered = data.entries.where((element) =>
-                  text.split(' ').every((word) => element.value.toLowerCase().split(' ').any((word2) => word2.startsWith(word)))
+                  text.split(' ').every((word) => element.value.toLowerCase().split(' ').any((word2) => word2.contains(word)))
                 );
                 if(filtered.isEmpty) {
                   return List.filled(1,
