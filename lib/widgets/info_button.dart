@@ -44,7 +44,7 @@ final class PansInfoButton extends StatelessWidget{
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.home),
+                            const Icon(Icons.home_work),
                             const SizedBox(width: 10, height: 30,),
                             Text(L10n.of(context).full_time_course)
                           ],
@@ -52,7 +52,7 @@ final class PansInfoButton extends StatelessWidget{
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.online_prediction),
+                            const Icon(Icons.computer),
                             const SizedBox(width: 10, height: 30,),
                             Text(L10n.of(context).online_course)
                           ],

@@ -63,8 +63,8 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
 
   static Icon getIconDescribingCourse(CourseModel course){
     return course.isOnline()?
-      const Icon(Icons.online_prediction):
-      const Icon(Icons.home);
+      const Icon(Icons.computer):
+      const Icon(Icons.home_work);
   }
 
   static String getTranslationDescribingCourseLocation(CourseModel course, BuildContext context){
