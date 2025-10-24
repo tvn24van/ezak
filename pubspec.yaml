@@ -32,6 +32,8 @@ dependencies:
   drift_flutter: ^0.2.0
   path_provider: ^2.1.5
   android_intent_plus: ^6.0.0
+  device_frame: ^1.4.0
+  pretty_qr_code: ^3.5.0
 
 dev_dependencies:
   flutter_test:
