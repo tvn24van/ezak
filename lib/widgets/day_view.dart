@@ -13,28 +13,37 @@ final class PansDayView extends StatelessWidget{
   // if date is equal to actual
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-      children: [
+    return SizedBox.expand(
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 1000),
+            child: Column(
+              children: [
+                ...courses.asMap().entries.expand((entry) {
+                  final index = entry.key;
+                  final course = entry.value;
+                  final int currentBreak = index > 0
+                      ? (course.startTime - courses[index - 1].endTime).totalMinutes
+                      : TimeDecoder.breakLengthInMinutes;
 
-        ...courses.asMap().entries.expand((entry) {
-          final index = entry.key;
-          final course = entry.value;
-          final int currentBreak = index>0?
-            (course.startTime - courses[index-1].endTime).totalMinutes :
-            TimeDecoder.breakLengthInMinutes;
-
-          return [
-            if (currentBreak > TimeDecoder.breakLengthInMinutes)
-              PansBreakIndicator(Duration(minutes: currentBreak)),
-            course.toWidget(context),
-          ];
-        }),
-
-        // just a little space underneath to prevent fabs from covering
-        // courses (spotted on windows, may not appear elsewhere)
-        const SizedBox(height: 90),
-      ],
+                  return [
+                    if (currentBreak > TimeDecoder.breakLengthInMinutes)
+                      PansBreakIndicator(Duration(minutes: currentBreak)),
+                    course.toWidget(context),
+                  ];
+                }),
+                // just a little space underneath to prevent fabs from covering courses
+                const SizedBox(height: 90),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
