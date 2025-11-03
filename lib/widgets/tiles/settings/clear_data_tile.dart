@@ -1,5 +1,4 @@
 import 'package:ezak/l10n/l10n.g.dart';
-import 'package:ezak/providers/schedule_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,7 +24,7 @@ final class PansClearDataTile extends StatelessWidget{
               Consumer(builder: (context, ref, child) =>
                 TextButton(
                   onPressed: () {
-                    ref.read(ScheduleProvider.instance.notifier).removeCourses();
+                    // ref.read(ScheduleProvider.instance.notifier).removeCourses(); //todo add back functionality
                     Navigator.of(context).pop();
                   },
                   child: Text(MaterialLocalizations.of(context).okButtonLabel)

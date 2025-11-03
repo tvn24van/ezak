@@ -1,7 +1,8 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/pages/schedule_page.dart';
+import 'package:ezak/providers/courses_provider.dart';
+import 'package:ezak/providers/dates_provider.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
-import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/visuals/appearance.dart';
@@ -14,8 +15,8 @@ final class PansFloatingActionButtons extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final schedule = ref.watch(ScheduleProvider.instance);
-    final disabled = !schedule.hasValue;
+    final courses = ref.watch(CoursesProvider.instance);
+    final disabled = !courses.hasValue;
     final settingsCompleted = ref.watch(SettingsProvider.completed);
     if(!settingsCompleted) return SizedBox.shrink();
 
@@ -27,7 +28,8 @@ final class PansFloatingActionButtons extends ConsumerWidget{
         children: [
           FloatingActionButton(
             onPressed: disabled? null : () async{
-              SchedulePage.pageController?.previousPage(
+              final pageController = await ref.read(SchedulePage.pageControllerProvider.future);
+              pageController.previousPage(
                 duration: PansAppereance.pageControllerSettings.duration,
                 curve: PansAppereance.pageControllerSettings.curve
               );
@@ -37,14 +39,14 @@ final class PansFloatingActionButtons extends ConsumerWidget{
             child: Icon(Icons.adaptive.arrow_back),
           ),
           Consumer(builder: (context, ref, child) {
-            final allAndInitialDate = ref.watch(ScheduleProvider.instance);
-            final currentDate = ref.watch(displayedDate);
-            return allAndInitialDate.when(
+            final allDates = ref.watch(datesProvider);
+            final currentDate = ref.watch(DisplayedDateProvider.instance);
+            return allDates.when(
               data: (data) {
-                final dates = data.dates;
+                final dates = data;
                 return FloatingActionButton.extended(
                   icon: Icon(Icons.date_range),
-                  label: Text('${DateFormat.E(L10n.of(context).localeName).format(currentDate)}\n${currentDate.toLocaleString(Localizations.localeOf(context))}', textAlign: TextAlign.center,),
+                  label: currentDate.maybeWhen(data: (data) => Text('${DateFormat.E(L10n.of(context).localeName).format(data)}\n${data.toLocaleString(Localizations.localeOf(context))}', textAlign: TextAlign.center,), orElse: () => CircularProgressIndicator()),
                   tooltip: L10n.of(context).date_selection,
                   onPressed: () async{
                     final selectedDate = await showDatePicker(
@@ -52,13 +54,14 @@ final class PansFloatingActionButtons extends ConsumerWidget{
                       locale: Localizations.localeOf(context),
                       keyboardType: TextInputType.datetime,
                       helpText: L10n.of(context).choose_courses_date,
-                      initialDate: currentDate,
+                      initialDate: currentDate.value,
                       firstDate: dates.first,
                       lastDate: dates.last,
                       selectableDayPredicate: (DateTime value)=> dates.contains(value)
                     );
                     if(selectedDate==null) return;
-                    SchedulePage.pageController?.jumpToPage(dates.indexOf(selectedDate));
+                    final pageController = await ref.read(SchedulePage.pageControllerProvider.future);
+                    pageController.jumpToPage(dates.indexOf(selectedDate));
                   },
                 );
               },
@@ -76,7 +79,8 @@ final class PansFloatingActionButtons extends ConsumerWidget{
           }),
           FloatingActionButton(
             onPressed: disabled? null : () async{
-              SchedulePage.pageController?.nextPage(
+              final pageController = await ref.read(SchedulePage.pageControllerProvider.future);
+              pageController.nextPage(
                 duration: PansAppereance.pageControllerSettings.duration,
                 curve: PansAppereance.pageControllerSettings.curve,
               );

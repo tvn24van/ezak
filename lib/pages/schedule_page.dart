@@ -1,6 +1,8 @@
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/providers/courses_provider.dart';
+import 'package:ezak/providers/dates_provider.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
-import 'package:ezak/providers/schedule_provider.dart';
+import 'package:ezak/providers/initial_date_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/widgets/day_view.dart';
 import 'package:ezak/widgets/drawer.dart';
@@ -12,7 +14,14 @@ import 'package:flutter/material.dart';
 
 final class SchedulePage extends StatelessWidget {
   const SchedulePage({super.key});
-  static PageController? pageController;
+
+  static final pageControllerProvider = FutureProvider<PageController>((ref) async{
+    final dates = await ref.watch(datesProvider.future);
+    final initialDate = await ref.watch(initialDateProvider.future);
+    final pageController = PageController(initialPage: dates.indexOf(initialDate));
+    ref.onDispose(pageController.dispose);
+    return pageController;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,39 +36,42 @@ final class SchedulePage extends StatelessWidget {
       body: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final schedule = ref.watch(ScheduleProvider.instance);
             final isLecturer = ref.read(SettingsProvider.isLecturer);
             final key = ref.read(SettingsProvider.key);
             final groups = ref.read(SettingsProvider.groups);
-            return schedule.when(
-              skipLoadingOnRefresh: true,
-              data: (data) {
-
+            final datesP = ref.watch(datesProvider);
+            final pageController = ref.watch(pageControllerProvider);
+            return datesP.maybeWhen(
+              data: (dates) {
                 return PageView.builder(
                   key: Key("$isLecturer-$key-$groups"),
-                  itemCount: data.dates.length,
+                  itemCount: dates.length,
                   physics: const BouncingScrollPhysics(),
-                  controller: pageController,
+                  controller: pageController.value,
                   onPageChanged: (index) {
-                    final newDate = data.dates[index];
-                    ref.read(displayedDate.notifier).change(newDate);
-                    ref.read(ScheduleProvider.instance.notifier).loadCourses(newDate);
+                    final newDate = dates[index];
+                    ref.read(DisplayedDateProvider.instance.notifier).change(newDate);
+                    ref.read(CoursesProvider.instance.notifier).loadCourses(newDate);
                   },
                   itemBuilder: (context, index) {
-                    final date = data.dates[index];
+                    final date = dates[index];
+                    final coursesP = ref.watch(CoursesProvider.instance..selectAsync((data) => data[date]));
 
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        return showUpdateDialog(context, ref);
-                      },
-                      child: PansDayView(data.courses[date] ?? []),
+                    return coursesP.maybeWhen(
+                      data: (courses) => RefreshIndicator(
+                        onRefresh: () async {
+                          return showUpdateDialog(context, ref);
+                        },
+                        child: PansDayView(courses[date] ?? []),
+                      ),
+                      orElse: () => CircularProgressIndicator()
                     );
                   },
                 );
               },
-              error: (error, stackTrace) => Text(error.toString()),
-              loading: () => CircularProgressIndicator.adaptive(),
+              orElse: () => CircularProgressIndicator()
             );
+
           },
         ),
       ),
@@ -76,7 +88,7 @@ final class SchedulePage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              ref.read(ScheduleProvider.instance.notifier).build(forceDownload: true);
+              // ref.read(ScheduleProvider.instance.notifier).build(forceDownload: true); // todo add back schedule actions
               Navigator.of(context).pop();
             },
             child: Text(L10n.of(context).force_schedule_redownload),
@@ -84,7 +96,7 @@ final class SchedulePage extends StatelessWidget {
           if(!ref.read(SettingsProvider.instance.select((value) => value.isLecturer)))
             TextButton(
               onPressed: () {
-                ref.read(ScheduleProvider.instance.notifier).build(forceAutoUpdates: true);
+                // ref.read(ScheduleProvider.instance.notifier).build(forceAutoUpdates: true);
                 Navigator.of(context).pop();
               },
               child: Text(L10n.of(context).check_for_schedule_update),

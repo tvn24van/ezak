@@ -1,4 +1,4 @@
-import 'package:ezak/providers/schedule_provider.dart';
+import 'package:ezak/providers/max_groups_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +18,13 @@ final class PansGroupsTile extends ConsumerWidget{
       return const SizedBox.shrink();
     }
 
-    return ref.watch(ScheduleProvider.instance).when(
+    return ref.watch(maxGroupsProvider).when(
       skipLoadingOnReload: true,
       data:(data){
 
         return Column(
           mainAxisSize: MainAxisSize.min,
-          children: data.maxGroups.entries.map((e) {
+          children: data.entries.map((e) {
             final group = e.key;
             final max = e.value;
             return ListTile(
