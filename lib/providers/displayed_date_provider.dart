@@ -1,44 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:ezak/providers/initial_date_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //todo add checking if was current day, but should be now changed
-final displayedDate = NotifierProvider<DisplayedDateNotifier, DateTime>(DisplayedDateNotifier.new);
 
-class DisplayedDateNotifier extends Notifier<DateTime>{
+class DisplayedDateProvider extends AsyncNotifier<DateTime>{
+  static final instance = AsyncNotifierProvider<DisplayedDateProvider, DateTime>(DisplayedDateProvider.new);
   @override
-  DateTime build() {
-    return DateTime.now();
+  Future<DateTime> build() async{
+    return ref.watch(initialDateProvider.future);
   }
 
   void change(DateTime newDate){
-    state = newDate;
+    state = AsyncValue.data(newDate);
   }
 
 }
-
-  DateTime getInitialDate(List<DateTime> allDates) {
-    final currentDate = DateUtils.dateOnly(DateTime.now());
-    final firstDate = allDates.first;
-    final lastDate = allDates.last;
-
-    if(allDates.contains(currentDate)){
-      return currentDate;
-    }else if(currentDate.isBefore(firstDate)){
-      return firstDate;
-    }else if(currentDate.isAfter(lastDate)) {
-      return lastDate;
-    }else{
-      return allDates.firstWhere((element) =>
-        element.isAfter(currentDate)
-      );
-    }
-  }
-
-  List<DateTime> getDatesAround(List<DateTime> allDates, {required DateTime currentDate}){
-    final initialDateIndex = allDates.indexOf(currentDate);
-    final indexes = [initialDateIndex-1, initialDateIndex, initialDateIndex+1].where((e) => e>=0 && e<allDates.length);
-    return allDates.asMap().entries
-      .where((e) => indexes.contains(e.key))
-      .map((e) => e.value)
-      .toList();
-  }
