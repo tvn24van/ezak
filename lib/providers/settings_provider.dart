@@ -1,6 +1,5 @@
 import 'package:ezak/model/group.dart';
 import 'package:ezak/model/settings.dart';
-import 'package:ezak/providers/schedule_provider.dart';
 import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
