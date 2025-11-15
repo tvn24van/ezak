@@ -11,7 +11,7 @@ void main() async{
   SharedPreferences.setPrefix('');
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-  useLocalCert();
+  await useLocalCert();
   runApp( ProviderScope(
     overrides: [
       sharedPreferences.overrideWithValue(
