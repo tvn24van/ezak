@@ -9,12 +9,12 @@ final class PansGroupsTile extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groups = ref.watch(SettingsProvider.instance.select((settings) => settings.groups));
-    final teacherMode = ref.watch(SettingsProvider.instance.select((settings) => settings.isLecturer));
+    final groups = ref.watch(SettingsProvider.groups);
+    final isLecturer = ref.watch(SettingsProvider.isLecturer);
 
     final settingsCompleted = ref.watch(SettingsProvider.completed);
 
-    if(teacherMode || !settingsCompleted){
+    if(isLecturer || !settingsCompleted){
       return const SizedBox.shrink();
     }
 
