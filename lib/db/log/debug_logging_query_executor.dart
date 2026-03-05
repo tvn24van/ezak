@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:ezak/utils/print.dart';
 import 'package:flutter/foundation.dart';
 
 class DebugLoggingQueryExecutor extends QueryExecutor{
@@ -18,7 +19,7 @@ class DebugLoggingQueryExecutor extends QueryExecutor{
 
   Future<T> _log<T>(String content, Future<T> Function() inner, List<Object?> parameters)async{
     try {
-      debugPrint('q: $content\np: $parameters');
+      debugOnlyPrint('q: $content\np: $parameters');
       return await inner();
     } catch (e) {
       rethrow;
