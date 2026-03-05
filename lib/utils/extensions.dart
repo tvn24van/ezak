@@ -20,6 +20,11 @@ extension DateTimeExtension on DateTime{
 
   bool get isAprilFoolsDay => month == 4 && day == 1;
 
+  bool get isToday {
+    final today = DateTime.now();
+    return year == today.year && month == today.month && day == today.day;
+  }
+
   // int get weekOfMonth {
   //   int sum = firstDayOfMonth.weekday - 1 + day;
   //   if (sum % 7 == 0) {
