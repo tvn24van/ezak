@@ -62,6 +62,14 @@ class CacheDb extends _$CacheDb{
     ).getSingleOrNull();
   }
 
+  Future<void> addSemester(String mark){
+    return into(semesterTable).insert(SemesterTableCompanion(mark: Value(mark)));
+  }
+
+  Future<void> removeSemester(){
+    return delete(semesterTable).go();
+  }
+
   Future<Assignment?> getAssignment({required int key, required bool isLecturer}) async{
     return (select(coursesDatesTable)
       ..where((tbl) => tbl.isLecturer.equals(isLecturer) & tbl.key.equals(key))
