@@ -45,7 +45,7 @@ extension TimeOfDayExtension on TimeOfDay{
     hour: minutes ~/ TimeOfDay.minutesPerHour,
     minute: minutes % TimeOfDay.minutesPerHour
   );
-  operator >(TimeOfDay other) => totalMinutes > other.totalMinutes;
+  bool operator >(TimeOfDay other) => totalMinutes > other.totalMinutes;
   TimeOfDay operator -(TimeOfDay other) => fromMinutes(totalMinutes - other.totalMinutes);
 }
 
