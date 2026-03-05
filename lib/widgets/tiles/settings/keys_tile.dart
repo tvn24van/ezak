@@ -30,8 +30,8 @@ final class PansKeysTile extends ConsumerWidget{
       title: Text(titleText),
       leading: const Icon(Icons.person_search),
       onTap: (){},
-      trailing: SizedBox(
-        width: MediaQuery.of(context).size.width*.6,
+      trailing: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .6),
         child: specializations.when(
           data: (data){
 

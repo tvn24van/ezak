@@ -30,8 +30,8 @@ final class PansGroupsTile extends ConsumerWidget{
             return ListTile(
               title: Text(L10n.of(context).group_name(group.name)),
               subtitle: Text("${L10n.of(context).group} ${group.symbol}"),
-              trailing: SizedBox( //todo consider using maxWidth of Container instead
-                width: MediaQuery.of(context).size.width * .6,
+              trailing: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * .6),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SegmentedButton<int>(
