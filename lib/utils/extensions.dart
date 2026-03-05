@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
@@ -52,5 +55,20 @@ extension TimeOfDayExtension on TimeOfDay{
 extension DurationToHour on Duration{
   String formatTime(BuildContext context){
     return "${inHours!=0? ('$inHours ${L10n.of(context).short_hour}'):''} ${inMinutes!=0?('${inMinutes.remainder(TimeOfDay.minutesPerHour)} ${L10n.of(context).short_minute}'):''}";
+  }
+}
+
+/// https://riverpod.dev/docs/concepts2/auto_dispose#example-keeping-state-alive-for-a-specific-amount-of-time
+extension AutoDisposeRefCache on Ref {
+  /// Keeps the provider alive for [duration].
+  void cacheFor(Duration duration) {
+    // Immediately prevent the state from getting destroyed.
+    final link = keepAlive();
+    // After duration has elapsed, we re-enable automatic disposal.
+    final timer = Timer(duration, link.close);
+
+    // Optional: when the provider is recomputed (such as with ref.watch),
+    // we cancel the pending timer.
+    onDispose(timer.cancel);
   }
 }
