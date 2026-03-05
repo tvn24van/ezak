@@ -24,6 +24,22 @@ final class PansApp extends ConsumerWidget {
 
     final settingsCompleted = ref.read(SettingsProvider.completed);
 
+    ref.listen(SettingsProvider.completed, (previous, completed) {
+      if (completed) return;
+      var isAlreadyOnSettings = false;
+
+      Navigator.of(context).popUntil((route) {
+        if (route.settings.name == '/settings') {
+          isAlreadyOnSettings = true;
+        }
+        return true;
+      });
+
+      if (!isAlreadyOnSettings) {
+        Navigator.pushReplacementNamed(context, '/settings');
+      }
+    });
+
     return Listener(
       onPointerDown: (e)=> FocusManager.instance.primaryFocus?.unfocus(),
       child: MaterialApp(
