@@ -11,3 +11,7 @@
 - consider uploading app to appgallery
 - https://docs.flutter.dev/cookbook/navigation/set-up-app-links
 - defer localizations if truly necessary
+- implement multi-schedule selecting with [this](https://api.flutter.dev/flutter/material/InputChip-class.html#longSnippet2) widget:
+- consider [selecting](https://pub.dev/packages/http#2-configure-the-http-client) native HTTP client implementations for different platforms
+
+- use Material's BackButton
