@@ -4,6 +4,8 @@ import 'package:ezak/providers/shared_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'max_groups_provider.dart';
+
 final class _SettingsKeys{
   static final darkTheme = "darkTheme";
   static final autoUpdates = "autoUpdates";
@@ -39,6 +41,12 @@ final class SettingsProvider extends Notifier<Settings>{
   static final groups = Provider((ref){
     final isLecturer = ref.watch(instance.select((s) => s.isLecturer));
     return isLecturer? Settings.defaultGroups : ref.watch(instance.select((s)=> s.groups));
+  });
+
+  /// groups selected for current schedule
+  static final groupsInfluencingCurrentSchedule = FutureProvider((ref) async{
+    final maxGroups = await ref.watch(maxGroupsProvider.future);
+    return {... ref.watch(groups)}..removeWhere((key, value) => !maxGroups.keys.contains(key));
   });
 
   static final autoUpdates = Provider((ref){
