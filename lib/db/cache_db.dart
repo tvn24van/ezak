@@ -57,7 +57,7 @@ class CacheDb extends _$CacheDb{
 
   Future<Semester?> getLastSemester(){
     return (select(semesterTable)
-      ..orderBy([(t)=>OrderingTerm.asc(t.id)])
+      ..orderBy([(t)=>OrderingTerm.desc(t.id)])
       ..limit(1)
     ).getSingleOrNull();
   }
@@ -67,6 +67,13 @@ class CacheDb extends _$CacheDb{
       ..where((tbl) => tbl.isLecturer.equals(isLecturer) & tbl.key.equals(key))
       ..limit(1)
     ).getSingleOrNull();
+  }
+
+  Stream<Assignment?> getAssignmentStream({required int key, required bool isLecturer}){
+    return (select(coursesDatesTable)
+      ..where((tbl) => tbl.isLecturer.equals(isLecturer) & tbl.key.equals(key))
+      ..limit(1)
+    ).watchSingleOrNull();
   }
 
   Future<Map<Group, int>> getMaxGroups({
@@ -94,6 +101,31 @@ class CacheDb extends _$CacheDb{
     ).get().then((value) => Map.fromEntries(value));
   }
 
+  Stream<Map<Group, int>> getMaxGroupsStream({
+    required int key,
+    required bool isLecturer,
+  }){
+    final maxGroupNumber = courseTable.groupNumber.max();
+
+    final query = select(courseTable).join([
+      innerJoin(
+          coursesDatesTable,
+          coursesDatesTable.id.equalsExp(courseTable.coursesDatesId),
+          useColumns: false
+      ),
+    ])
+      ..where(
+          coursesDatesTable.isLecturer.equals(isLecturer) &
+          coursesDatesTable.key.equals(key)
+      )
+      ..addColumns([courseTable.group, maxGroupNumber])
+      ..groupBy([courseTable.group]);
+
+    return query.map((row) =>
+        MapEntry(Group.values[row.read(courseTable.group)!], row.read(maxGroupNumber)!)
+    ).watch().map((value) => Map.fromEntries(value));
+  }
+
   Future<List<DateTime>> getDates({
     required int key,
     required bool isLecturer,
@@ -117,6 +149,31 @@ class CacheDb extends _$CacheDb{
       }));
     }
     return query.map((row)=> row.read(datesTable.date)!).get();
+  }
+
+  Stream<List<DateTime>> getDatesStream({
+    required int key,
+    required bool isLecturer,
+    required GroupsMap groups,
+  }){
+    final query = selectOnly(datesTable).join([
+      innerJoin(coursesDatesTable, coursesDatesTable.id.equalsExp(datesTable.coursesDatesId), useColumns: false),
+      innerJoin(courseTable, courseTable.coursesDatesId.equalsExp(coursesDatesTable.id) & courseTable.id.equalsExp(datesTable.id), useColumns: false)
+    ])
+      ..addColumns([datesTable.date])
+      ..where(
+          coursesDatesTable.isLecturer.equals(isLecturer) &
+          coursesDatesTable.key.equals(key)
+      )
+      ..groupBy([datesTable.date])
+      ..orderBy([OrderingTerm.asc(datesTable.date)]);
+    if(!groups.areGroupsEmpty()){
+      query.where(courseTable.group.caseMatch(when: {
+        for(final e in groups.entries.where((element) => element.value.isNotEmpty))
+          Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
+      }));
+    }
+    return query.map((row)=> row.read(datesTable.date)!).watch();
   }
 
   Future<Map<DateTime, List<Course>>> getCourses({
@@ -156,6 +213,31 @@ class CacheDb extends _$CacheDb{
         });
         return map;
       });
+  }
+
+  Stream<List<Course>> getCoursesStream({
+    required int key,
+    required bool isLecturer,
+    required GroupsMap groups,
+    required DateTime date
+  }){
+    final query = select(courseTable).join([
+      innerJoin(coursesDatesTable, coursesDatesTable.id.equalsExp(courseTable.coursesDatesId), useColumns: false),
+      innerJoin(datesTable, datesTable.coursesDatesId.equalsExp(coursesDatesTable.id) & courseTable.id.equalsExp(datesTable.id), useColumns: false)
+    ])
+      ..where(
+          coursesDatesTable.isLecturer.equals(isLecturer) &
+          coursesDatesTable.key.equals(key) &
+          datesTable.date.equals(date)
+      )
+      ..orderBy([OrderingTerm.asc(courseTable.startTime)]);
+    if(!groups.areGroupsEmpty()){
+      query.where(courseTable.group.caseMatch(when: {
+        for(final e in groups.entries.where((element) => element.value.isNotEmpty))
+          Constant(e.key.index): courseTable.groupNumber.isIn(e.value)
+      }));
+    }
+    return query.map((row) => row.readTable(courseTable)).watch();
   }
 
   Future<void> addSchedule({
