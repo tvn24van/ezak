@@ -1,6 +1,5 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/pages/schedule_page.dart';
-import 'package:ezak/providers/courses_provider.dart';
 import 'package:ezak/providers/dates_provider.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
@@ -15,8 +14,9 @@ final class PansFloatingActionButtons extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final courses = ref.watch(CoursesProvider.instance);
-    final disabled = !courses.hasValue;
+    final dates = ref.watch(datesProvider);
+    final disabled = !dates.hasValue;
+
     final settingsCompleted = ref.watch(SettingsProvider.completed);
     if(!settingsCompleted) return SizedBox.shrink();
 
