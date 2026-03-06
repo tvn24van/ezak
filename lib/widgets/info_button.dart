@@ -27,7 +27,7 @@ final class PansInfoButton extends StatelessWidget{
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: Color.lerp(Theme.of(context).dialogTheme.backgroundColor, group.color, .6),
+                                color: Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .5),
                                 shape: BoxShape.circle
                               ),
                             ),
