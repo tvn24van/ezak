@@ -2,6 +2,7 @@ import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/courses_provider.dart';
 import 'package:ezak/providers/dates_provider.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
+import 'package:ezak/providers/freshness_provider.dart';
 import 'package:ezak/providers/initial_date_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/widgets/day_view.dart';
@@ -48,21 +49,18 @@ final class SchedulePage extends StatelessWidget {
                   itemCount: dates.length,
                   physics: const BouncingScrollPhysics(),
                   controller: pageController.value,
-                  onPageChanged: (index) {
-                    final newDate = dates[index];
-                    ref.read(DisplayedDateProvider.instance.notifier).change(newDate);
-                    ref.read(CoursesProvider.instance.notifier).loadCourses(newDate);
+                  onPageChanged: dates.isEmpty? null : (index) {
+                    ref.read(DisplayedDateProvider.instance.notifier).change(dates[index]);
                   },
                   itemBuilder: (context, index) {
                     final date = dates[index];
-                    final coursesP = ref.watch(CoursesProvider.instance..selectAsync((data) => data[date]));
-
+                    final coursesP = ref.watch(coursesProvider(date));
                     return coursesP.maybeWhen(
                       data: (courses) => RefreshIndicator(
                         onRefresh: () async {
                           return showUpdateDialog(context, ref);
                         },
-                        child: PansDayView(courses[date] ?? []),
+                        child: PansDayView(courses),
                       ),
                       orElse: () => CircularProgressIndicator()
                     );
@@ -88,15 +86,15 @@ final class SchedulePage extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
-              // ref.read(ScheduleProvider.instance.notifier).build(forceDownload: true); // todo add back schedule actions
+              ref.read(FreshnessProvider.instance.notifier).checkForUpdate(forceDownload: true);
               Navigator.of(context).pop();
             },
             child: Text(L10n.of(context).force_schedule_redownload),
           ),
-          if(!ref.read(SettingsProvider.instance.select((value) => value.isLecturer)))
+          if(!ref.read(SettingsProvider.isLecturer)) //todo remove isLecturer check when autoupdates is implemented
             TextButton(
               onPressed: () {
-                // ref.read(ScheduleProvider.instance.notifier).build(forceAutoUpdates: true);
+                ref.read(FreshnessProvider.instance.notifier).checkForUpdate();
                 Navigator.of(context).pop();
               },
               child: Text(L10n.of(context).check_for_schedule_update),
