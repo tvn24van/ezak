@@ -1,4 +1,5 @@
 import 'package:ezak/utils/constants.dart';
+import 'package:ezak/widgets/freshness_indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,9 @@ final class PansAppBar extends AppBar{
     title: Text(leadingText ?? Constants.appName),
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     titleSpacing: 0,
-    actions: additionalActions+[
+    actions: [
+      FreshnessIndicator(),
+      ...additionalActions,
       Builder(builder: (context) => IconButton(
         icon: Icon(Icons.adaptive.more),
         onPressed: () => Scaffold.of(context).openEndDrawer(),
