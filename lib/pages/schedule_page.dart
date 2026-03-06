@@ -20,7 +20,7 @@ final class SchedulePage extends StatelessWidget {
     final dates = await ref.watch(datesProvider.future);
     final initialDate = await ref.watch(initialDateProvider.future);
     final pageController = PageController(initialPage: dates.indexOf(initialDate));
-    ref.onDispose(pageController.dispose);
+    // ref.onDispose(pageController.dispose);
     return pageController;
   });
 
