@@ -38,7 +38,7 @@ final class PansDayView extends StatelessWidget{
                   ];
                 }),
                 // just a little space underneath to prevent fabs from covering courses
-                const SizedBox(height: 90),
+                 SizedBox(height: MediaQuery.paddingOf(context).bottom + 90),
               ],
             ),
           ),
