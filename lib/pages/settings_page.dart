@@ -28,19 +28,14 @@ final class SettingsPage extends StatelessWidget{
           child: Consumer(
             builder:(context, ref, child){
               final settingsCompleted = ref.watch(SettingsProvider.completed);
-
-              return IconButton(
+              return BackButton(
                 onPressed: !settingsCompleted? null : (){
                   if(Navigator.canPop(context)) {
                     Navigator.of(context).pop();
                   }else{
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (_) => const SchedulePage())
-                    );
+                    Navigator.pushReplacementNamed(context, '/');
                   }
                 },
-                icon: Icon(Icons.adaptive.arrow_back)
               );
             },
           ),
