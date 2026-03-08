@@ -50,6 +50,7 @@ flutter:
   generate: true
   assets:
     - assets/logotypes/
+    - assets/intermediate_ca.crt
 
 msix_config:
   display_name: eŻak Nysa
