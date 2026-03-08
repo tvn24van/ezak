@@ -9,7 +9,6 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
   @override
   Widget toWidget(BuildContext context){
     return Card.filled(
-      margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       clipBehavior: Clip.hardEdge,
       color: Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .2),
       child: InkWell(
@@ -22,6 +21,7 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
         child: Padding(
           padding: EdgeInsets.all(15),
           child: Row(
+            spacing: 15,
             children: [
               Column(
                 children: [
@@ -29,7 +29,6 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
                   Text(L10n.of(context).to_hour(endTime.format(context))),
                 ],
               ),
-              const SizedBox(width: 15,),
               Expanded(
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
@@ -43,7 +42,6 @@ mixin CourseWidget on CourseModel implements WidgetTransformable{
                   ],
                 ),
               ),
-              const SizedBox(width: 15,),
               Hero(
                 tag: this,
                 child: getIconDescribingCourse(this),

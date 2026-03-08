@@ -18,11 +18,14 @@ final class PansDayView extends StatelessWidget{
         physics: const AlwaysScrollableScrollPhysics(
           parent: BouncingScrollPhysics(),
         ),
+        // bottom's just a little space underneath to prevent fabs from covering courses
+        padding: EdgeInsets.only(left: 15, right: 15, bottom: MediaQuery.paddingOf(context).bottom + 90),
         child: Align(
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 1000),
             child: Column(
+              spacing: 15,
               children: [
                 ...courses.asMap().entries.expand((entry) {
                   final index = entry.key;
@@ -37,8 +40,6 @@ final class PansDayView extends StatelessWidget{
                     course.toWidget(context),
                   ];
                 }),
-                // just a little space underneath to prevent fabs from covering courses
-                 SizedBox(height: MediaQuery.paddingOf(context).bottom + 90),
               ],
             ),
           ),
