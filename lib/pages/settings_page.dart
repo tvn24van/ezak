@@ -1,4 +1,3 @@
-import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';

@@ -1,5 +1,4 @@
 import 'package:ezak/providers/shared_preferences_provider.dart';
-import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/utils/local_cert.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
