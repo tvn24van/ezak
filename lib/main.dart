@@ -13,7 +13,7 @@ void main() async{
   SharedPreferences.setPrefix('');
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-  if(defaultTargetPlatform.isMobile()) {
+  if(!kIsWeb) {
     await useLocalCert();
   }
   runApp( ProviderScope(
