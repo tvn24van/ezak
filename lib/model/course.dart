@@ -1,7 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:ezak/db/cache_db.dart';
 import 'package:ezak/model/group.dart';
-import 'package:ezak/widgets/course_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
