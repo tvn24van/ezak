@@ -37,22 +37,18 @@ final class PansKeysTile extends ConsumerWidget{
 
             final isSelected = key != Settings.defaultKey;
 
-            final button = OutlinedButton(
-              onPressed: () => _searchController.openView(),
-              child: Text(
-                isSelected?
-                  data.entries.singleWhere((element) =>
-                    element.key==key
-                ).value:
-                buttonText,
-              ),
-            );
-
             return SearchAnchor(
               searchController: _searchController,
               isFullScreen: defaultTargetPlatform.isMobile(), // todo make it react to screen size on web
               viewHintText: titleText,
-              builder: (context, controller) => button,
+              builder: (context, controller) => OutlinedButton(
+                onPressed: () => _searchController.openView(),
+                child: Text(
+                  isSelected?
+                    data.entries.singleWhere((element) => element.key==key).value:buttonText,
+                  style: TextStyle(color: TextTheme.of(context).displayMedium?.color),
+                ),
+              ),
               suggestionsBuilder: (context, controller){
                 final text = controller.text.toLowerCase();
                 final filtered = data.entries.where((element) =>
