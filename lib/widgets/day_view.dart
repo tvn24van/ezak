@@ -2,6 +2,7 @@ import 'package:ezak/model/course.dart';
 import 'package:ezak/model/decoders/time_decoder.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/widgets/break_indicator.dart';
+import 'package:ezak/widgets/course_widget.dart';
 import 'package:flutter/material.dart';
 
 final class PansDayView extends StatelessWidget{
@@ -37,7 +38,7 @@ final class PansDayView extends StatelessWidget{
                   return [
                     if (currentBreak > TimeDecoder.breakLengthInMinutes)
                       PansBreakIndicator(Duration(minutes: currentBreak)),
-                    course.toWidget(context),
+                    CourseWidget(course: course)
                   ];
                 }),
               ],

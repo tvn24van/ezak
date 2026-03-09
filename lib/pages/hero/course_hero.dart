@@ -1,7 +1,7 @@
 import 'package:ezak/model/course.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/widgets/app_bar.dart';
-import 'package:ezak/widgets/mixins/course_widget.dart';
+import 'package:ezak/widgets/course_widget.dart';
 import 'package:flutter/material.dart';
 
 final class CourseHero extends StatelessWidget{
