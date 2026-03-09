@@ -4,18 +4,19 @@ import 'package:ezak/model/course.dart';
 import 'package:ezak/model/course_date.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class PansRestApi{
 
   static Future<DateTime> fetchUpdateDate({
-    required http.Client httpClient,
+    required Client httpClient,
+    required bool isLecturer,
     required int key
   })async{
     final response = await httpClient.get(
       Constants.restUrl.replace(
-        path: 'rest/kalendarz',
-        queryParameters: {'wytrych': '$key'}
+        path: 'rest/kalendarz${isLecturer?'prowadzacy':''}',
+        queryParameters: {isLecturer?'jegoid':'wytrych': '$key'}
       )
     );
 
@@ -23,7 +24,7 @@ class PansRestApi{
   }
 
   static Future<String> fetchCurrentSemester({
-    required http.Client httpClient
+    required Client httpClient
   })async{
     final response = await httpClient.get(
       Constants.restUrl.replace(
@@ -34,7 +35,7 @@ class PansRestApi{
   }
 
   static Future<Map<int, String>> fetchKeys({
-    required http.Client httpClient,
+    required Client httpClient,
     required bool isLecturer
   })async{
     final response = await httpClient.get(
@@ -46,7 +47,7 @@ class PansRestApi{
   }
 
   static Future<List<Course>> fetchCourses({
-    required http.Client httpClient,
+    required Client httpClient,
     required bool isLecturer,
     required int key
   })async{
@@ -65,7 +66,7 @@ class PansRestApi{
   }
 
   static Future<List<CourseDate>> fetchCoursesDates({
-    required http.Client httpClient,
+    required Client httpClient,
     required bool isLecturer,
     required int key
   })async{

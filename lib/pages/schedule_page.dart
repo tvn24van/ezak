@@ -93,14 +93,13 @@ final class SchedulePage extends StatelessWidget {
             },
             child: Text(L10n.of(context).force_schedule_redownload),
           ),
-          if(!ref.read(SettingsProvider.isLecturer)) //todo remove isLecturer check when autoupdates is implemented
-            TextButton(
-              onPressed: () {
-                ref.read(FreshnessProvider.instance.notifier).checkForUpdate();
-                Navigator.of(context).pop();
-              },
-              child: Text(L10n.of(context).check_for_schedule_update),
-            ),
+          TextButton(
+            onPressed: () {
+              ref.read(FreshnessProvider.instance.notifier).checkForUpdate();
+              Navigator.of(context).pop();
+            },
+            child: Text(L10n.of(context).check_for_schedule_update),
+          ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();

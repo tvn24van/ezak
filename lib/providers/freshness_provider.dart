@@ -91,7 +91,7 @@ class FreshnessProvider extends Notifier<Freshness> {
         return;
       }
 
-      final lastUpdate = await PansRestApi.fetchUpdateDate(httpClient: client, key: key);
+      final lastUpdate = await PansRestApi.fetchUpdateDate(httpClient: client, isLecturer: isLecturer, key: key);
       if (assignment.lastUpdate.isBefore(lastUpdate) || force) {
         debugOnlyPrint("Downloading update${force?' (by force)':''}");
         state = (state: FreshnessState.fetching, lastCheck: DateTime.now());

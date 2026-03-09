@@ -9,7 +9,6 @@ final class PansAutoUpdateTile extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final autoUpdates = ref.watch(SettingsProvider.instance.select((settings) => settings.autoUpdates));
-    final isLecturer  = ref.watch(SettingsProvider.instance.select((settings) => settings.isLecturer));
 
     return ListTile(
       leading: const Icon(Icons.auto_mode_outlined),
@@ -17,7 +16,7 @@ final class PansAutoUpdateTile extends ConsumerWidget{
       subtitle: Text(L10n.of(context).auto_updates_subtitle),
       trailing: Switch(
         value: autoUpdates,
-        onChanged: isLecturer? null : (value) {
+        onChanged: (value) {
           ref.read(SettingsProvider.instance.notifier).toggleAutoUpdates();
         },
       ),
