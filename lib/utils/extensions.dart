@@ -71,21 +71,43 @@ extension WcagColor on Color {
     return l1 > l2 ? l1 / l2 : l2 / l1;
   }
 
-  Color ensureWcagAaContrast(Color background) {
+  Color ensureWcagAaContrast(BuildContext context) {
     Color current = this;
-    final isBackgroundLight = background.computeLuminance() > 0.5;
+    final appBackground = Theme.of(context).scaffoldBackgroundColor;
+    final textColor = Theme.of(context).textTheme.displayMedium!.color!;
 
-    while (current.contrastRatio(background) < 4.5) {
-      final hsl = HSLColor.fromColor(current);
+    for (int i = 0; i < 50; i++) {
+      final textContrast = current.contrastRatio(textColor);
+      final bgContrast = current.contrastRatio(appBackground);
 
-      if (isBackgroundLight) {
-        if (hsl.lightness <= 0.1) break;
-        current = hsl.withLightness(hsl.lightness - 0.05).toColor();
-      } else {
-        if (hsl.lightness >= 0.9) break;
-        current = hsl.withLightness(hsl.lightness + 0.05).toColor();
+      if (textContrast >= 4.5 && bgContrast >= 3.0) {
+        break;
       }
+
+      final hsl = HSLColor.fromColor(current);
+      double newLightness = hsl.lightness;
+
+      if (textContrast < 4.5) {
+        if (textColor.computeLuminance() < 0.5) {
+          newLightness += 0.05;
+        } else {
+          newLightness -= 0.05;
+        }
+      } else if (bgContrast < 3.0) {
+        if (appBackground.computeLuminance() < 0.5) {
+          newLightness += 0.05;
+        } else {
+          newLightness -= 0.05;
+        }
+      }
+
+      newLightness = newLightness.clamp(0.0, 1.0);
+
+      if (newLightness == hsl.lightness) break;
+
+      current = hsl.withLightness(newLightness).toColor();
     }
+
     return current;
   }
 }

@@ -33,7 +33,7 @@ final class PansInfoButton extends ConsumerWidget{
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: highContrast?
-                                  group.color.ensureWcagAaContrast(Theme.of(context).scaffoldBackgroundColor):
+                                  group.color.ensureWcagAaContrast(context):
                                   Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .5),
                                 shape: BoxShape.circle
                               ),

@@ -18,7 +18,7 @@ class CourseWidget extends ConsumerWidget {
     return Card.filled(
       clipBehavior: Clip.hardEdge,
       color: highContrast?
-        course.group.color.ensureWcagAaContrast(Theme.of(context).scaffoldBackgroundColor):
+        course.group.color.ensureWcagAaContrast(context):
         Color.lerp(Theme.of(context).scaffoldBackgroundColor, course.group.color, .2),
       child: InkWell(
         onTap: ()async=> {},
