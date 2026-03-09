@@ -50,4 +50,18 @@ final class PansAppereance {
     )
   );
 
+  static final ThemeData lightHighContrastTheme = ThemeData.from(
+    colorScheme: ColorScheme.highContrastLight(
+      primary: Colors.black,
+      onPrimary: Colors.yellow,
+    ),
+  );
+
+  static final ThemeData darkHighContrastTheme = ThemeData.from(
+    colorScheme: ColorScheme.highContrastDark(
+      primary: Colors.yellow,
+      onPrimary: Colors.black,
+    ),
+  );
+
 }
