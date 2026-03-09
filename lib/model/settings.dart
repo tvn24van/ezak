@@ -18,6 +18,10 @@ class Settings{
   /// true if dark theme is selected
   final bool darkTheme;
 
+  final bool highContrast;
+
+  final bool leftHandMode;
+
   final bool autoUpdates;
 
   /// locale in which app will be displayed
@@ -38,6 +42,8 @@ class Settings{
 
   const Settings({
     bool? darkTheme,
+    bool? highContrast,
+    bool? leftHandMode,
     bool? autoUpdates,
     Locale? locale,
     bool? isLecturer,
@@ -47,6 +53,8 @@ class Settings{
   }):
   locale = locale ?? Constants.defaultLocale,
   darkTheme = darkTheme ?? false,
+  highContrast = highContrast ?? false,
+  leftHandMode = leftHandMode ?? false,
   autoUpdates = autoUpdates ?? true,
   isLecturer = isLecturer ?? false,
   specializationKey = specializationKey ?? defaultKey,
@@ -65,6 +73,8 @@ class Settings{
 
   Settings copyWith({
     bool? darkTheme,
+    bool? highContrast,
+    bool? leftHandMode,
     bool? autoUpdates,
     Locale? locale,
     bool? isLecturer,
@@ -73,6 +83,8 @@ class Settings{
     GroupsMap? groups,
   })=> Settings(
     darkTheme: darkTheme ?? this.darkTheme,
+    highContrast: highContrast ?? this.highContrast,
+    leftHandMode: leftHandMode ?? this.leftHandMode,
     autoUpdates: autoUpdates ?? this.autoUpdates,
     locale: locale ?? this.locale,
     isLecturer: isLecturer ?? this.isLecturer,

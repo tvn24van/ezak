@@ -8,6 +8,8 @@ import 'max_groups_provider.dart';
 
 final class _SettingsKeys{
   static final darkTheme = "darkTheme";
+  static final highContrast = "highContrast";
+  static final leftHandMode = "leftHandMode";
   static final autoUpdates = "autoUpdates";
   static final locale = "locale";
   static final isLecturer = "isTeacher"; // backwards comp.
@@ -69,6 +71,8 @@ final class SettingsProvider extends Notifier<Settings>{
 
     return Settings(
       darkTheme: sp.getBool(_SettingsKeys.darkTheme),
+      highContrast: sp.getBool(_SettingsKeys.highContrast),
+      leftHandMode: sp.getBool(_SettingsKeys.leftHandMode),
       autoUpdates: sp.getBool(_SettingsKeys.autoUpdates),
       locale: sp.getString(_SettingsKeys.locale)!=null? Locale(sp.getString(_SettingsKeys.locale)!) : null,
       isLecturer: sp.getBool(_SettingsKeys.isLecturer),
@@ -90,6 +94,16 @@ final class SettingsProvider extends Notifier<Settings>{
       darkTheme: !state.darkTheme
     );
     ref.read(sharedPreferences).setBool(_SettingsKeys.darkTheme, state.darkTheme);
+  }
+
+  void toggleHighContrast(){
+    state = state.copyWith(highContrast: !state.highContrast);
+    ref.read(sharedPreferences).setBool(_SettingsKeys.highContrast, state.highContrast);
+  }
+
+  void toggleLeftHandMode(){
+    state = state.copyWith(leftHandMode: !state.leftHandMode);
+    ref.read(sharedPreferences).setBool(_SettingsKeys.leftHandMode, state.leftHandMode);
   }
 
   void toggleAutoUpdates(){
