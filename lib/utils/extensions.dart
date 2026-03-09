@@ -62,6 +62,34 @@ extension DurationToHour on Duration{
   }
 }
 
+extension WcagColor on Color {
+  /// contrast factor (from 1.0 to 21.0)
+  double contrastRatio(Color background) {
+    final l1 = computeLuminance() + 0.05;
+    final l2 = background.computeLuminance() + 0.05;
+
+    return l1 > l2 ? l1 / l2 : l2 / l1;
+  }
+
+  Color ensureWcagAaContrast(Color background) {
+    Color current = this;
+    final isBackgroundLight = background.computeLuminance() > 0.5;
+
+    while (current.contrastRatio(background) < 4.5) {
+      final hsl = HSLColor.fromColor(current);
+
+      if (isBackgroundLight) {
+        if (hsl.lightness <= 0.1) break;
+        current = hsl.withLightness(hsl.lightness - 0.05).toColor();
+      } else {
+        if (hsl.lightness >= 0.9) break;
+        current = hsl.withLightness(hsl.lightness + 0.05).toColor();
+      }
+    }
+    return current;
+  }
+}
+
 /// https://riverpod.dev/docs/concepts2/auto_dispose#example-keeping-state-alive-for-a-specific-amount-of-time
 extension AutoDisposeRefCache on Ref {
   /// Keeps the provider alive for [duration].
