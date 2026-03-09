@@ -1,12 +1,17 @@
 import 'package:ezak/model/group.dart';
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/providers/settings_provider.dart';
+import 'package:ezak/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final class PansInfoButton extends StatelessWidget{
+final class PansInfoButton extends ConsumerWidget{
   const PansInfoButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final highContrast = ref.watch(SettingsProvider.instance.select((s) => s.highContrast));
+    
     return IconButton(
       onPressed: (){
         showAdaptiveDialog(context: context, builder: (context) {
@@ -27,7 +32,9 @@ final class PansInfoButton extends StatelessWidget{
                             Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                color: Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .5),
+                                color: highContrast?
+                                  group.color.ensureWcagAaContrast(Theme.of(context).scaffoldBackgroundColor):
+                                  Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .5),
                                 shape: BoxShape.circle
                               ),
                             ),
