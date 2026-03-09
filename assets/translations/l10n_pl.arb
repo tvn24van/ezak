@@ -108,6 +108,6 @@
   "open_default_email_app": "Otwórz aplikację pocztową",
   "email_access_explanation": "Korzystając z androida możesz uzyskać łatwy dostęp do poczty uczelnianej z poziomu Twojej domyślnej aplikacji pocztowej (sprawdzone dla poczty Gmail). Wystarczy w ustawieniach Gmail-a wybrać opcję \"Dodaj konto\", następnie dotknąć \"Exchange i Office 365\" oraz uzupełnić dane logowania. Sposób ten nie wymaga pobierania dodatkowej aplikacji.",
   "useful_links": "Przydatne linki",
-  "layout_for_lefthanded": "Układ dla osób leworeczych",
+  "layout_for_lefthanded": "Układ dla osób leworęcznych",
   "high_contrast": "Wysoki kontrast"
 }
