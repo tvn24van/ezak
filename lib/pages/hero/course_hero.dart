@@ -16,7 +16,7 @@ final class CourseHero extends StatelessWidget{
           message: MaterialLocalizations.of(context).backButtonTooltip,
           child: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.adaptive.arrow_back)
+            icon: Icon(Icons.arrow_back)
           ),
         ),
         leadingText: course.name,

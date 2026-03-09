@@ -14,7 +14,7 @@ final class PansThemeTile extends ConsumerWidget{
     return ListTile(
       leading: const Icon(Icons.dark_mode),
       title: Text(L10n.of(context).dark_theme),
-      trailing: Switch.adaptive(
+      trailing: Switch(
         value: isDark,
         onChanged:(value) =>
           ref.read(SettingsProvider.instance.notifier).toggleTheme(),

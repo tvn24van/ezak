@@ -16,7 +16,7 @@ class PansEmailTutorTile extends StatelessWidget{
       title: Text(L10n.of(context).access_to_universitys_email),
       onTap: (){
         showDialog(context: context, builder: (context) {
-          return AlertDialog.adaptive(
+          return AlertDialog(
             title: Text(L10n.of(context).access_to_universitys_email),
             content: Text(L10n.of(context).email_access_explanation),
             actions: [

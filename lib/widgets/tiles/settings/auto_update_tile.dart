@@ -15,7 +15,7 @@ final class PansAutoUpdateTile extends ConsumerWidget{
       leading: const Icon(Icons.auto_mode_outlined),
       title: Text(L10n.of(context).auto_updates),
       subtitle: Text(L10n.of(context).auto_updates_subtitle),
-      trailing: Switch.adaptive(
+      trailing: Switch(
         value: autoUpdates,
         onChanged: isLecturer? null : (value) {
           ref.read(SettingsProvider.instance.notifier).toggleAutoUpdates();

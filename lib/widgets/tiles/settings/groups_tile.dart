@@ -57,7 +57,7 @@ final class PansGroupsTile extends ConsumerWidget{
           },).toList()
         );
       },
-      loading: ()=> const CircularProgressIndicator.adaptive(),
+      loading: ()=> const CircularProgressIndicator(),
       error: (err, stack)=> Text('$err'),
     );
 

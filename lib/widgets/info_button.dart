@@ -14,8 +14,8 @@ final class PansInfoButton extends ConsumerWidget{
     
     return IconButton(
       onPressed: (){
-        showAdaptiveDialog(context: context, builder: (context) {
-          return AlertDialog.adaptive(
+        showDialog(context: context, builder: (context) {
+          return AlertDialog(
             title: Text(L10n.of(context).informations),
             content: Column(
               mainAxisSize: MainAxisSize.min,

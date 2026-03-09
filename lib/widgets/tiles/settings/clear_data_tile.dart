@@ -13,9 +13,9 @@ final class PansClearDataTile extends StatelessWidget{
       title: Text(L10n.of(context).clearing_data),
       subtitle: Text(L10n.of(context).clear_data_description),
       trailing: FilledButton(
-        onPressed: ()async=> showAdaptiveDialog(
+        onPressed: ()async=> showDialog(
           context: context,
-          builder: (context) => AlertDialog.adaptive(
+          builder: (context) => AlertDialog(
             title: Text(L10n.of(context).clear_data_confirmation),
             actions: [
               TextButton(

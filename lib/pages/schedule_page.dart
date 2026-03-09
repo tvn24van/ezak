@@ -81,9 +81,9 @@ final class SchedulePage extends StatelessWidget {
   }
 
   static Future<dynamic> showUpdateDialog(BuildContext context, WidgetRef ref) {
-    return showAdaptiveDialog(
+    return showDialog(
       context: context,
-      builder: (context) => AlertDialog.adaptive(
+      builder: (context) => AlertDialog(
         title: Text(L10n.of(context).schedule_update_prompt),
         actions: [
           TextButton(

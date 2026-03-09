@@ -27,7 +27,7 @@ final class PansAppBar extends AppBar{
       FreshnessIndicator(),
       ...additionalActions,
       Builder(builder: (context) => IconButton(
-        icon: Icon(Icons.adaptive.more),
+        icon: Icon(Icons.more),
         onPressed: () => Scaffold.of(context).openEndDrawer(),
         tooltip: MaterialLocalizations.of(context).moreButtonTooltip,
       ))

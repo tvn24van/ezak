@@ -36,7 +36,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
             },
             heroTag: null,
             tooltip: MaterialLocalizations.of(context).previousPageTooltip,
-            child: Icon(Icons.adaptive.arrow_back),
+            child: Icon(Icons.arrow_back),
           ),
           Consumer(builder: (context, ref, child) {
             final allDates = ref.watch(datesProvider);
@@ -87,7 +87,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
             },
             heroTag: null,
             tooltip: MaterialLocalizations.of(context).nextPageTooltip,
-            child: Icon(Icons.adaptive.arrow_forward),
+            child: Icon(Icons.arrow_forward),
           ),
         ],
       ),

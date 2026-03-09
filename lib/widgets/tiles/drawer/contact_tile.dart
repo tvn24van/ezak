@@ -14,9 +14,9 @@ class PansContactTile extends StatelessWidget{
       title: Text(L10n.of(context).contact),
       leading: Icon(Icons.support_agent),
       onTap: () async{
-        showAdaptiveDialog(
+        showDialog(
           context: context,
-          builder: (context) => AlertDialog.adaptive(
+          builder: (context) => AlertDialog(
             title: Text(L10n.of(context).thank_you_for_your_contact),
             content: Text(L10n.of(context).email_feedback_message),
             actions: [

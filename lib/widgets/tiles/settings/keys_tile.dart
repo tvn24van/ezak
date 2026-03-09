@@ -75,11 +75,11 @@ final class PansKeysTile extends ConsumerWidget{
           },
           loading: ()=> const OutlinedButton(
             onPressed: null,
-            child: CircularProgressIndicator.adaptive()
+            child: CircularProgressIndicator()
           ),
           error: (err, stack)=> const OutlinedButton(
             onPressed: null,
-            child: CircularProgressIndicator.adaptive()
+            child: CircularProgressIndicator()
           ),
         ),
       ),
