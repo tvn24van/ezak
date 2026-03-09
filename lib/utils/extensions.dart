@@ -38,6 +38,10 @@ extension DateTimeExtension on DateTime{
   // }
 }
 
+extension LocaleExtension on Locale{
+  bool isRtl()=> Bidi.isRtlLanguage(languageCode);
+}
+
 extension ContentTypeExtension on Response{
   String? get contentType => headers['content-type'];
 }

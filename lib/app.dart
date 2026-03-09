@@ -18,8 +18,17 @@ final class PansApp extends ConsumerWidget {
     final darkTheme = ref.watch(
       SettingsProvider.instance.select((settings) => settings.darkTheme)
     );
+
+    final highContrast = ref.watch(
+        SettingsProvider.instance.select((settings) => settings.highContrast)
+    );
+
     final locale = ref.watch(
       SettingsProvider.instance.select((settings) => settings.locale)
+    );
+
+    final leftHandMode = ref.watch(
+      SettingsProvider.instance.select((settings) => settings.leftHandMode)
     );
 
     final settingsCompleted = ref.read(SettingsProvider.completed);
@@ -56,8 +65,10 @@ final class PansApp extends ConsumerWidget {
 
         scrollBehavior: PansScrollBehavior(),
 
-        theme: PansAppereance.lightTheme,
-        darkTheme: PansAppereance.darkTheme,
+        theme: highContrast? PansAppereance.lightHighContrastTheme : PansAppereance.lightTheme,
+        darkTheme: highContrast? PansAppereance.darkHighContrastTheme : PansAppereance.darkTheme,
+        highContrastTheme: PansAppereance.lightHighContrastTheme,
+        highContrastDarkTheme: PansAppereance.darkHighContrastTheme,
         themeMode: darkTheme? ThemeMode.dark : ThemeMode.light,
 
         routes: {
@@ -68,6 +79,7 @@ final class PansApp extends ConsumerWidget {
           ),
         },
         initialRoute: settingsCompleted? "/" : "/settings",
+        builder: (context, child) => Directionality(textDirection: leftHandMode? TextDirection.rtl:TextDirection.ltr, child: child!),
       ),
     );
   }
