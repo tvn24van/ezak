@@ -79,11 +79,9 @@ final class PansApp extends ConsumerWidget {
           ),
         },
         initialRoute: settingsCompleted? "/" : "/settings",
-        builder: (context, child) => SafeArea(
-          child: Directionality(
-            textDirection: leftHandMode? TextDirection.rtl:TextDirection.ltr,
-            child: child!
-          )
+        builder: (context, child) => Directionality(
+          textDirection: leftHandMode? TextDirection.rtl:TextDirection.ltr,
+          child: child!
         ),
       ),
     );

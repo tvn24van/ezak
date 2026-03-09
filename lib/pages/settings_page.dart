@@ -45,32 +45,34 @@ final class SettingsPage extends StatelessWidget{
         context: context,
       ),
       endDrawer: PansNavigationDrawer(page: 1),
-      body: Consumer(
-        builder: (context, ref, child) {
+      body: SafeArea(
+        child: Consumer(
+          builder: (context, ref, child) {
 
-          return PopScope(
-            canPop: ref.watch(SettingsProvider.completed),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextDivider(child: Text(L10n.of(context).section_of_personalization)),
-                  const PansLanguageTile(),
-                  const PansThemeTile(),
-                  HighContrastTile(),
-                  LeftHandModeTile(),
-                  TextDivider(child: Text(L10n.of(context).section_of_schedule_configuration)),
-                  const PansAutoUpdateTile(),
-                  const PansTeacherTile(),
-                  const PansKeysTile(),
-                  const PansGroupsTile(),
-                  TextDivider(child: Text(L10n.of(context).section_of_schedule_management)),
-                  const PansUpdateScheduleTile(),
-                  const PansClearDataTile()
-                ],
+            return PopScope(
+              canPop: ref.watch(SettingsProvider.completed),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TextDivider(child: Text(L10n.of(context).section_of_personalization)),
+                    const PansLanguageTile(),
+                    const PansThemeTile(),
+                    HighContrastTile(),
+                    LeftHandModeTile(),
+                    TextDivider(child: Text(L10n.of(context).section_of_schedule_configuration)),
+                    const PansAutoUpdateTile(),
+                    const PansTeacherTile(),
+                    const PansKeysTile(),
+                    const PansGroupsTile(),
+                    TextDivider(child: Text(L10n.of(context).section_of_schedule_management)),
+                    const PansUpdateScheduleTile(),
+                    const PansClearDataTile()
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

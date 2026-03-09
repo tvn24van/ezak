@@ -34,43 +34,45 @@ final class SchedulePage extends StatelessWidget {
         context: context,
       ),
       endDrawer: PansNavigationDrawer(page: 0),
-      body: Center(
-        child: Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final isLecturer = ref.read(SettingsProvider.isLecturer);
-            final key = ref.read(SettingsProvider.key);
-            final groups = ref.read(SettingsProvider.groups);
-            final datesP = ref.watch(datesProvider);
-            final pageController = ref.watch(pageControllerProvider);
-            return datesP.maybeWhen(
-              data: (dates) {
-                return PageView.builder(
-                  key: Key("$isLecturer-$key-$groups"),
-                  itemCount: dates.length,
-                  physics: const BouncingScrollPhysics(),
-                  controller: pageController.value,
-                  onPageChanged: dates.isEmpty? null : (index) {
-                    ref.read(DisplayedDateProvider.instance.notifier).change(dates[index]);
-                  },
-                  itemBuilder: (context, index) {
-                    final date = dates[index];
-                    final coursesP = ref.watch(coursesProvider(date));
-                    return coursesP.maybeWhen(
-                      data: (courses) => RefreshIndicator(
-                        onRefresh: () async {
-                          return showUpdateDialog(context, ref);
-                        },
-                        child: PansDayView(courses),
-                      ),
-                      orElse: () => CircularProgressIndicator()
-                    );
-                  },
-                );
-              },
-              orElse: () => CircularProgressIndicator()
-            );
+      body: SafeArea(
+        child: Center(
+          child: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              final isLecturer = ref.read(SettingsProvider.isLecturer);
+              final key = ref.read(SettingsProvider.key);
+              final groups = ref.read(SettingsProvider.groups);
+              final datesP = ref.watch(datesProvider);
+              final pageController = ref.watch(pageControllerProvider);
+              return datesP.maybeWhen(
+                data: (dates) {
+                  return PageView.builder(
+                    key: Key("$isLecturer-$key-$groups"),
+                    itemCount: dates.length,
+                    physics: const BouncingScrollPhysics(),
+                    controller: pageController.value,
+                    onPageChanged: dates.isEmpty? null : (index) {
+                      ref.read(DisplayedDateProvider.instance.notifier).change(dates[index]);
+                    },
+                    itemBuilder: (context, index) {
+                      final date = dates[index];
+                      final coursesP = ref.watch(coursesProvider(date));
+                      return coursesP.maybeWhen(
+                        data: (courses) => RefreshIndicator(
+                          onRefresh: () async {
+                            return showUpdateDialog(context, ref);
+                          },
+                          child: PansDayView(courses),
+                        ),
+                        orElse: () => CircularProgressIndicator()
+                      );
+                    },
+                  );
+                },
+                orElse: () => CircularProgressIndicator()
+              );
 
-          },
+            },
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
