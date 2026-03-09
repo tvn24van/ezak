@@ -1,5 +1,4 @@
 import 'package:ezak/model/course.dart';
-import 'package:ezak/pages/hero/course_hero.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/extensions.dart';
