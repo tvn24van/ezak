@@ -5,6 +5,8 @@ import 'package:ezak/widgets/drawer.dart';
 import 'package:ezak/widgets/text_divider.dart';
 import 'package:ezak/widgets/tiles/settings/auto_update_tile.dart';
 import 'package:ezak/widgets/tiles/settings/clear_data_tile.dart';
+import 'package:ezak/widgets/tiles/settings/high_contrast_tile.dart';
+import 'package:ezak/widgets/tiles/settings/left_hand_tile.dart';
 import 'package:ezak/widgets/tiles/settings/theme_tile.dart';
 import 'package:ezak/widgets/tiles/settings/update_schedule_tile.dart';
 import 'package:ezak/widgets/tiles/settings/groups_tile.dart';
@@ -54,6 +56,8 @@ final class SettingsPage extends StatelessWidget{
                   TextDivider(child: Text(L10n.of(context).section_of_personalization)),
                   const PansLanguageTile(),
                   const PansThemeTile(),
+                  HighContrastTile(),
+                  LeftHandModeTile(),
                   TextDivider(child: Text(L10n.of(context).section_of_schedule_configuration)),
                   const PansAutoUpdateTile(),
                   const PansTeacherTile(),

@@ -1,5 +1,5 @@
 {
-  "caption": "{appName}™️ is an application designed for quick and convenient access to schedules. The name refers to \"e-Student PWSZ Nysa\" - the recently popular equivalent of eŻak, and to a video clip worth checking out. (Link below)",
+  "caption": "{appName} is an application designed for quick and convenient access to schedules. The name refers to \"e-Student PWSZ Nysa\" - the recently popular equivalent of eŻak, and to a video clip worth checking out. (Link below)",
   "@caption": {
     "placeholders": {
       "appName": {
@@ -36,23 +36,23 @@
   "even": "even",
   "odd": "odd",
   "change_language_if_you_like": "Change language if you like",
-  "set_whether_you_are_a_teacher": "Set whether you are a teacher",
+  "set_whether_you_are_a_teacher": "Set whether you are an instructor",
   "choose_specialization": "Choose specialization",
-  "select_lecturer": "Select lecturer",
+  "select_lecturer": "Select instructor",
   "go_to_schedule": "Go to schedule",
   "show_on_map": "Show on map",
   "settings": "Settings",
   "about_app": "About app",
   "schedule_update_prompt": "How do you want to update schedule?",
   "force_schedule_redownload": "Force schedule redownload",
-  "check_for_schedule_update": "Check schedule for updates",
+  "check_for_schedule_update": "Check for schedule updates",
   "schedule_updating": "Schedule updating",
   "clearing_data": "Clearing data",
   "clear_data": "Clear data",
   "clear_data_confirmation": "Are you sure you want to clear the data?",
   "clear_data_description": "After a semester you may want to clear caches of schedules you've been viewing",
   "auto_updates": "Auto updates",
-  "auto_updates_subtitle": "Auto updates works only for students due to limits enforced by REST API",
+  "auto_updates_subtitle": "Auto updates are now available to instructors",
   "online_course": "Remote classes",
   "full_time_course": "Full-time classes",
   "building_and_room": "Building {building}, room {room}",
@@ -66,7 +66,7 @@
       }
     }
   },
-  "lecturer": "Lecturer",
+  "lecturer": "Instructor",
   "group": "Group",
   "longer_break": "Longer break",
   "from_hour": "From {hour}",
@@ -107,5 +107,7 @@
   "access_to_universitys_email": "Access to university email",
   "open_default_email_app": "Open email app",
   "email_access_explanation": "Using android, you can easily access your university email from within your default email app (checked for Gmail). All you need to do is select ‘Add account’ in your Gmail settings, then tap on ‘Exchange and Office 365’ and complete your login details. This method does not require downloading an additional app.",
-  "useful_links": "Useful links"
+  "useful_links": "Useful links",
+  "layout_for_lefthanded": "Layout for left-handed",
+  "high_contrast": "High contrast"
 }
