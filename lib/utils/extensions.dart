@@ -116,6 +116,7 @@ extension WcagColor on Color {
 extension AutoDisposeRefCache on Ref {
   /// Keeps the provider alive for [duration].
   void cacheFor(Duration duration) {
+    if(!mounted)return; // do not keep alive when not mounted anymore
     // Immediately prevent the state from getting destroyed.
     final link = keepAlive();
     // After duration has elapsed, we re-enable automatic disposal.
