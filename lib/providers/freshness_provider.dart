@@ -60,31 +60,32 @@ class FreshnessProvider extends Notifier<Freshness> {
     final client = ref.read(clientProvider(null));
 
     try {
-      final (assignment, currentSemester) = await (
+      final (assignment, currentSemester, apiSemesterMark) = await (
         db.getAssignment(key: key, isLecturer: isLecturer),
-        db.getLastSemester()
+        db.getLastSemester(),
+        PansRestApi.fetchCurrentSemester(httpClient: client)
       ).wait;
 
       if (assignment == null) {
         state = (state: FreshnessState.checking, lastCheck: DateTime.now());
         debugOnlyPrint("Downloading schedule...");
 
-        final (_, semesterMark) = await (
-          _fetchAndSaveSchedule(client, db, key, isLecturer, isUpdate: false),
-          PansRestApi.fetchCurrentSemester(httpClient: client)
-        ).wait;
+        await _fetchAndSaveSchedule(client, db, key, isLecturer, isUpdate: false);
 
         if (currentSemester == null) {
-          await db.addSemester(semesterMark);
+          await db.addSemester(apiSemesterMark);
         }
         state = (state: FreshnessState.fresh, lastCheck: DateTime.now());
         return;
+      }else if(currentSemester == null){ // migration to current schedule handling method
+        debugOnlyPrint("Adding semester");
+        await db.addSemester(apiSemesterMark);
+        await _fetchAndSaveSchedule(client, db, key, isLecturer, isUpdate: true);
       }
 
       state = (state: FreshnessState.checking, lastCheck: DateTime.now());
 
-      final apiSemesterMark = await PansRestApi.fetchCurrentSemester(httpClient: client);
-      if (currentSemester != null && currentSemester.mark != apiSemesterMark) {
+      if (currentSemester!=null && currentSemester.mark != apiSemesterMark) {
         debugOnlyPrint("New semester, clearing data");
         await clearData(newSemesterMark: apiSemesterMark);
         state = (state: FreshnessState.noData, lastCheck: DateTime.now());
