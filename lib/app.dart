@@ -13,6 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final class PansApp extends ConsumerWidget {
   const PansApp({super.key});
 
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final darkTheme = ref.watch(
@@ -37,7 +39,7 @@ final class PansApp extends ConsumerWidget {
       if (completed) return;
       var isAlreadyOnSettings = false;
 
-      Navigator.of(context).popUntil((route) {
+      navigatorKey.currentState?.popUntil((route) {
         if (route.settings.name == '/settings') {
           isAlreadyOnSettings = true;
         }
@@ -45,7 +47,7 @@ final class PansApp extends ConsumerWidget {
       });
 
       if (!isAlreadyOnSettings) {
-        Navigator.pushReplacementNamed(context, '/settings');
+        navigatorKey.currentState?.pushReplacementNamed('/settings');
       }
     });
 
@@ -79,6 +81,8 @@ final class PansApp extends ConsumerWidget {
           ),
         },
         initialRoute: settingsCompleted? "/" : "/settings",
+        navigatorKey: navigatorKey,
+
         builder: (context, child) => Directionality(
           textDirection: leftHandMode? TextDirection.rtl:TextDirection.ltr,
           child: child!
