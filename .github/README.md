@@ -1,7 +1,7 @@
 [![Crowdin](https://badges.crowdin.net/e_student_clone/localized.svg)](https://crowdin.com/project/ezak)
 
 # **ezak**
-- Official mobile/web app for viewing schedule for PANS in Nysa
+- Official mobile/web app for viewing schedule for UAS in Nysa
 - Oficjalna aplikacja mobilna/webowa do przeglądania planu PANS w Nysie
 
 ## Website
