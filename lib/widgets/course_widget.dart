@@ -20,7 +20,7 @@ class CourseWidget extends ConsumerWidget {
         course.group.color.ensureWcagAaContrast(context):
         Color.lerp(Theme.of(context).scaffoldBackgroundColor, course.group.color, .2),
       child: InkWell(
-        onTap: ()async=> {},
+        onTap: (){},
         //   Navigator.push(
         //     context,
         //     MaterialPageRoute(builder: (context) => CourseHero(course: this))
@@ -42,7 +42,7 @@ class CourseWidget extends ConsumerWidget {
                   alignment: WrapAlignment.spaceBetween,
                   spacing: 15,
                   children: [
-                    Text(course.name),
+                    Text("${course.name} - ${L10n.of(context).group_name(course.group.name)}"),
                     Text(course.lecturer),
                     Text(
                         getTranslationDescribingCourseLocation(course, context)
@@ -51,9 +51,9 @@ class CourseWidget extends ConsumerWidget {
                 ),
               ),
               Hero(
-                tag: this,
+                tag: course,
                 child: getIconDescribingCourse(course),
-              )
+              ),
             ],
           ),
         ),
