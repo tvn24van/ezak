@@ -63,6 +63,14 @@ final class PansInfoButton extends ConsumerWidget{
                             const SizedBox(width: 10, height: 30,),
                             Text(L10n.of(context).online_course)
                           ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.share_arrival_time_outlined),
+                            const SizedBox(width: 10, height: 30,),
+                            Text(L10n.of(context).longer_break)
+                          ],
                         )
                       ],
                     )
