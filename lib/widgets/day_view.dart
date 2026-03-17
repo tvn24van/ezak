@@ -20,7 +20,7 @@ final class PansDayView extends StatelessWidget{
           parent: BouncingScrollPhysics(),
         ),
         // bottom's just a little space underneath to prevent fabs from covering courses
-        padding: EdgeInsets.only(left: 15, right: 15, bottom: MediaQuery.paddingOf(context).bottom + 90),
+        padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: MediaQuery.paddingOf(context).bottom + 90),
         child: Align(
           alignment: Alignment.topCenter,
           child: ConstrainedBox(
