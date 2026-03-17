@@ -1,6 +1,5 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/visuals/appearance.dart';
 import 'package:flutter/material.dart';
 
 final class PansBreakIndicator extends StatelessWidget{
@@ -16,7 +15,7 @@ final class PansBreakIndicator extends StatelessWidget{
         preferBelow: false,
         child: Column(
           children: [
-            Icon(Icons.more_horiz, size: 50, color: PansAppereance.colors.gray),
+            Icon(Icons.share_arrival_time_outlined,  color: Theme.of(context).colorScheme.onSurface),
             Text(breakTime.formatTime(context))
           ],
         ),
