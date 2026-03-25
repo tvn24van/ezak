@@ -1,10 +1,8 @@
 import 'package:ezak/l10n/l10n.g.dart';
-import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/providers/dates_provider.dart';
 import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/extensions.dart';
-import 'package:ezak/visuals/appearance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -28,11 +26,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
         children: [
           FloatingActionButton(
             onPressed: disabled? null : () async{
-              final pageController = await ref.read(SchedulePage.pageControllerProvider.future);
-              pageController.previousPage(
-                duration: PansAppereance.pageControllerSettings.duration,
-                curve: PansAppereance.pageControllerSettings.curve
-              );
+              ref.read(DisplayedDateProvider.instance.notifier).previous();
             },
             heroTag: null,
             tooltip: MaterialLocalizations.of(context).previousPageTooltip,
@@ -60,8 +54,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
                       selectableDayPredicate: (DateTime value)=> dates.contains(value)
                     );
                     if(selectedDate==null) return;
-                    final pageController = await ref.read(SchedulePage.pageControllerProvider.future);
-                    pageController.jumpToPage(dates.indexOf(selectedDate));
+                    ref.read(DisplayedDateProvider.instance.notifier).change(selectedDate);
                   },
                 );
               },
@@ -79,11 +72,7 @@ final class PansFloatingActionButtons extends ConsumerWidget{
           }),
           FloatingActionButton(
             onPressed: disabled? null : () async{
-              final pageController = await ref.read(SchedulePage.pageControllerProvider.future);
-              pageController.nextPage(
-                duration: PansAppereance.pageControllerSettings.duration,
-                curve: PansAppereance.pageControllerSettings.curve,
-              );
+              ref.read(DisplayedDateProvider.instance.notifier).next();
             },
             heroTag: null,
             tooltip: MaterialLocalizations.of(context).nextPageTooltip,

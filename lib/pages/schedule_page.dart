@@ -13,66 +13,33 @@ import 'package:ezak/widgets/fabs.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-final class SchedulePage extends StatelessWidget {
+class SchedulePage extends ConsumerWidget {
   const SchedulePage({super.key});
 
-  static final pageControllerProvider = FutureProvider<PageController>((ref) async{
-    final dates = await ref.watch(datesProvider.future);
-    final initialDate = await ref.watch(initialDateProvider.future);
-    final pageController = PageController(initialPage: dates.indexOf(initialDate));
-    // ref.onDispose(pageController.dispose);
-    return pageController;
+  static final _datesWithInitialDate = FutureProvider((ref) async{
+   return (
+    dates: await ref.watch(datesProvider.future),
+    initialDate: await ref.watch(initialDateProvider.future)
+   );
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final datesWithInitialDate = ref.watch(_datesWithInitialDate);
+
     return Scaffold(
       appBar: PansAppBar(
-        additionalActions: [
-          PansInfoButton(),
-        ],
+        additionalActions: [PansInfoButton()],
         context: context,
       ),
-      endDrawer: PansNavigationDrawer(page: 0),
+      endDrawer: const PansNavigationDrawer(page: 0),
       body: SafeArea(
         child: Center(
-          child: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              final isLecturer = ref.read(SettingsProvider.isLecturer);
-              final key = ref.read(SettingsProvider.key);
-              final groups = ref.read(SettingsProvider.groups);
-              final datesP = ref.watch(datesProvider);
-              final pageController = ref.watch(pageControllerProvider);
-              return datesP.maybeWhen(
-                data: (dates) {
-                  return PageView.builder(
-                    key: Key("$isLecturer-$key-$groups"),
-                    itemCount: dates.length,
-                    physics: const BouncingScrollPhysics(),
-                    controller: pageController.value,
-                    onPageChanged: dates.isEmpty? null : (index) {
-                      ref.read(DisplayedDateProvider.instance.notifier).change(dates[index]);
-                    },
-                    itemBuilder: (context, index) {
-                      final date = dates[index];
-                      final coursesP = ref.watch(coursesProvider(date));
-                      return coursesP.maybeWhen(
-                        data: (courses) => RefreshIndicator(
-                          onRefresh: () async {
-                            return showUpdateDialog(context, ref);
-                          },
-                          child: PansDayView(courses),
-                        ),
-                        orElse: () => CircularProgressIndicator()
-                      );
-                    },
-                  );
-                },
-                orElse: () => CircularProgressIndicator()
-              );
-
-            },
-          ),
+          child: datesWithInitialDate.when(
+            data: (data) => SchedulePageView(dates: data.dates, initialDate: data.initialDate),
+            error: (error, stackTrace) => CircularProgressIndicator(),
+            loading: () => CircularProgressIndicator(),
+          )
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -108,6 +75,93 @@ final class SchedulePage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SchedulePageView extends ConsumerStatefulWidget {
+  final List<DateTime> dates;
+  final DateTime initialDate;
+
+  const SchedulePageView({
+    super.key,
+    required this.dates,
+    required this.initialDate,
+  });
+
+  @override
+  ConsumerState<SchedulePageView> createState() => _SchedulePageViewState();
+}
+
+class _SchedulePageViewState extends ConsumerState<SchedulePageView> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final initialIndex = widget.dates.indexOf(widget.initialDate);
+    _pageController = PageController(
+      initialPage: initialIndex != -1 ? initialIndex : 0,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isLecturer = ref.read(SettingsProvider.isLecturer);
+    final key = ref.read(SettingsProvider.key);
+    final groups = ref.read(SettingsProvider.groups);
+
+    ref.listen(DisplayedDateProvider.instance, (previous, next) {
+      if(next.value==null){
+        return;
+      }
+      final targetIndex = widget.dates.indexOf(next.value!);
+
+      if (targetIndex != -1) {
+        final currentIndex = _pageController.page?.round();
+        if(currentIndex!=null && currentIndex != targetIndex) {
+          if((currentIndex-targetIndex).abs() == 1) {
+            _pageController.animateToPage(
+              targetIndex,
+              duration: kTabScrollDuration,
+              curve: Curves.easeInOut,
+            );
+          }else{
+            _pageController.jumpToPage(targetIndex);
+          }
+        }
+      }
+    });
+
+    return PageView.builder(
+      key: Key("$isLecturer-$key-$groups"),
+      itemCount: widget.dates.length,
+      physics: const BouncingScrollPhysics(),
+      controller: _pageController,
+      onPageChanged: (index) {
+        ref.read(DisplayedDateProvider.instance.notifier).change(widget.dates[index]);
+      },
+      itemBuilder: (context, index) {
+        final date = widget.dates[index];
+        final coursesP = ref.watch(coursesProvider(date));
+
+        return coursesP.maybeWhen(
+          data: (courses) => RefreshIndicator(
+            onRefresh: () async {
+              return SchedulePage.showUpdateDialog(context, ref);
+            },
+            child: PansDayView(courses),
+          ),
+          orElse: () => const Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 }
