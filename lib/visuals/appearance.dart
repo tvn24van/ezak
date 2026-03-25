@@ -12,23 +12,10 @@ final class _PansColors{
   get gray => const Color.fromARGB(255, 142, 142, 139);
 }
 
-/// {@template pans_page_controller_settings}
-/// Default controller settings used by app
-/// {@endtemplate}
-final class _PansPageControllerSettings{
-  const _PansPageControllerSettings();
-
-  get duration => const Duration(milliseconds: 500);
-  get curve => Curves.easeInOut;
-}
-
 final class PansAppereance {
 
   /// {@macro pans_colors}
   static const colors = _PansColors();
-
-  /// {@macro pans_page_controller_settings}
-  static const pageControllerSettings = _PansPageControllerSettings();
 
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
