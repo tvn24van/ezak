@@ -106,7 +106,7 @@
   "source_code": "Source code",
   "access_to_universitys_email": "Access to university email",
   "open_default_email_app": "Open email app",
-  "email_access_explanation": "Using android, you can easily access your university email from within your default email app (checked for Gmail). All you need to do is select ‘Add account’ in your Gmail settings, then tap on ‘Exchange and Office 365’ and complete your login details. This method does not require downloading an additional app.",
+  "email_access_explanation": "You can access your university email without downloading an additional app. On Android, simply tap “Add account” in Gmail settings and select “Exchange and Office 365.” On iOS, the steps are similar in the Mail app, with the exception that to select “Microsoft Exchange,” you must tap “Select provider from list” in the “Add account” window.",
   "useful_links": "Useful links",
   "layout_for_lefthanded": "Layout for left-handed",
   "high_contrast": "High contrast"
