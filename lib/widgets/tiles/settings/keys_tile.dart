@@ -28,6 +28,7 @@ final class PansKeysTile extends ConsumerWidget{
 
     return ListTile(
       title: Text(titleText),
+      visualDensity: VisualDensity(vertical: VisualDensity.maximumDensity),
       leading: const Icon(Icons.person_search),
       onTap: (){},
       trailing: ConstrainedBox(
@@ -39,7 +40,7 @@ final class PansKeysTile extends ConsumerWidget{
 
             return SearchAnchor(
               searchController: _searchController,
-              isFullScreen: defaultTargetPlatform.isMobile(), // todo make it react to screen size on web
+              isFullScreen: defaultTargetPlatform.isMobile(),
               viewHintText: titleText,
               builder: (context, controller) => OutlinedButton(
                 onPressed: () => _searchController.openView(),
