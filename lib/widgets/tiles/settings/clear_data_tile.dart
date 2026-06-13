@@ -1,6 +1,7 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/freshness_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansClearDataTile extends StatelessWidget{
@@ -13,27 +14,31 @@ final class PansClearDataTile extends StatelessWidget{
       title: Text(L10n.of(context).clearing_data),
       subtitle: Text(L10n.of(context).clear_data_description),
       trailing: FilledButton(
-        onPressed: ()async=> showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text(L10n.of(context).clear_data_confirmation),
-            actions: [
-              TextButton(
-                onPressed: ()=> Navigator.of(context).pop(),
-                child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
-              ),
-              Consumer(builder: (context, ref, child) =>
+        onPressed: ()async{
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(L10n.of(context).clear_data_confirmation),
+              actions: [
                 TextButton(
-                  onPressed: () {
-                    ref.read(FreshnessProvider.instance.notifier).clearData();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(MaterialLocalizations.of(context).okButtonLabel)
+                    onPressed: ()=> Navigator.of(context).pop(),
+                    child: Text(MaterialLocalizations.of(context).cancelButtonLabel)
+                ),
+                Consumer(builder: (context, ref, child) =>
+                    TextButton(
+                        onPressed: () {
+                          ref.read(FreshnessProvider.instance.notifier).clearData();
+                          Navigator.of(context).pop();
+                          HapticFeedback.successNotification();
+                        },
+                        child: Text(MaterialLocalizations.of(context).okButtonLabel)
+                    )
                 )
-              )
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+          HapticFeedback.warningNotification();
+        },
         child: Text(L10n.of(context).clear_data)
       ),
       onTap: (){},

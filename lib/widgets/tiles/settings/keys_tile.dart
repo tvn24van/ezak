@@ -5,6 +5,7 @@ import 'package:ezak/utils/extensions.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansKeysTile extends ConsumerWidget{
@@ -68,6 +69,7 @@ final class PansKeysTile extends ConsumerWidget{
                         data.entries.firstWhere((element) => element.value==e.value).key
                       );
                       controller.closeView('');
+                      HapticFeedback.successNotification();
                     },
                   )
                 );

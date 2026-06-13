@@ -1,6 +1,7 @@
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansTeacherTile extends ConsumerWidget{
@@ -27,7 +28,10 @@ final class PansTeacherTile extends ConsumerWidget{
           )
         ],
         selected: {isTeacher},
-        onSelectionChanged: (_) => ref.read(SettingsProvider.instance.notifier).toggleTeacherMode(),
+        onSelectionChanged: (_){
+          ref.read(SettingsProvider.instance.notifier).toggleTeacherMode();
+          HapticFeedback.selectionClick();
+        },
         showSelectedIcon: false,
       ),
       onTap: (){},

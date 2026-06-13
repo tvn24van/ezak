@@ -1,6 +1,7 @@
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansAutoUpdateTile extends ConsumerWidget{
@@ -18,6 +19,7 @@ final class PansAutoUpdateTile extends ConsumerWidget{
         value: autoUpdates,
         onChanged: (value) {
           ref.read(SettingsProvider.instance.notifier).toggleAutoUpdates();
+          HapticFeedback.selectionClick();
         },
       ),
       onTap: (){},

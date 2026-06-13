@@ -2,6 +2,7 @@ import 'package:ezak/providers/max_groups_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final class PansGroupsTile extends ConsumerWidget{
@@ -48,6 +49,7 @@ final class PansGroupsTile extends ConsumerWidget{
                     onSelectionChanged: (selection) {
                       ref.read(SettingsProvider.instance.notifier)
                           .setGroupNumbers(group, selection);
+                      HapticFeedback.selectionClick();
                     },
                   ),
                 ),

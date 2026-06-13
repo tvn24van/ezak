@@ -4,6 +4,7 @@ import 'package:ezak/providers/displayed_date_provider.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -53,8 +54,9 @@ final class PansFloatingActionButtons extends ConsumerWidget{
                       lastDate: dates.last,
                       selectableDayPredicate: (DateTime value)=> dates.contains(value)
                     );
-                    if(selectedDate==null) return;
+                    if(selectedDate==null || selectedDate==currentDate.value) return;
                     ref.read(DisplayedDateProvider.instance.notifier).change(selectedDate);
+                    HapticFeedback.successNotification();
                   },
                 );
               },

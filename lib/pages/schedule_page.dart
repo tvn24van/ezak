@@ -10,6 +10,7 @@ import 'package:ezak/widgets/drawer.dart';
 import 'package:ezak/widgets/info_button.dart';
 import 'package:ezak/widgets/app_bar.dart';
 import 'package:ezak/widgets/fabs.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -57,6 +58,7 @@ class SchedulePage extends ConsumerWidget {
             onPressed: () {
               ref.read(FreshnessProvider.instance.notifier).checkForUpdate(forceDownload: true);
               Navigator.of(context).pop();
+              HapticFeedback.mediumImpact();
             },
             child: Text(L10n.of(context).force_schedule_redownload),
           ),
@@ -64,6 +66,7 @@ class SchedulePage extends ConsumerWidget {
             onPressed: () {
               ref.read(FreshnessProvider.instance.notifier).checkForUpdate();
               Navigator.of(context).pop();
+              HapticFeedback.lightImpact();
             },
             child: Text(L10n.of(context).check_for_schedule_update),
           ),
