@@ -1,5 +1,6 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/utils/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -19,7 +20,7 @@ class PansAboutTile extends StatelessWidget{
         showAboutDialog(
           context: context,
           applicationName: Constants.appName,
-          applicationVersion: appInfo.version,
+          applicationVersion: "${appInfo.version} (${defaultTargetPlatform.name})",
           applicationLegalese: L10n.of(context).caption(Constants.appName),
           applicationIcon: SvgPicture.asset(
             'assets/logotypes/crest.svg',
