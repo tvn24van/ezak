@@ -109,5 +109,17 @@
   "email_access_explanation": "You can access your university email without downloading an additional app. On Android, simply tap “Add account” in Gmail settings and select “Exchange and Office 365.” On iOS, the steps are similar in the Mail app, with the exception that to select “Microsoft Exchange,” you must tap “Select provider from list” in the “Add account” window.",
   "useful_links": "Useful links",
   "layout_for_lefthanded": "Layout for left-handed",
-  "high_contrast": "High contrast"
+  "high_contrast": "High contrast",
+  "university_short_name": "UAS in Nysa",
+  "made_for_university": "Created by {author}\nfor {university}",
+  "@made_for_university": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "university": {
+        "type": "String"
+      }
+    }
+  }
 }

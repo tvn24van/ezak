@@ -109,5 +109,17 @@
   "email_access_explanation": "Możliwe jest uzyskanie dostępu do poczty uczelnianej bez pobierania dodatkowej aplikacji. Na Androidzie wystarczy w ustawieniach Gmail-a dotknąć \"Dodaj konto\" i wybrać \"Exchange i Office 365\". Na iOS w aplikacji Poczta kroki są podobne, z tą różnicą że aby wybrać \"Microsoft Exchange\" należy dotknąć \"wybierz dostawcę z listy\" w oknie \"Dodaj konto\".",
   "useful_links": "Przydatne linki",
   "layout_for_lefthanded": "Układ dla osób leworęcznych",
-  "high_contrast": "Wysoki kontrast"
+  "high_contrast": "Wysoki kontrast",
+  "university_short_name": "PANS w Nysie",
+  "made_for_university": "Wykonał {author}\nna rzecz {university}",
+  "@made_for_university": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "university": {
+        "type": "String"
+      }
+    }
+  }
 }

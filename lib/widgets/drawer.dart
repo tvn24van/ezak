@@ -18,6 +18,10 @@ class PansNavigationDrawer extends ConsumerWidget{
     final settingsCompleted = ref.watch(SettingsProvider.completed);
     return NavigationDrawer(
       selectedIndex: page,
+      footer: Padding(
+        padding: EdgeInsetsGeometry.only(bottom: 15, left: 15, right: 15),
+        child: Text("${Constants.appName} 2023 - ${DateTime.now().year}\n${L10n.of(context).made_for_university("Wojciech Smaza", L10n.of(context).university_short_name)}", textAlign: TextAlign.center)
+      ),
       children: [
         NavigationDrawerDestination(
           icon: Icon(Icons.table_rows_outlined),
@@ -35,9 +39,6 @@ class PansNavigationDrawer extends ConsumerWidget{
         PansContactTile(),
         PansRateTile(),
         PansAboutTile(),
-        Divider(),
-        Text("${Constants.appName} 2023 - ${DateTime.now().year}", textAlign: TextAlign.center,)
-
       ],
       onDestinationSelected: (value) {
         if(value==page)return;
