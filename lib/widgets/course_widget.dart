@@ -34,6 +34,10 @@ class CourseWidget extends ConsumerWidget {
             children: [
               Column(
                 children: [
+                  Hero(
+                    tag: course,
+                    child: getIconDescribingCourse(course),
+                  ),
                   Text(L10n.of(context).from_hour(course.startTime.format(context))),
                   Text(L10n.of(context).to_hour(course.endTime.format(context))),
                 ],
@@ -41,6 +45,7 @@ class CourseWidget extends ConsumerWidget {
               Expanded(
                 child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: .start,
                   spacing: 15,
                   children: [
                     Text("${course.name} - ${L10n.of(context).group_name(course.group.name)}"),
@@ -50,10 +55,6 @@ class CourseWidget extends ConsumerWidget {
                     ),
                   ],
                 ),
-              ),
-              Hero(
-                tag: course,
-                child: getIconDescribingCourse(course),
               ),
             ],
           ),
