@@ -15,6 +15,7 @@ class CourseWidget extends ConsumerWidget {
     final highContrast = ref.watch(SettingsProvider.instance.select((s) => s.highContrast));
 
     return Card.filled(
+      margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
       color: highContrast?
         course.group.color.ensureWcagAaContrast(context):
