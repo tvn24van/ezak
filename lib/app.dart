@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ezak/pages/schedule_page.dart';
 import 'package:ezak/pages/settings_page.dart' deferred as settings_page;
 import 'package:ezak/providers/settings_provider.dart';
@@ -5,7 +7,6 @@ import 'package:ezak/utils/constants.dart';
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/utils/deferred_page_builder.dart';
 import 'package:ezak/visuals/appearance.dart';
-import 'package:ezak/visuals/scroll_behavior.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,7 +66,7 @@ final class PansApp extends ConsumerWidget {
         supportedLocales: L10n.supportedLocales,
         locale: locale,
 
-        scrollBehavior: PansScrollBehavior(),
+        scrollBehavior: ScrollBehavior().copyWith(dragDevices: PointerDeviceKind.values.toSet()),
 
         theme: highContrast? PansAppereance.lightHighContrastTheme : PansAppereance.lightTheme,
         darkTheme: highContrast? PansAppereance.darkHighContrastTheme : PansAppereance.darkTheme,
