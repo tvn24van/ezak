@@ -10,10 +10,10 @@ final class PansInfoButton extends ConsumerWidget{
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final highContrast = ref.watch(SettingsProvider.instance.select((s) => s.highContrast));
     
     return IconButton(
       onPressed: (){
+        final highContrast = ref.read(SettingsProvider.instance.select((s) => s.highContrast));
         showDialog(context: context, builder: (context) {
           return AlertDialog(
             title: Text(L10n.of(context).informations),
