@@ -29,7 +29,8 @@ final class SettingsPage extends StatelessWidget{
           child: Consumer(
             builder:(context, ref, child){
               final settingsCompleted = ref.watch(SettingsProvider.completed);
-              return BackButton(
+              return IconButton(
+                icon: Icon(Icons.arrow_back),
                 onPressed: !settingsCompleted? null : (){
                   if(Navigator.canPop(context)) {
                     Navigator.of(context).pop();
