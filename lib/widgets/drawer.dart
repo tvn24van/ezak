@@ -2,6 +2,7 @@ import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/constants.dart';
 import 'package:ezak/widgets/tiles/drawer/about_tile.dart';
+import 'package:ezak/widgets/tiles/drawer/accessibility_statement_tile.dart';
 import 'package:ezak/widgets/tiles/drawer/contact_tile.dart';
 import 'package:ezak/widgets/tiles/drawer/email_tutor_tile.dart';
 import 'package:ezak/widgets/tiles/drawer/links_tile.dart';
@@ -37,6 +38,7 @@ class PansNavigationDrawer extends ConsumerWidget{
         PansEmailTutorTile(),
         PansLinksTile(),
         PansContactTile(),
+        PansAccessibilityTile(),
         PansRateTile(),
         PansAboutTile(),
       ],

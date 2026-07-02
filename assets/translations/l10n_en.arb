@@ -121,5 +121,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "accessibility_statement": "Accessibility statement"
 }

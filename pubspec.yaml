@@ -32,6 +32,7 @@ dependencies:
   drift_flutter: ^0.2.0
   path_provider: ^2.1.5
   android_intent_plus: ^6.0.0
+  flutter_widget_from_html_core: ^0.17.2
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,7 @@ flutter:
   assets:
     - assets/logotypes/
     - assets/intermediate_ca.crt
+    - assets/accessibility_statement.html
 
 msix_config:
   display_name: eŻak Nysa
