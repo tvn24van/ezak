@@ -17,62 +17,66 @@ final class PansInfoButton extends ConsumerWidget{
         showDialog(context: context, builder: (context) {
           return AlertDialog(
             title: Text(L10n.of(context).informations),
-            content: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 10,
-                  children: Group.values.map((group) {
-                    return Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 10,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: highContrast?
-                              group.color.ensureWcagAaContrast(context):
-                              Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .5),
-                            shape: BoxShape.circle
+            content: SizedBox(
+              width: 275, //hardcoded width to stop dialog from being too wide
+              child: Wrap(
+                runSpacing: 5,
+                spacing: 5,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 5,
+                    children: Group.values.map((group) {
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 5,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: highContrast?
+                                group.color.ensureWcagAaContrast(context):
+                                Color.lerp(Theme.of(context).scaffoldBackgroundColor, group.color, .5),
+                              shape: BoxShape.circle
+                            ),
                           ),
-                        ),
-                        Text(L10n.of(context).group_name(group.name))
-                      ],
-                    );
-                  }).toList(),
-                ),
-                const VerticalDivider(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 10,
-                      children: [
-                        const Icon(Icons.home_work),
-                        Text(L10n.of(context).full_time_course)
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 10,
-                      children: [
-                        const Icon(Icons.computer),
-                        Text(L10n.of(context).online_course)
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      spacing: 10,
-                      children: [
-                        const Icon(Icons.share_arrival_time_outlined),
-                        Text(L10n.of(context).longer_break)
-                      ],
-                    )
-                  ],
-                )
-              ],
+                          Text(L10n.of(context).group_name(group.name))
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 5,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 5,
+                        children: [
+                          const Icon(Icons.home_work),
+                          Text(L10n.of(context).full_time_course)
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 5,
+                        children: [
+                          const Icon(Icons.computer),
+                          Text(L10n.of(context).online_course)
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        spacing: 5,
+                        children: [
+                          const Icon(Icons.share_arrival_time_outlined),
+                          Text(L10n.of(context).longer_break)
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
             actions: [
               TextButton(
