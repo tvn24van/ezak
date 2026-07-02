@@ -27,7 +27,8 @@ class PansAccessibilityTile extends StatelessWidget {
                     expandedHeight: 150.0,
                     leading: const CloseButton(),
                     flexibleSpace: FlexibleSpaceBar(
-                      title: Text(L10n.of(context).accessibility_statement,),
+                      title: Text(L10n.of(context).accessibility_statement),
+                      expandedTitleScale: 1,
                       centerTitle: false,
                     ),
                   ),
