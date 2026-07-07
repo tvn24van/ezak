@@ -20,6 +20,8 @@ final class Constants{
       path: 'ezaknysa@gmail.com',
   );
 
+  static final onlineAccessibilityStatementUrl = Uri.https('pans.nysa.pl', '/org/pans/strona/deklaracja-dostepnosci');
+
   static final pansWebsiteUrl = Uri.https('pans.nysa.pl');
   static final pansElearningUrl = Uri.https('elearning.pans.nysa.pl');
 

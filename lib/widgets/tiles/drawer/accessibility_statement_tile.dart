@@ -1,4 +1,5 @@
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -26,6 +27,13 @@ class PansAccessibilityTile extends StatelessWidget {
                     pinned: true,
                     expandedHeight: 150.0,
                     leading: const CloseButton(),
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.link),
+                        onPressed: () => launchUrl(Constants.onlineAccessibilityStatementUrl),
+                        tooltip: L10n.of(context).accessibility_statement,
+                      )
+                    ],
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(L10n.of(context).accessibility_statement),
                       expandedTitleScale: 1,
