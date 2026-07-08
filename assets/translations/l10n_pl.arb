@@ -52,7 +52,7 @@
   "clear_data_confirmation": "Czy na pewno chcesz wyczyścić dane?",
   "clear_data_description": "Po upłynięciu semestru możesz wyczyścić pamięć podręczną przeglądanych planów",
   "auto_updates": "Automatyczne aktualizacje",
-  "auto_updates_subtitle": "Automatyczne aktualizacje są już dostępne dla prowadzących",
+  "auto_updates_subtitle": "teraz dostępne również dla prowadzących",
   "online_course": "Zajęcia zdalne",
   "full_time_course": "Zajęcia stacjonarne",
   "building_and_room": "Budynek {building}, sala {room}",
