@@ -52,7 +52,7 @@
   "clear_data_confirmation": "Are you sure you want to clear the data?",
   "clear_data_description": "After a semester you may want to clear caches of schedules you've been viewing",
   "auto_updates": "Auto updates",
-  "auto_updates_subtitle": "Auto updates are now available to instructors",
+  "auto_updates_subtitle": "now also available to instructors",
   "online_course": "Remote classes",
   "full_time_course": "Full-time classes",
   "building_and_room": "Building {building}, room {room}",
