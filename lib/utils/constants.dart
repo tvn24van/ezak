@@ -13,6 +13,8 @@ final class Constants{
 
   static final googlePlayUrl = Uri.https('play.google.com', '/store/apps/details', {'id': 'pl.tvn24van.ezak'});
 
+  static final appStoreUrl = Uri.https('apps.apple.com', '/pl/app/id6788749883');
+  
   static final videoClip = Uri.https('youtube.com', '/watch', {'v': 'zYQOpCfCOxI'});
 
   static final supportMail = Uri( // todo add app version mail subject

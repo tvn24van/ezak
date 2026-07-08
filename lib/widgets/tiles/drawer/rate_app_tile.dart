@@ -1,5 +1,6 @@
 import 'package:ezak/l10n/l10n.g.dart';
 import 'package:ezak/utils/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,7 +12,12 @@ class PansRateTile extends StatelessWidget{
     return ListTile(
       leading: Icon(Icons.rate_review),
       title: Text(L10n.of(context).rate_app),
-      onTap: () async=> launchUrl(Constants.googlePlayUrl, mode: LaunchMode.externalNonBrowserApplication),
+      onTap: () async=> launchUrl(
+        defaultTargetPlatform==TargetPlatform.iOS?
+          Constants.appStoreUrl:
+          Constants.googlePlayUrl,
+        mode: LaunchMode.externalNonBrowserApplication
+      ),
     );
   }
   
