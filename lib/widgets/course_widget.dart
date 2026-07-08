@@ -1,5 +1,6 @@
 import 'package:ezak/model/course.dart';
 import 'package:ezak/l10n/l10n.g.dart';
+import 'package:ezak/model/group.dart';
 import 'package:ezak/providers/settings_provider.dart';
 import 'package:ezak/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,13 @@ class CourseWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final highContrast = ref.watch(SettingsProvider.instance.select((s) => s.highContrast));
-
+    final lecturer = switch(course.group){
+      Group.lecture => "K. Wiśniewski",
+      Group.exercises => "A. Zielińska",
+      Group.laboratories => "M. Kowalski",
+      Group.project => "J. Nowak",
+      Group.seminar => "Ł. Woźniak",
+    };
     return Card.filled(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
@@ -49,7 +56,8 @@ class CourseWidget extends ConsumerWidget {
                   spacing: 15,
                   children: [
                     Text("${course.name} - ${L10n.of(context).group_name(course.group.name)}"),
-                    Text(course.lecturer),
+                    // Text(course.lecturer),
+                    Text("dr inż. $lecturer"),
                     Text(
                         getTranslationDescribingCourseLocation(course, context)
                     ),
