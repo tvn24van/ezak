@@ -9,7 +9,7 @@
 
 ## Downloads
 - [Android (Google Play)](https://play.google.com/store/apps/details?id=pl.tvn24van.ezak)
-- iOS (Apple Store) WKRÓTCE
+- [iOS (App Store)](https://apps.apple.com/app/id6788749883)
 <!-- - [Windows 10/11 (Microsoft Store)](https://www.microsoft.com/store/apps/9NGGHP8GX2CB) -->
 <!-- - [Other platforms (<u>SOON</u>)](https://github.com/tvn24van/ezak/releases/latest) -->
 
