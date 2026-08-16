@@ -37,4 +37,4 @@ analyzer:
     - macos/**
     - linux/**
   plugins:
-    - custom_lint
+    - riverpod_lint
